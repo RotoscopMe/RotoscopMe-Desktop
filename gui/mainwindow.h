@@ -50,14 +50,19 @@ private:
     QSlider *horizontalSlider;
     QGraphicsView *graphicsView;
 
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *verticalLayout_2;
     QPushButton *VisioButton;
     QCheckBox *NimagecheckBox;
     QSpinBox *Nimages;
 
     QPushButton *undoButton;
     QPushButton *redoButton;
+
+    QPixmap *gomme;
+    QLabel *gommeLabel;
+    QPushButton *gommeButton;
+    QPixmap *pen;
+    QLabel *penLabel;
+    QPushButton *penButton;
 };
 
 #endif // MAINWINDOW_H

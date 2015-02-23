@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
      setWindowTitle(tr("Rotoscop'Me"));
      createMenu();
 
+        // Outils de dessin
     // Couleur
     colorButton = new QPushButton("");
     connect(colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
@@ -18,6 +19,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(colorButton);
     drawLayout->addWidget(colorLabel);
+
+    //Crayon
+    QPixmap pen("pen.png");
+    QLabel* penLabel = new QLabel();
+    penLabel->setFixedSize(40, 30);
+    penButton = new QPushButton("");
+    penButton->setFixedSize(10, 10);
+
+    QHBoxLayout* penLayout = new QHBoxLayout();
+    penLayout->addWidget(penLabel);
+    penLayout->addWidget(penButton);
+
+    //Gomme
+    QPixmap gomme("gomme.png");
+    QLabel* gommeLabel = new QLabel();
+    gommeLabel->setFixedSize(40, 17);
+    gommeLabel->setPixmap(gomme);
+    gommeButton = new QPushButton("");
+    gommeButton->setFixedSize(10, 10);
+
+    QHBoxLayout* gommeLayout = new QHBoxLayout();
+    gommeLayout->addWidget(gommeLabel);
+    gommeLayout->addWidget(gommeButton);
 
              // Undo - Redo
        redoButton = new QPushButton("");
@@ -68,6 +92,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QVBoxLayout* leftLayout = new QVBoxLayout();
     leftLayout->addLayout(undoredoLayout);
     leftLayout->addLayout(drawLayout);
+    leftLayout->addLayout(penLayout);
+    leftLayout->addLayout(gommeLayout);
 
 
     //Right layout

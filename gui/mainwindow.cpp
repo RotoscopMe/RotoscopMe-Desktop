@@ -2,13 +2,13 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    QWidget *widget = new QWidget;
-        setCentralWidget(widget);
+    QWidget *widget = new QWidget();
+    setCentralWidget(widget);
 
      setWindowTitle(tr("Rotoscop'Me"));
      createMenu();
 
-     // Couleur
+    // Couleur
     colorButton = new QPushButton("");
     connect(colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
     colorButton->setGeometry(QRect(5, 100, 20, 20));
@@ -19,46 +19,70 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     drawLayout->addWidget(colorLabel);
 
 
-    QVBoxLayout* preferenceLayout = new QVBoxLayout();
+    //Preference
+
     ImageOrigineButton = new QPushButton("Afficher l'image d'origine");
-    preferenceLayout->addWidget(ImageOrigineButton);
     PelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
-    preferenceLayout->addWidget(PelureOignonButton);
     NbrPelureLabel = new QLabel("Nombres de pelures d'oignons");
-    preferenceLayout->addWidget(NbrPelureLabel);
     NbrPelurespinBox = new QSpinBox();
     NbrPelurespinBox->setMaximum(10);
     NbrPelurespinBox->setMinimum(1);
+
+    QVBoxLayout* preferenceLayout = new QVBoxLayout();
+    preferenceLayout->addWidget(ImageOrigineButton);
+    preferenceLayout->addWidget(PelureOignonButton);
+    preferenceLayout->addWidget(NbrPelureLabel);
+    preferenceLayout->addWidget(ImageOrigineButton);
     preferenceLayout->addWidget(NbrPelurespinBox);
 
-    QVBoxLayout* sliderLayout = new QVBoxLayout();
-    horizontalSlider = new QSlider();
-    horizontalSlider->setGeometry(QRect(160, 500, 350, 19));
-    horizontalSlider->setOrientation(Qt::Horizontal);
-    graphicsView = new QGraphicsView();
-    graphicsView->setGeometry(QRect(170, 60, 500, 400));
-    sliderLayout->addWidget(graphicsView);
-    sliderLayout->addWidget(horizontalSlider);
 
+    //Visualisation
 
-    QVBoxLayout* visualisationLayout = new QVBoxLayout();
     VisioButton = new QPushButton("Visionner depuis le début");
-    visualisationLayout->addWidget(VisioButton);
     NimagecheckBox = new QCheckBox("Visionner depuis n images");
-    visualisationLayout->addWidget(NimagecheckBox);
     Nimages = new QSpinBox();
     Nimages->setMaximum(10);
     Nimages->setMinimum(1);
+
+    QVBoxLayout* visualisationLayout = new QVBoxLayout();
+    visualisationLayout->addWidget(VisioButton);
+    visualisationLayout->addWidget(NimagecheckBox);
     visualisationLayout->addWidget(Nimages);
 
-    QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->addLayout(preferenceLayout);
-    rightLayout->addLayout(visualisationLayout);
 
-    QHBoxLayout* layout = new QHBoxLayout();
-    layout->addLayout(drawLayout);
-    layout->addLayout(sliderLayout);
-    layout->addLayout(rightLayout);
+    //Left layout
+
+    QVBoxLayout* leftLayout = new QVBoxLayout();
+    leftLayout->addLayout(drawLayout);
+
+
+    //Right layout
+
+    QVBoxLayout* rightLayout = new QVBoxLayout();
+    rightLayout->addStretch(1);
+    rightLayout->addLayout(preferenceLayout);
+    rightLayout->addStretch(2);
+    rightLayout->addLayout(visualisationLayout);
+    rightLayout->addStretch(1);
+
+    //Bottom layout
+
+    horizontalSlider = new QSlider();
+    horizontalSlider->setOrientation(Qt::Horizontal);
+
+    QVBoxLayout* bottomLayout = new QVBoxLayout();
+    bottomLayout->addWidget(horizontalSlider);
+
+
+    // Global layout
+
+    graphicsView = new QGraphicsView();
+
+    QGridLayout* layout = new QGridLayout();
+    layout->addLayout(leftLayout, 0, 0);
+    layout->addWidget(graphicsView, 0, 1);
+    layout->addLayout(rightLayout, 0, 2);
+    layout->addLayout(bottomLayout, 1,1);
 
     widget->setLayout(layout);
 

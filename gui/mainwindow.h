@@ -7,6 +7,19 @@
 #include <QMenuBar>
 #include <QVBoxLayout>
 #include <QAction>
+#include <QApplication>
+#include <QColorDialog>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QPushButton>
+
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QStatusBar>
 
 class MainWindow : public QMainWindow
 {
@@ -19,8 +32,30 @@ public:
 signals:
 
 public slots:
+    void createMenu();
+    void setcolor();
 
 private:
+    QPushButton *colorButton;
+    QLabel *colorLabel;
+    QVBoxLayout *layout;
+
+    QVBoxLayout *verticalLayout;
+    QPushButton *ImageOrigineButton;
+    QPushButton *PelureOignonButton;
+    QLabel *NbrPelureLabel;
+    QSpinBox *NbrPelurespinBox;
+
+    QWidget *verticalLayoutWidget;
+    QSlider *horizontalSlider;
+    QGraphicsView *graphicsView;
+
+    QWidget *verticalLayoutWidget_2;
+    QVBoxLayout *verticalLayout_2;
+    QPushButton *VisioButton;
+    QCheckBox *NimagecheckBox;
+    QSpinBox *Nimages;
+
 
 };
 

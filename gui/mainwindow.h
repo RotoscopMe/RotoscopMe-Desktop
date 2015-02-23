@@ -38,9 +38,7 @@ public slots:
 private:
     QPushButton *colorButton;
     QLabel *colorLabel;
-    QVBoxLayout *layout;
 
-    QVBoxLayout *verticalLayout;
     QPushButton *ImageOrigineButton;
     QPushButton *PelureOignonButton;
     QLabel *NbrPelureLabel;

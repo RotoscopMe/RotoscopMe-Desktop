@@ -21,6 +21,8 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 
+
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -54,7 +56,8 @@ private:
     QCheckBox *NimagecheckBox;
     QSpinBox *Nimages;
 
-
+    QPushButton *undoButton;
+    QPushButton *redoButton;
 };
 
 #endif // MAINWINDOW_H

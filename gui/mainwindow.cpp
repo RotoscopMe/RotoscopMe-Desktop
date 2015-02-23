@@ -5,21 +5,34 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
+
      setWindowTitle(tr("Rotoscop'Me"));
      createMenu();
 
     // Couleur
     colorButton = new QPushButton("");
     connect(colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
-    colorButton->setGeometry(QRect(5, 100, 20, 20));
+    colorButton->setGeometry(QRect(5, 200, 20, 20));
     colorLabel = new QLabel();
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(colorButton);
     drawLayout->addWidget(colorLabel);
 
+             // Undo - Redo
+       redoButton = new QPushButton("");
+       redoButton->setFixedSize(25, 25);
+       redoButton->setIcon(QIcon("redo.png"));
+       undoButton = new QPushButton("");
+       undoButton->setFixedSize(25, 25);
+       undoButton->setIcon(QIcon("undo.png"));
 
-    //Preference
+      QHBoxLayout* undoredoLayout = new QHBoxLayout();
+      undoredoLayout->addWidget(undoButton);
+      undoredoLayout->addWidget(redoButton);
+
+
+       //Preference
 
     ImageOrigineButton = new QPushButton("Afficher l'image d'origine");
     PelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
@@ -53,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
+    leftLayout->addLayout(undoredoLayout);
     leftLayout->addLayout(drawLayout);
 
 
@@ -87,6 +101,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     widget->setLayout(layout);
 
 }
+
 
 void MainWindow::setcolor()
 {

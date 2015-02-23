@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setFixedSize(900, 650);
+    w.setFixedSize(1300, 680);
 
     w.show();
 

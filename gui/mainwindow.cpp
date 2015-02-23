@@ -87,6 +87,49 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     visualisationLayout->addWidget(Nimages);
 
 
+    // Mode de lecture
+
+    debutButton = new QPushButton("");
+       debutButton->setFixedSize(25, 25);
+       debutButton->setIcon(QIcon("debut.png"));
+
+    precedenteButton = new QPushButton("");
+        precedenteButton->setFixedSize(25, 25);
+        precedenteButton->setIcon(QIcon("precedente.png"));
+
+        QPixmap imagePrecedente("imagePrecedente.png");
+        QLabel* imagePrecedenteLabel = new QLabel();
+        imagePrecedenteLabel->setFixedSize(25, 25);
+        imagePrecedenteLabel->setPixmap(imagePrecedente);
+
+        QPixmap imageEnCours("imageEnCours.png");
+        QLabel* imageEnCoursLabel = new QLabel();
+        imageEnCoursLabel->setFixedSize(50, 50);
+        imageEnCoursLabel->setPixmap(imageEnCours);
+
+        QPixmap imageSuivante("imageSuivante.png");
+        QLabel* imageSuivanteLabel = new QLabel();
+        imageSuivanteLabel->setFixedSize(25, 25);
+        imageSuivanteLabel->setPixmap(imageSuivante);
+
+    suivanteButton = new QPushButton("");
+       suivanteButton->setFixedSize(25, 25);
+       suivanteButton->setIcon(QIcon("suivante.png"));
+
+    finButton = new QPushButton("");
+        finButton->setFixedSize(25, 25);
+        finButton->setIcon(QIcon("fin.png"));
+
+    QHBoxLayout* playbackBarLayout = new QHBoxLayout();
+    playbackBarLayout->addWidget(debutButton);
+    playbackBarLayout->addWidget(precedenteButton);
+    playbackBarLayout->addWidget(imagePrecedenteLabel);
+    playbackBarLayout->addWidget(imageEnCoursLabel);
+    playbackBarLayout->addWidget(imageSuivanteLabel);
+    playbackBarLayout->addWidget(suivanteButton);
+    playbackBarLayout->addWidget(finButton);
+
+
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
@@ -111,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     horizontalSlider->setOrientation(Qt::Horizontal);
 
     QVBoxLayout* bottomLayout = new QVBoxLayout();
+    bottomLayout->addLayout(playbackBarLayout);
     bottomLayout->addWidget(horizontalSlider);
 
 

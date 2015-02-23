@@ -56,6 +56,10 @@ private:
 
     QPushButton *undoButton;
     QPushButton *redoButton;
+    QPushButton *debutButton;
+    QPushButton *finButton;
+    QPushButton *precedenteButton;
+    QPushButton *suivanteButton;
 
     QPixmap *gomme;
     QLabel *gommeLabel;
@@ -63,6 +67,13 @@ private:
     QPixmap *pen;
     QLabel *penLabel;
     QPushButton *penButton;
+    QPixmap *imageEnCours;
+    QLabel *imageEnCoursLabel;
+    QPixmap *imagePrecedente;
+    QLabel *imagePrecedenteLabel;
+    QPixmap *imageSuivante;
+    QLabel *imageSuivanteLabel;
+
 };
 
 #endif // MAINWINDOW_H

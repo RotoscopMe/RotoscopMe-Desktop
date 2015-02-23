@@ -6,16 +6,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         setCentralWidget(widget);
 
      setWindowTitle(tr("Rotoscop'Me"));
-createMenu();
+     createMenu();
 
-    colorButton = new QPushButton("Color", this);
+     // Couleur
+    colorButton = new QPushButton("", this);
     connect(colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
-             colorButton->move(5, 100);
+    colorButton->setGeometry(QRect(5, 100, 20, 20));
     colorLabel =new QLabel(this);
     layout = new QVBoxLayout(this);
     layout->addWidget(colorButton);
     layout->addWidget(colorLabel);
-             colorLabel->move(5, 129);
+    colorLabel->setGeometry(QRect(30, 86, 50, 50));
     setLayout(layout);
 
     verticalLayoutWidget = new QWidget(this);
@@ -52,9 +53,10 @@ createMenu();
     Nimages->setMinimum(1);
     verticalLayout_2->addWidget(Nimages);
 }
+
 void MainWindow::setcolor()
 {
-    QColor color = QColorDialog::getColor(Qt::green, this);
+    QColor color = QColorDialog::getColor(Qt::black, this);
     if (color.isValid())
     {
         colorLabel->setText(color.name());
@@ -62,6 +64,7 @@ void MainWindow::setcolor()
         colorLabel->setAutoFillBackground(true);
     }
 }
+
 
 void MainWindow::createMenu()
 {

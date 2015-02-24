@@ -18,12 +18,14 @@ class DrawArea : public QWidget
 
         void setPenWidth(int width);
         void setPenColor(QColor &color);
+        void setRubberWidth(int width);
 
     public slots:
         void setTool(Tool tool);
 
     private:
         QPen _pen;
+        QPen _rubber;
         QImage* _image;
 
         bool _drawing;

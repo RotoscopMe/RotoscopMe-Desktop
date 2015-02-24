@@ -4,6 +4,7 @@
 DrawArea::DrawArea():
     QWidget(),
     _pen(Qt::black),
+    _rubber(),
     _image(new QImage(this->size(), QImage::Format_ARGB32)),
     _drawing(false)
 {
@@ -12,6 +13,7 @@ DrawArea::DrawArea():
     setPalette(pal);
 
     _pen.setWidth(1);
+    _rubber.setWidth(1);
 }
 
 void DrawArea::setPenWidth(int width)
@@ -22,6 +24,11 @@ void DrawArea::setPenWidth(int width)
 void DrawArea::setPenColor(QColor &color)
 {
     _pen.setColor(color);
+}
+
+void DrawArea::setRubberWidth(int width)
+{
+    _pen.setWidth(width);
 }
 
 void DrawArea::setTool(Tool tool)
@@ -44,9 +51,13 @@ void DrawArea::mouseReleaseEvent(QMouseEvent* event)
         if(_tool == RUBBER)
         {
             painter.setCompositionMode(QPainter::CompositionMode_Clear);
+            painter.setPen(_rubber);
+        }
+        else
+        {
+            painter.setPen(_pen);
         }
 
-        painter.setPen(_pen);
         painter.drawPoint(event->pos());
         _drawingLastPosition = event->pos();
 
@@ -65,9 +76,13 @@ void DrawArea::mouseMoveEvent(QMouseEvent* event)
         if(_tool == RUBBER)
         {
             painter.setCompositionMode(QPainter::CompositionMode_Clear);
+            painter.setPen(_rubber);
+        }
+        else
+        {
+            painter.setPen(_pen);
         }
 
-        painter.setPen(_pen);
         painter.drawLine(_drawingLastPosition, event->pos());
         _drawingLastPosition = event->pos();
 

@@ -12,6 +12,9 @@ class DrawArea : public QWidget
     public:
         DrawArea();
 
+        void setPenWidth(int width);
+        void setPenColor(QColor &color);
+
     private:
         QPen _pen;
         QImage* _image;

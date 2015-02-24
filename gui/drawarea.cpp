@@ -1,11 +1,27 @@
 #include "drawarea.h"
 #include <utility>
 
-DrawArea::DrawArea(): QWidget(), _image(new QImage(this->size(), QImage::Format_ARGB32)), _drawing(false)
+DrawArea::DrawArea():
+    QWidget(),
+    _pen(Qt::black),
+    _image(new QImage(this->size(), QImage::Format_ARGB32)),
+    _drawing(false)
 {
     QPalette pal(Qt::white);
     setAutoFillBackground(true);
     setPalette(pal);
+
+    _pen.setWidth(1);
+}
+
+void DrawArea::setPenWidth(int width)
+{
+    _pen.setWidth(width);
+}
+
+void DrawArea::setPenColor(QColor &color)
+{
+    _pen.setColor(color);
 }
 
 void DrawArea::mousePressEvent(QMouseEvent* event)

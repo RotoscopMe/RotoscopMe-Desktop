@@ -1,4 +1,5 @@
 #include "drawarea.h"
+#include <utility>
 
 DrawArea::DrawArea(): QWidget(), _image(new QImage(this->size(), QImage::Format_ARGB32)), _drawing(false)
 {
@@ -49,4 +50,15 @@ void DrawArea::paintEvent(QPaintEvent *)
 
     painter.setPen(_pen);
     painter.drawImage(0,0, *_image);
+}
+
+void DrawArea::resizeEvent(QResizeEvent *)
+{
+    QImage tmp(this->size(), QImage::Format_ARGB32);
+
+    QPainter painter(&tmp);
+    painter.setPen(_pen);
+    painter.drawImage(0,0, *_image);
+
+    std::swap(tmp, *_image); //Assure la destruction de l'ancienne _image à la sortie de la méthode
 }

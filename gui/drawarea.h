@@ -15,6 +15,7 @@ class DrawArea : public QWidget
         void mousePressEvent(QMouseEvent* event);
         void mouseReleaseEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
+        void resizeEvent(QResizeEvent *);
 
     private:
         QPen _pen;

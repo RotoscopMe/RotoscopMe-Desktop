@@ -11,11 +11,6 @@ class DrawArea : public QWidget
 {
     public:
         DrawArea();
-        void paintEvent(QPaintEvent*);
-        void mousePressEvent(QMouseEvent* event);
-        void mouseReleaseEvent(QMouseEvent* event);
-        void mouseMoveEvent(QMouseEvent* event);
-        void resizeEvent(QResizeEvent *);
 
     private:
         QPen _pen;
@@ -23,6 +18,15 @@ class DrawArea : public QWidget
 
         bool _drawing;
         QPoint _drawingLastPosition;
+
+
+        void paintEvent(QPaintEvent*);
+
+        void mousePressEvent(QMouseEvent* event);
+        void mouseReleaseEvent(QMouseEvent* event);
+        void mouseMoveEvent(QMouseEvent* event);
+
+        void resizeEvent(QResizeEvent *);
 };
 
 #endif // DRAWAREA_H

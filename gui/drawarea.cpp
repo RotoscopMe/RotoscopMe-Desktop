@@ -24,6 +24,16 @@ void DrawArea::setPenColor(QColor &color)
     _pen.setColor(color);
 }
 
+void DrawArea::switchToPen()
+{
+    _tool = PEN;
+}
+
+void DrawArea::switchToRubber()
+{
+    _tool = RUBBER;
+}
+
 void DrawArea::mousePressEvent(QMouseEvent* event)
 {
     _drawing = true;
@@ -35,6 +45,11 @@ void DrawArea::mouseReleaseEvent(QMouseEvent* event)
     if(_drawing)
     {
         QPainter painter(_image);
+
+        if(_tool == RUBBER)
+        {
+            painter.setCompositionMode(QPainter::CompositionMode_Clear);
+        }
 
         painter.setPen(_pen);
         painter.drawPoint(event->pos());
@@ -51,6 +66,11 @@ void DrawArea::mouseMoveEvent(QMouseEvent* event)
     if(_drawing)
     {
         QPainter painter(_image);
+
+        if(_tool == RUBBER)
+        {
+            painter.setCompositionMode(QPainter::CompositionMode_Clear);
+        }
 
         painter.setPen(_pen);
         painter.drawLine(_drawingLastPosition, event->pos());

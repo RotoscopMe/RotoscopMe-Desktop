@@ -9,11 +9,20 @@
 
 class DrawArea : public QWidget
 {
+    Q_OBJECT
+
+    private:
+        enum Tool {PEN, RUBBER};
+
     public:
         DrawArea();
 
         void setPenWidth(int width);
         void setPenColor(QColor &color);
+
+    public slots:
+        void switchToPen();
+        void switchToRubber();
 
     private:
         QPen _pen;
@@ -21,6 +30,7 @@ class DrawArea : public QWidget
 
         bool _drawing;
         QPoint _drawingLastPosition;
+        Tool _tool;
 
 
         void paintEvent(QPaintEvent*);

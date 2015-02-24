@@ -114,9 +114,9 @@ void DrawArea::paintEvent(QPaintEvent *)
 void DrawArea::resizeEvent(QResizeEvent *)
 {
     QImage tmp(this->size(), QImage::Format_ARGB32);
+    tmp.fill(Qt::transparent);
 
     QPainter painter(&tmp);
-    painter.setPen(_pen);
     painter.drawImage(0,0, *_image);
 
     std::swap(tmp, *_image); //Assure la destruction de l'ancienne _image à la sortie de la méthode

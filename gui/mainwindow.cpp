@@ -169,7 +169,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addLayout(bottomLayout, 1,1);
 
     widget->setLayout(layout);
+}
 
+void MainWindow::switchToPen()
+{
+    _drawArea->setTool(PEN);
+}
+
+void MainWindow::switchToRubber()
+{
+    _drawArea->setTool(RUBBER);
 }
 
 

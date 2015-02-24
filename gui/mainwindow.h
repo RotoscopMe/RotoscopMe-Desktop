@@ -37,6 +37,8 @@ signals:
 public slots:
     void createMenu();
     void setcolor();
+    void switchToPen();
+    void switchToRubber();
 
 private:
     QPushButton *_colorButton;

@@ -24,14 +24,9 @@ void DrawArea::setPenColor(QColor &color)
     _pen.setColor(color);
 }
 
-void DrawArea::switchToPen()
+void DrawArea::setTool(Tool tool)
 {
-    _tool = PEN;
-}
-
-void DrawArea::switchToRubber()
-{
-    _tool = RUBBER;
+    _tool = tool;
 }
 
 void DrawArea::mousePressEvent(QMouseEvent* event)

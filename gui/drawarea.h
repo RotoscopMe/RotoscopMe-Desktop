@@ -7,12 +7,11 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+enum Tool {PEN, RUBBER};
+
 class DrawArea : public QWidget
 {
     Q_OBJECT
-
-    private:
-        enum Tool {PEN, RUBBER};
 
     public:
         DrawArea();
@@ -21,8 +20,7 @@ class DrawArea : public QWidget
         void setPenColor(QColor &color);
 
     public slots:
-        void switchToPen();
-        void switchToRubber();
+        void setTool(Tool tool);
 
     private:
         QPen _pen;

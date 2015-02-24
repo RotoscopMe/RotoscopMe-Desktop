@@ -23,6 +23,9 @@ class DrawArea : public QWidget
     public slots:
         void setTool(Tool tool);
 
+        void clear();
+        void load(QImage* image);
+
     private:
         QPen _pen;
         QPen _rubber;
@@ -31,7 +34,6 @@ class DrawArea : public QWidget
         bool _drawing;
         QPoint _drawingLastPosition;
         Tool _tool;
-
 
         void paintEvent(QPaintEvent*);
 

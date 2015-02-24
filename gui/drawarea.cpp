@@ -12,6 +12,8 @@ DrawArea::DrawArea():
     setAutoFillBackground(true);
     setPalette(pal);
 
+    _image->fill(Qt::transparent);
+
     _pen.setWidth(1);
     _rubber.setWidth(1);
 }
@@ -29,6 +31,19 @@ void DrawArea::setPenColor(QColor &color)
 void DrawArea::setRubberWidth(int width)
 {
     _pen.setWidth(width);
+}
+
+void DrawArea::clear()
+{
+    _image->fill(Qt::transparent);
+    update();
+}
+
+void DrawArea::load(QImage *image)
+{
+    delete _image;
+    _image = image;
+    update();
 }
 
 void DrawArea::setTool(Tool tool)
@@ -93,8 +108,6 @@ void DrawArea::mouseMoveEvent(QMouseEvent* event)
 void DrawArea::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-
-    painter.setPen(_pen);
     painter.drawImage(0,0, *_image);
 }
 

@@ -21,6 +21,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 
+#include "drawarea.h"
 
 
 class MainWindow : public QMainWindow
@@ -48,7 +49,7 @@ private:
 
     QWidget *_verticalLayoutWidget;
     QSlider *_horizontalSlider;
-    QGraphicsView *_graphicsView;
+    DrawArea *_drawArea;
 
     QPushButton *_visioButton;
     QCheckBox *_nImageCheckBox;

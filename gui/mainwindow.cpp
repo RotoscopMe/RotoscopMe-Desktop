@@ -160,11 +160,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Global layout
 
-    _graphicsView = new QGraphicsView();
+    _drawArea = new DrawArea();
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
-    layout->addWidget(_graphicsView, 0, 1);
+    layout->addWidget(_drawArea, 0, 1);
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 

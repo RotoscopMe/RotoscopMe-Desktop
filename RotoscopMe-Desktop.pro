@@ -6,8 +6,10 @@ TARGET = RotoscopMe-Deskop
 TEMPLATE = app
 
 HEADERS += \
-    gui/mainwindow.h
+    gui/mainwindow.h \
+    gui/drawarea.h
 
 SOURCES += \
     gui/main.cpp \
-    gui/mainwindow.cpp
+    gui/mainwindow.cpp \
+    gui/drawarea.cpp

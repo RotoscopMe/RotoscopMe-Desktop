@@ -169,6 +169,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addLayout(bottomLayout, 1,1);
 
     widget->setLayout(layout);
+
+    connect(_penButton, SIGNAL(clicked()), this, SLOT(switchToPen()));
+    connect(_gommeButton, SIGNAL(clicked()), this, SLOT(switchToRubber()));
 }
 
 void MainWindow::switchToPen()

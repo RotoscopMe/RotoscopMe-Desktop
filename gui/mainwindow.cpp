@@ -22,26 +22,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     drawLayout->addWidget(_colorLabel);
 
     //Crayon
-    _penActiveButton = new QPushButton();
-    _penActiveButton->setFixedSize(50, 35);
-    _penActiveButton->setIcon(QIcon("pen.png"));
-    _penButton = new QPushButton("");
-    _penButton->setFixedSize(10, 10);
+
+    _selectPenButton = new QPushButton(QIcon("pen.png"), "");
+    _selectPenButton->setFixedSize(50, 35);
+    _selectPenButton->setCheckable(true);
+    _optionPenButton = new QPushButton();
+    _optionPenButton->setFixedSize(10, 10);
 
     QHBoxLayout* penLayout = new QHBoxLayout();
-    penLayout->addWidget(_penActiveButton);
-    penLayout->addWidget(_penButton);
+    penLayout->addWidget(_selectPenButton);
+    penLayout->addWidget(_optionPenButton);
 
     //Gomme
-    _gommeActiveButton = new QPushButton();
-    _gommeActiveButton->setFixedSize(50, 35);
-    _gommeActiveButton->setIcon(QIcon("gomme.png"));
-    _gommeButton = new QPushButton("");
-    _gommeButton->setFixedSize(10, 10);
+    _selectRubberButton = new QPushButton(QIcon("gomme.png"), "");
+    _selectRubberButton->setFixedSize(50, 35);
+    _selectRubberButton->setCheckable(true);
+    _optionRubberButton = new QPushButton();
+    _optionRubberButton->setFixedSize(10, 10);
 
-    QHBoxLayout* gommeLayout = new QHBoxLayout();
-    gommeLayout->addWidget(_gommeActiveButton);
-    gommeLayout->addWidget(_gommeButton);
+    QHBoxLayout* rubberLayout = new QHBoxLayout();
+    rubberLayout->addWidget(_selectRubberButton);
+    rubberLayout->addWidget(_optionRubberButton);
+    
 
     // Undo - Redo
     _redoButton = new QPushButton("");
@@ -136,7 +138,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     leftLayout->addLayout(undoRedoLayout);
     leftLayout->addLayout(drawLayout);
     leftLayout->addLayout(penLayout);
-    leftLayout->addLayout(gommeLayout);
+    leftLayout->addLayout(rubberLayout);
 
 
     //Right layout
@@ -170,18 +172,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     widget->setLayout(layout);
 
-    connect(_penButton, SIGNAL(clicked()), this, SLOT(switchToPen()));
-    connect(_gommeButton, SIGNAL(clicked()), this, SLOT(switchToRubber()));
+    connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(switchToPen()));
+    connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(switchToRubber()));
 }
 
 void MainWindow::switchToPen()
 {
     _drawArea->setTool(PEN);
+    _selectPenButton->setChecked(true);
+    _selectRubberButton->setChecked(false);
 }
 
 void MainWindow::switchToRubber()
 {
     _drawArea->setTool(RUBBER);
+    _selectPenButton->setChecked(false);
+    _selectRubberButton->setChecked(true);
 }
 
 

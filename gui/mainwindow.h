@@ -38,41 +38,41 @@ public slots:
     void setcolor();
 
 private:
-    QPushButton *colorButton;
-    QLabel *colorLabel;
+    QPushButton *_colorButton;
+    QLabel *_colorLabel;
 
-    QPushButton *ImageOrigineButton;
-    QPushButton *PelureOignonButton;
-    QLabel *NbrPelureLabel;
-    QSpinBox *NbrPelurespinBox;
+    QPushButton *_imageOrigineButton;
+    QPushButton *_pelureOignonButton;
+    QLabel *_nbrPelureLabel;
+    QSpinBox *_nbrPelureSpinBox;
 
-    QWidget *verticalLayoutWidget;
-    QSlider *horizontalSlider;
-    QGraphicsView *graphicsView;
+    QWidget *_verticalLayoutWidget;
+    QSlider *_horizontalSlider;
+    QGraphicsView *_graphicsView;
 
-    QPushButton *VisioButton;
-    QCheckBox *NimagecheckBox;
-    QSpinBox *Nimages;
+    QPushButton *_visioButton;
+    QCheckBox *_nImageCheckBox;
+    QSpinBox *_nImages;
 
-    QPushButton *undoButton;
-    QPushButton *redoButton;
-    QPushButton *debutButton;
-    QPushButton *finButton;
-    QPushButton *precedenteButton;
-    QPushButton *suivanteButton;
+    QPushButton *_undoButton;
+    QPushButton *_redoButton;
+    QPushButton *_debutButton;
+    QPushButton *_finButton;
+    QPushButton *_precedenteButton;
+    QPushButton *_suivanteButton;
 
-    QPixmap *gomme;
-    QLabel *gommeLabel;
-    QPushButton *gommeButton;
-    QPixmap *pen;
-    QLabel *penLabel;
-    QPushButton *penButton;
-    QPixmap *imageEnCours;
-    QLabel *imageEnCoursLabel;
-    QPixmap *imagePrecedente;
-    QLabel *imagePrecedenteLabel;
-    QPixmap *imageSuivante;
-    QLabel *imageSuivanteLabel;
+    QPixmap *_gomme;
+    QLabel *_gommeLabel;
+    QPushButton *_gommeButton;
+    QPixmap *_pen;
+    QLabel *_penLabel;
+    QPushButton *_penButton;
+    QPixmap *_imageEnCours;
+    QLabel *_imageEnCoursLabel;
+    QPixmap *_imagePrecedente;
+    QLabel *_imagePrecedenteLabel;
+    QPixmap *_imageSuivante;
+    QLabel *_imageSuivanteLabel;
 
 };
 

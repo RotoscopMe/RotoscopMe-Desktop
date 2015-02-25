@@ -5,135 +5,135 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
+    setWindowTitle(tr("Rotoscop'Me"));
+    createMenu();
 
-     setWindowTitle(tr("Rotoscop'Me"));
-     createMenu();
+    // Outils de dessin
 
-        // Outils de dessin
     // Couleur
-    colorButton = new QPushButton("");
-    connect(colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
-    colorButton->setGeometry(QRect(5, 200, 20, 20));
-    colorLabel = new QLabel();
+    _colorButton = new QPushButton("");
+    connect(_colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
+    _colorButton->setGeometry(QRect(5, 200, 20, 20));
+    _colorLabel = new QLabel();
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
-    drawLayout->addWidget(colorButton);
-    drawLayout->addWidget(colorLabel);
+    drawLayout->addWidget(_colorButton);
+    drawLayout->addWidget(_colorLabel);
 
     //Crayon
-    QPixmap pen("pen.png");
-    QLabel* penLabel = new QLabel();
-    penLabel->setFixedSize(40, 30);
-    penButton = new QPushButton("");
-    penButton->setFixedSize(10, 10);
+    _pen = new QPixmap("pen.png");
+    _penLabel = new QLabel();
+    _penLabel->setFixedSize(40, 30);
+    _penButton = new QPushButton("");
+    _penButton->setFixedSize(10, 10);
 
     QHBoxLayout* penLayout = new QHBoxLayout();
-    penLayout->addWidget(penLabel);
-    penLayout->addWidget(penButton);
+    penLayout->addWidget(_penLabel);
+    penLayout->addWidget(_penButton);
 
     //Gomme
-    QPixmap gomme("gomme.png");
-    QLabel* gommeLabel = new QLabel();
-    gommeLabel->setFixedSize(40, 17);
-    gommeLabel->setPixmap(gomme);
-    gommeButton = new QPushButton("");
-    gommeButton->setFixedSize(10, 10);
+    _gomme = new QPixmap("gomme.png");
+    _gommeLabel = new QLabel();
+    _gommeLabel->setFixedSize(40, 17);
+    _gommeLabel->setPixmap(*_gomme);
+    _gommeButton = new QPushButton("");
+    _gommeButton->setFixedSize(10, 10);
 
     QHBoxLayout* gommeLayout = new QHBoxLayout();
-    gommeLayout->addWidget(gommeLabel);
-    gommeLayout->addWidget(gommeButton);
+    gommeLayout->addWidget(_gommeLabel);
+    gommeLayout->addWidget(_gommeButton);
 
-             // Undo - Redo
-       redoButton = new QPushButton("");
-       redoButton->setFixedSize(25, 25);
-       redoButton->setIcon(QIcon("redo.png"));
-       undoButton = new QPushButton("");
-       undoButton->setFixedSize(25, 25);
-       undoButton->setIcon(QIcon("undo.png"));
+    // Undo - Redo
+    _redoButton = new QPushButton("");
+    _redoButton->setFixedSize(25, 25);
+    _redoButton->setIcon(QIcon("redo.png"));
+    _undoButton = new QPushButton("");
+    _undoButton->setFixedSize(25, 25);
+    _undoButton->setIcon(QIcon("undo.png"));
 
-      QHBoxLayout* undoredoLayout = new QHBoxLayout();
-      undoredoLayout->addWidget(undoButton);
-      undoredoLayout->addWidget(redoButton);
+    QHBoxLayout* undoRedoLayout = new QHBoxLayout();
+    undoRedoLayout->addWidget(_undoButton);
+    undoRedoLayout->addWidget(_redoButton);
 
 
-       //Preference
+    //Preference
 
-    ImageOrigineButton = new QPushButton("Afficher l'image d'origine");
-    PelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
-    NbrPelureLabel = new QLabel("Nombres de pelures d'oignons");
-    NbrPelurespinBox = new QSpinBox();
-    NbrPelurespinBox->setMaximum(10);
-    NbrPelurespinBox->setMinimum(1);
+    _imageOrigineButton = new QPushButton("Afficher l'image d'origine");
+    _pelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
+    _nbrPelureLabel = new QLabel("Nombres de pelures d'oignons");
+    _nbrPelureSpinBox = new QSpinBox();
+    _nbrPelureSpinBox->setMaximum(10);
+    _nbrPelureSpinBox->setMinimum(1);
 
     QVBoxLayout* preferenceLayout = new QVBoxLayout();
-    preferenceLayout->addWidget(ImageOrigineButton);
-    preferenceLayout->addWidget(PelureOignonButton);
-    preferenceLayout->addWidget(NbrPelureLabel);
-    preferenceLayout->addWidget(ImageOrigineButton);
-    preferenceLayout->addWidget(NbrPelurespinBox);
+    preferenceLayout->addWidget(_imageOrigineButton);
+    preferenceLayout->addWidget(_pelureOignonButton);
+    preferenceLayout->addWidget(_nbrPelureLabel);
+    preferenceLayout->addWidget(_imageOrigineButton);
+    preferenceLayout->addWidget(_nbrPelureSpinBox);
 
 
     //Visualisation
 
-    VisioButton = new QPushButton("Visionner depuis le début");
-    NimagecheckBox = new QCheckBox("Visionner depuis n images");
-    Nimages = new QSpinBox();
-    Nimages->setMaximum(10);
-    Nimages->setMinimum(1);
+    _visioButton = new QPushButton("Visionner depuis le début");
+    _nImageCheckBox = new QCheckBox("Visionner depuis n images");
+    _nImages = new QSpinBox();
+    _nImages->setMaximum(10);
+    _nImages->setMinimum(1);
 
     QVBoxLayout* visualisationLayout = new QVBoxLayout();
-    visualisationLayout->addWidget(VisioButton);
-    visualisationLayout->addWidget(NimagecheckBox);
-    visualisationLayout->addWidget(Nimages);
+    visualisationLayout->addWidget(_visioButton);
+    visualisationLayout->addWidget(_nImageCheckBox);
+    visualisationLayout->addWidget(_nImages);
 
 
     // Mode de lecture
 
-    debutButton = new QPushButton("");
-       debutButton->setFixedSize(25, 25);
-       debutButton->setIcon(QIcon("debut.png"));
+    _debutButton = new QPushButton("");
+    _debutButton->setFixedSize(25, 25);
+    _debutButton->setIcon(QIcon("debut.png"));
 
-    precedenteButton = new QPushButton("");
-        precedenteButton->setFixedSize(25, 25);
-        precedenteButton->setIcon(QIcon("precedente.png"));
+    _precedenteButton = new QPushButton("");
+    _precedenteButton->setFixedSize(25, 25);
+    _precedenteButton->setIcon(QIcon("precedente.png"));
 
-        QPixmap imagePrecedente("imagePrecedente.png");
-        QLabel* imagePrecedenteLabel = new QLabel();
-        imagePrecedenteLabel->setFixedSize(25, 25);
-        imagePrecedenteLabel->setPixmap(imagePrecedente);
+    _imagePrecedente = new QPixmap("imagePrecedente.png");
+    _imagePrecedenteLabel = new QLabel();
+    _imagePrecedenteLabel->setFixedSize(25, 25);
+    _imagePrecedenteLabel->setPixmap(*_imagePrecedente);
 
-        QPixmap imageEnCours("imageEnCours.png");
-        QLabel* imageEnCoursLabel = new QLabel();
-        imageEnCoursLabel->setFixedSize(50, 50);
-        imageEnCoursLabel->setPixmap(imageEnCours);
+    _imageEnCours = new QPixmap("imageEnCours.png");
+    _imageEnCoursLabel = new QLabel();
+    _imageEnCoursLabel->setFixedSize(50, 50);
+    _imageEnCoursLabel->setPixmap(*_imageEnCours);
 
-        QPixmap imageSuivante("imageSuivante.png");
-        QLabel* imageSuivanteLabel = new QLabel();
-        imageSuivanteLabel->setFixedSize(25, 25);
-        imageSuivanteLabel->setPixmap(imageSuivante);
+    _imageSuivante = new QPixmap("imageSuivante.png");
+    _imageSuivanteLabel = new QLabel();
+    _imageSuivanteLabel->setFixedSize(25, 25);
+    _imageSuivanteLabel->setPixmap(*_imageSuivante);
 
-    suivanteButton = new QPushButton("");
-       suivanteButton->setFixedSize(25, 25);
-       suivanteButton->setIcon(QIcon("suivante.png"));
+    _suivanteButton = new QPushButton("");
+    _suivanteButton->setFixedSize(25, 25);
+    _suivanteButton->setIcon(QIcon("suivante.png"));
 
-    finButton = new QPushButton("");
-        finButton->setFixedSize(25, 25);
-        finButton->setIcon(QIcon("fin.png"));
+    _finButton = new QPushButton("");
+    _finButton->setFixedSize(25, 25);
+    _finButton->setIcon(QIcon("fin.png"));
 
     QHBoxLayout* playbackBarLayout = new QHBoxLayout();
-    playbackBarLayout->addWidget(debutButton);
-    playbackBarLayout->addWidget(precedenteButton);
-    playbackBarLayout->addWidget(imagePrecedenteLabel);
-    playbackBarLayout->addWidget(imageEnCoursLabel);
-    playbackBarLayout->addWidget(imageSuivanteLabel);
-    playbackBarLayout->addWidget(suivanteButton);
-    playbackBarLayout->addWidget(finButton);
+    playbackBarLayout->addWidget(_debutButton);
+    playbackBarLayout->addWidget(_precedenteButton);
+    playbackBarLayout->addWidget(_imagePrecedenteLabel);
+    playbackBarLayout->addWidget(_imageEnCoursLabel);
+    playbackBarLayout->addWidget(_imageSuivanteLabel);
+    playbackBarLayout->addWidget(_suivanteButton);
+    playbackBarLayout->addWidget(_finButton);
 
 
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
-    leftLayout->addLayout(undoredoLayout);
+    leftLayout->addLayout(undoRedoLayout);
     leftLayout->addLayout(drawLayout);
     leftLayout->addLayout(penLayout);
     leftLayout->addLayout(gommeLayout);
@@ -150,21 +150,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     //Bottom layout
 
-    horizontalSlider = new QSlider();
-    horizontalSlider->setOrientation(Qt::Horizontal);
+    _horizontalSlider = new QSlider();
+    _horizontalSlider->setOrientation(Qt::Horizontal);
 
     QVBoxLayout* bottomLayout = new QVBoxLayout();
     bottomLayout->addLayout(playbackBarLayout);
-    bottomLayout->addWidget(horizontalSlider);
+    bottomLayout->addWidget(_horizontalSlider);
 
 
     // Global layout
 
-    graphicsView = new QGraphicsView();
+    _graphicsView = new QGraphicsView();
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
-    layout->addWidget(graphicsView, 0, 1);
+    layout->addWidget(_graphicsView, 0, 1);
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 
@@ -178,9 +178,9 @@ void MainWindow::setcolor()
     QColor color = QColorDialog::getColor(Qt::black, this);
     if (color.isValid())
     {
-        colorLabel->setText(color.name());
-        colorLabel->setPalette(QPalette(color));
-        colorLabel->setAutoFillBackground(true);
+        _colorLabel->setText(color.name());
+        _colorLabel->setPalette(QPalette(color));
+        _colorLabel->setAutoFillBackground(true);
     }
 }
 

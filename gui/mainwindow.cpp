@@ -21,9 +21,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     drawLayout->addWidget(_colorLabel);
 
     //Crayon
-    _pen = new QPixmap("pen.png");
+    QPixmap penImage("pen.png");
     _penLabel = new QLabel();
     _penLabel->setFixedSize(40, 30);
+    _penLabel->setPixmap(penImage);
     _penButton = new QPushButton("");
     _penButton->setFixedSize(10, 10);
 
@@ -32,10 +33,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     penLayout->addWidget(_penButton);
 
     //Gomme
-    _gomme = new QPixmap("gomme.png");
+    QPixmap gommeImage("gomme.png");
     _gommeLabel = new QLabel();
     _gommeLabel->setFixedSize(40, 17);
-    _gommeLabel->setPixmap(*_gomme);
+    _gommeLabel->setPixmap(gommeImage);
     _gommeButton = new QPushButton("");
     _gommeButton->setFixedSize(10, 10);
 
@@ -97,20 +98,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     _precedenteButton->setFixedSize(25, 25);
     _precedenteButton->setIcon(QIcon("precedente.png"));
 
-    _imagePrecedente = new QPixmap("imagePrecedente.png");
+    QPixmap imagePrecedente("imagePrecedente.png");
     _imagePrecedenteLabel = new QLabel();
     _imagePrecedenteLabel->setFixedSize(25, 25);
-    _imagePrecedenteLabel->setPixmap(*_imagePrecedente);
+    _imagePrecedenteLabel->setPixmap(imagePrecedente);
 
-    _imageEnCours = new QPixmap("imageEnCours.png");
+    QPixmap imageEnCours("imageEnCours.png");
     _imageEnCoursLabel = new QLabel();
     _imageEnCoursLabel->setFixedSize(50, 50);
-    _imageEnCoursLabel->setPixmap(*_imageEnCours);
+    _imageEnCoursLabel->setPixmap(imageEnCours);
 
-    _imageSuivante = new QPixmap("imageSuivante.png");
+    QPixmap imageSuivante("imageSuivante.png");
     _imageSuivanteLabel = new QLabel();
     _imageSuivanteLabel->setFixedSize(25, 25);
-    _imageSuivanteLabel->setPixmap(*_imageSuivante);
+    _imageSuivanteLabel->setPixmap(imageSuivante);
 
     _suivanteButton = new QPushButton("");
     _suivanteButton->setFixedSize(25, 25);

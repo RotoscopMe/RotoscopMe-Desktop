@@ -11,6 +11,7 @@ class ToolDialog : public QPushButton
         ToolDialog(QPoint *centerOrigin, QWidget* parent = 0);
 
         void addWidget(QWidget* widget, int row, int column);
+        void update(QPoint *centerOrigin);
 
     private:
         QPoint *_centerOrigin;

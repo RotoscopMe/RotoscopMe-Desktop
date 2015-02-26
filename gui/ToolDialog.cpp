@@ -25,3 +25,9 @@ void ToolDialog::resizeEvent(QResizeEvent *)
 {
     move(_centerOrigin->x(), _centerOrigin->y() - height()/2);
 }
+
+void ToolDialog::update(QPoint *centerOrigin)
+{
+    _centerOrigin = centerOrigin;
+    move(_centerOrigin->x(), _centerOrigin->y() - height()/2);
+}

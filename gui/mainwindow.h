@@ -22,6 +22,7 @@
 #include <QtWidgets/QStatusBar>
 
 #include "drawarea.h"
+#include "ToolDialog.h"
 
 
 class MainWindow : public QMainWindow
@@ -39,6 +40,10 @@ public slots:
     void setcolor();
     void switchToPen();
     void switchToRubber();
+    void optionPen();
+    void setPenSmall();
+    void setPenMedium();
+    void setPenLarge();
 
 private:
     QPushButton *_colorButton;
@@ -72,6 +77,8 @@ private:
     QLabel *_imageEnCoursLabel;
     QLabel *_imagePrecedenteLabel;
     QLabel *_imageSuivanteLabel;
+
+    ToolDialog *_optionPenMenu;
 
 };
 

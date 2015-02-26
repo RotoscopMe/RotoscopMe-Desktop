@@ -533,7 +533,7 @@ void MainWindow::createMenu()
               actionAide->setShortcut(QKeySequence("F1"));
            QAction *actionAPropos = new QAction("&A propos", this);
               menuAide->addAction(actionAPropos);
-              connect(actionAPropos, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+              connect(actionAPropos, SIGNAL(triggered()), this, SLOT(about()));
 
 }
 
@@ -585,7 +585,7 @@ bool MainWindow::saveAs()
 
 void MainWindow::about()
 {
-   QMessageBox::about(this, tr("About Application"),
+   QMessageBox::about(this, tr("A propos"),
             tr("Rotoscop'Me est une application de rotoscopie créée par Matthieu RIOU et Manon BOBIN."));
 }
 

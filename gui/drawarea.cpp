@@ -23,7 +23,7 @@ void DrawArea::setPenWidth(int width)
     _pen.setWidth(width);
 }
 
-void DrawArea::setPenColor(QColor &color)
+void DrawArea::setPenColor(QColor color)
 {
     _pen.setColor(color);
 }

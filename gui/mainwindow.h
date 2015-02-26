@@ -44,6 +44,7 @@ public slots:
 
     void optionPen();
     void optionRubber();
+    void optionColor();
 
     void setPenSmall();
     void setPenMedium();
@@ -52,6 +53,10 @@ public slots:
     void setRubberSmall();
     void setRubberMedium();
     void setRubberLarge();
+
+    void setColorRed();
+    void setColorBlue();
+    void setColorGreen();
 
     void hideMenu();
 
@@ -90,7 +95,7 @@ private:
 
     ToolDialog *_optionPenMenu;
     ToolDialog *_optionRubberMenu;
-
+    ToolDialog *_colorMenu;
 
     void mousePressEvent(QMouseEvent *);
 

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -11,11 +12,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Outils de dessin
 
     // Couleur
+
     _colorButton = new QPushButton("Color");
-    connect(_colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
     _colorButton->setFixedSize(50, 30);
     _colorLabel = new QLabel();
     _colorLabel->setFixedSize(50, 50);
+    connect(_colorButton, SIGNAL(clicked()), this, SLOT(optionColor()));
+    
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(_colorButton);
@@ -230,11 +233,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(largeRubber, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
 
 
+    //Menu gomme
+
+    QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
+
+    _colorMenu = new ToolDialog(centerColorButton, this);
+    _colorMenu->resize(150,40);
+
+    QPushButton *colorRed = new QPushButton("red");
+    QPushButton *colorBlue = new QPushButton("blue");
+    QPushButton *colorGreen = new QPushButton("green");
+
+    _colorMenu->addWidget(colorRed, 1, 1);
+    _colorMenu->addWidget(colorBlue, 1, 2);
+    _colorMenu->addWidget(colorGreen, 1, 3);
+
+    connect(colorRed, SIGNAL(clicked()), this, SLOT(setColorRed()));
+    connect(colorBlue, SIGNAL(clicked()), this, SLOT(setColorBlue()));
+    connect(colorGreen, SIGNAL(clicked()), this, SLOT(setColorGreen()));
+
+    _colorMenu->hide();
+
+    connect(colorRed, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+    connect(colorBlue, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+    connect(colorGreen, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+
+
     //Connect menu
 
     connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
-    connect(_colorButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_drawArea, SIGNAL(onClick()), this, SLOT(hideMenu()));
     connect(_imageOrigineButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_pelureOignonButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
@@ -251,7 +279,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
 
     connect(_optionPenButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+    connect(_optionPenButton, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(_optionRubberButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(_optionRubberButton, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+    connect(_colorButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(_colorButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
 }
 
 void MainWindow::switchToPen()
@@ -280,6 +312,14 @@ void MainWindow::optionRubber()
     QPoint *centerRubberButton = new QPoint(_optionRubberButton->x(), _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
     _optionRubberMenu->update(centerRubberButton);
     _optionRubberMenu->show();
+}
+
+void MainWindow::optionColor()
+{
+    QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
+    _colorMenu->update(centerColorButton);
+    _colorMenu->show();
+    qDebug() << "test";
 }
 
 void MainWindow::setPenSmall()
@@ -312,6 +352,21 @@ void MainWindow::setRubberLarge()
     _drawArea->setRubberWidth(5);
 }
 
+void MainWindow::setColorRed()
+{
+    _drawArea->setPenColor(QColor(Qt::red));
+}
+
+void MainWindow::setColorBlue()
+{
+    _drawArea->setPenColor(QColor(Qt::blue));
+}
+
+void MainWindow::setColorGreen()
+{
+    _drawArea->setPenColor(QColor(Qt::green));
+}
+
 
 void MainWindow::setcolor()
 {
@@ -328,6 +383,7 @@ void MainWindow::hideMenu()
 {
     _optionPenMenu->hide();
     _optionRubberMenu->hide();
+    _colorMenu->hide();
 }
 
 

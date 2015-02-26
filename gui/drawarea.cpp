@@ -30,7 +30,7 @@ void DrawArea::setPenColor(QColor &color)
 
 void DrawArea::setRubberWidth(int width)
 {
-    _pen.setWidth(width);
+    _rubber.setWidth(width);
 }
 
 void DrawArea::clear()

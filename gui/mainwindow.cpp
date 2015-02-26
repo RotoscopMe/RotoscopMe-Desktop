@@ -175,31 +175,62 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(switchToPen()));
     connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(switchToRubber()));
     connect(_optionPenButton, SIGNAL(clicked()), this, SLOT(optionPen()));
+    connect(_optionRubberButton, SIGNAL(clicked()), this, SLOT(optionRubber()));
 
+
+    //Menu crayon
 
     QPoint *centerPenButton = new QPoint(_optionPenButton->x(), _optionPenButton->y() + menuBar()->size().height() + _optionPenButton->height()/2);
 
     _optionPenMenu = new ToolDialog(centerPenButton, this);
     _optionPenMenu->resize(150,40);
 
-    QPushButton *petit = new QPushButton(QIcon("penPetit.png"), "");
-    QPushButton *moyen = new QPushButton(QIcon("penMoyen.png"), "");
-    QPushButton *grand = new QPushButton(QIcon("penGrand.png"), "");
+    QPushButton *smallPen = new QPushButton(QIcon("penPetit.png"), "");
+    QPushButton *mediumPen = new QPushButton(QIcon("penMoyen.png"), "");
+    QPushButton *largePen = new QPushButton(QIcon("penGrand.png"), "");
 
-    _optionPenMenu->addWidget(petit, 1, 1);
-    _optionPenMenu->addWidget(moyen, 1, 2);
-    _optionPenMenu->addWidget(grand, 1, 3);
+    _optionPenMenu->addWidget(smallPen, 1, 1);
+    _optionPenMenu->addWidget(mediumPen, 1, 2);
+    _optionPenMenu->addWidget(largePen, 1, 3);
 
-    connect(petit, SIGNAL(clicked()), this, SLOT(setPenSmall()));
-    connect(moyen, SIGNAL(clicked()), this, SLOT(setPenMedium()));
-    connect(grand, SIGNAL(clicked()), this, SLOT(setPenLarge()));
+    connect(smallPen, SIGNAL(clicked()), this, SLOT(setPenSmall()));
+    connect(mediumPen, SIGNAL(clicked()), this, SLOT(setPenMedium()));
+    connect(largePen, SIGNAL(clicked()), this, SLOT(setPenLarge()));
 
     _optionPenMenu->hide();
 
+    connect(smallPen, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(mediumPen, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(largePen, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
 
-    connect(petit, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
-    connect(moyen, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
-    connect(grand, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+
+    //Menu gomme
+
+    QPoint *centerRubberButton = new QPoint(_optionRubberButton->x(), _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
+
+    _optionRubberMenu = new ToolDialog(centerRubberButton, this);
+    _optionRubberMenu->resize(150,40);
+
+    QPushButton *smallRubber = new QPushButton(QIcon("rubberPetit.png"), "");
+    QPushButton *mediumRubber = new QPushButton(QIcon("rubberMoyen.png"), "");
+    QPushButton *largeRubber = new QPushButton(QIcon("rubberGrand.png"), "");
+
+    _optionRubberMenu->addWidget(smallRubber, 1, 1);
+    _optionRubberMenu->addWidget(mediumRubber, 1, 2);
+    _optionRubberMenu->addWidget(largeRubber, 1, 3);
+
+    connect(smallRubber, SIGNAL(clicked()), this, SLOT(setRubberSmall()));
+    connect(mediumRubber, SIGNAL(clicked()), this, SLOT(setRubberMedium()));
+    connect(largeRubber, SIGNAL(clicked()), this, SLOT(setRubberLarge()));
+
+    _optionRubberMenu->hide();
+
+    connect(smallRubber, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+    connect(mediumRubber, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+    connect(largeRubber, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+
+
+    //Connect menu
 
     connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
@@ -218,6 +249,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(_finButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_precedenteButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+
+    connect(_optionPenButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+    connect(_optionRubberButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
 }
 
 void MainWindow::switchToPen()
@@ -241,6 +275,13 @@ void MainWindow::optionPen()
     _optionPenMenu->show();
 }
 
+void MainWindow::optionRubber()
+{
+    QPoint *centerRubberButton = new QPoint(_optionRubberButton->x(), _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
+    _optionRubberMenu->update(centerRubberButton);
+    _optionRubberMenu->show();
+}
+
 void MainWindow::setPenSmall()
 {
     _drawArea->setPenWidth(1);
@@ -256,6 +297,22 @@ void MainWindow::setPenLarge()
     _drawArea->setPenWidth(5);
 }
 
+void MainWindow::setRubberSmall()
+{
+    _drawArea->setRubberWidth(1);
+}
+
+void MainWindow::setRubberMedium()
+{
+    _drawArea->setRubberWidth(3);
+}
+
+void MainWindow::setRubberLarge()
+{
+    _drawArea->setRubberWidth(5);
+}
+
+
 void MainWindow::setcolor()
 {
     QColor color = QColorDialog::getColor(Qt::black, this);
@@ -270,6 +327,7 @@ void MainWindow::setcolor()
 void MainWindow::hideMenu()
 {
     _optionPenMenu->hide();
+    _optionRubberMenu->hide();
 }
 
 

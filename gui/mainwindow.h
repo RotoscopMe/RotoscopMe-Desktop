@@ -38,12 +38,20 @@ signals:
 public slots:
     void createMenu();
     void setcolor();
+
     void switchToPen();
     void switchToRubber();
+
     void optionPen();
+    void optionRubber();
+
     void setPenSmall();
     void setPenMedium();
     void setPenLarge();
+
+    void setRubberSmall();
+    void setRubberMedium();
+    void setRubberLarge();
 
     void hideMenu();
 
@@ -81,6 +89,7 @@ private:
     QLabel *_imageSuivanteLabel;
 
     ToolDialog *_optionPenMenu;
+    ToolDialog *_optionRubberMenu;
 
 
     void mousePressEvent(QMouseEvent *);

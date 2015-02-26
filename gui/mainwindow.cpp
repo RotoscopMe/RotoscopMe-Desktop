@@ -319,7 +319,6 @@ void MainWindow::optionColor()
     QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
     _colorMenu->update(centerColorButton);
     _colorMenu->show();
-    qDebug() << "test";
 }
 
 void MainWindow::setPenSmall()

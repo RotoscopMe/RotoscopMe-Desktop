@@ -45,6 +45,8 @@ public slots:
     void setPenMedium();
     void setPenLarge();
 
+    void hideMenu();
+
 private:
     QPushButton *_colorButton;
     QLabel *_colorLabel;
@@ -79,6 +81,9 @@ private:
     QLabel *_imageSuivanteLabel;
 
     ToolDialog *_optionPenMenu;
+
+
+    void mousePressEvent(QMouseEvent *);
 
 };
 

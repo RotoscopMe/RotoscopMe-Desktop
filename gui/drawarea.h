@@ -26,6 +26,9 @@ class DrawArea : public QWidget
         void clear();
         void load(QImage* image);
 
+    signals:
+        void onClick();
+
     private:
         QPen _pen;
         QPen _rubber;

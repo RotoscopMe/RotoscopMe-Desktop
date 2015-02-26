@@ -195,6 +195,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(grand, SIGNAL(clicked()), this, SLOT(setPenLarge()));
 
     _optionPenMenu->hide();
+
+
+    connect(petit, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(moyen, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+    connect(grand, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
+
+    connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_colorButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_drawArea, SIGNAL(onClick()), this, SLOT(hideMenu()));
+    connect(_imageOrigineButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_pelureOignonButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_nbrPelureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(hideMenu()));
+    connect(_horizontalSlider, SIGNAL(sliderPressed()), this, SLOT(hideMenu()));
+    connect(_visioButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_nImageCheckBox, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_nImages, SIGNAL(valueChanged(int)), this, SLOT(hideMenu()));
+    connect(_undoButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_redoButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_debutButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_finButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_precedenteButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
 }
 
 void MainWindow::switchToPen()
@@ -242,6 +265,11 @@ void MainWindow::setcolor()
         _colorLabel->setPalette(QPalette(color));
         _colorLabel->setAutoFillBackground(true);
     }
+}
+
+void MainWindow::hideMenu()
+{
+    _optionPenMenu->hide();
 }
 
 
@@ -355,6 +383,11 @@ void MainWindow::createMenu()
               actionAide->setShortcut(QKeySequence("F1"));
            QAction *actionAPropos = new QAction("&A propos", this);
               menuAide->addAction(actionAPropos);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *)
+{
+    _optionPenMenu->hide();
 }
 
 

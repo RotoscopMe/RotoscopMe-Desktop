@@ -55,6 +55,8 @@ void DrawArea::mousePressEvent(QMouseEvent* event)
 {
     _drawing = true;
     _drawingLastPosition = event->pos();
+
+    onClick();
 }
 
 void DrawArea::mouseReleaseEvent(QMouseEvent* event)

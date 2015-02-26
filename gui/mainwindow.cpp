@@ -536,6 +536,8 @@ void MainWindow::createMenu()
 void MainWindow::mousePressEvent(QMouseEvent *)
 {
     _optionPenMenu->hide();
+    _optionRubberMenu->hide();
+    _colorMenu->hide();
 }
 
 

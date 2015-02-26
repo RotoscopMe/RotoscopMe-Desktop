@@ -234,7 +234,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(largeRubber, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
 
 
-    //Menu gomme
+    //Menu color
 
     QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
 
@@ -303,6 +303,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(_optionRubberButton, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(_colorButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
     connect(_colorButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
+
+    setCurrentFile("");
+
 }
 
 void MainWindow::switchToPen()
@@ -435,23 +438,23 @@ void MainWindow::createMenu()
       QAction *actionNouveau = new QAction("&Nouveau Projet", this);
          menuFile->addAction(actionNouveau);
          actionNouveau->setShortcut(QKeySequence("Ctrl+N"));
-         //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(new()));
+    connect(actionNouveau, SIGNAL(triggered()), this, SLOT(newFile()));
 
       QAction *actionOuvrir = new QAction("&Ouvrir un projet", this);
          menuFile->addAction(actionOuvrir);
          actionOuvrir->setShortcut(QKeySequence("Ctrl+O"));
-         //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(open()));
+         connect(actionOuvrir, SIGNAL(triggered()), this, SLOT(open()));
       menuFile->addSeparator();
 
       QAction *actionEnregistrer = new QAction("&Enregistrer", this);
          menuFile->addAction(actionEnregistrer);
          actionEnregistrer->setShortcut(QKeySequence("Ctrl+S"));
-       //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(save()));
+         connect(actionEnregistrer, SIGNAL(triggered()), this, SLOT(save()));
 
       QAction *actionEnregistrerSous = new QAction("&Enregistrer sous", this);
          menuFile->addAction(actionEnregistrerSous);
          actionEnregistrerSous->setShortcut(QKeySequence("Shift+Ctrl+S"));
-         //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(saveas()));
+         connect(actionEnregistrerSous, SIGNAL(triggered()), this, SLOT(saveAs()));
       menuFile->addSeparator();
 
       QAction *actionExporterImages = new QAction("&Exporter en images", this);
@@ -467,7 +470,6 @@ void MainWindow::createMenu()
 
        QAction *actionFermerProjet = new QAction("&Fermer le projet", this);
           menuFile->addAction(actionFermerProjet);
-          //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(CloseProject()));
 
        QAction *actionQuitter = new QAction("&Quitter", this);
          menuFile->addAction(actionQuitter);
@@ -531,6 +533,8 @@ void MainWindow::createMenu()
               actionAide->setShortcut(QKeySequence("F1"));
            QAction *actionAPropos = new QAction("&A propos", this);
               menuAide->addAction(actionAPropos);
+              connect(actionAPropos, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *)
@@ -540,6 +544,95 @@ void MainWindow::mousePressEvent(QMouseEvent *)
     _colorMenu->hide();
 }
 
+
+void MainWindow::newFile()
+{
+        _drawArea->clear();
+        setCurrentFile("");
+}
+
+void MainWindow::open()
+{
+
+        QString fileName = QFileDialog::getOpenFileName(this);
+        if (!fileName.isEmpty())
+            loadFile(fileName);
+
+   }
+
+bool MainWindow::save()
+{
+    if (curFile.isEmpty()) {
+        return saveAs();
+    } else {
+        return saveFile(curFile);
+    }
+}
+
+bool MainWindow::saveAs()
+{
+    QFileDialog dialog(this);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    QStringList files;
+    if (dialog.exec())
+        files = dialog.selectedFiles();
+    else
+        return false;
+
+    return saveFile(files.at(0));
+}
+
+void MainWindow::about()
+{
+   QMessageBox::about(this, tr("About Application"),
+            tr("Rotoscop'Me est une application de rotoscopie créée par Matthieu RIOU et Manon BOBIN."));
+}
+
+void MainWindow::loadFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("Application"),
+                             tr("Cannot read file %1:\n%2.")
+                             .arg(fileName)
+                             .arg(file.errorString()));
+        return;
+    }
+
+    setCurrentFile(fileName);
+    statusBar()->showMessage(tr("File loaded"), 2000);
+}
+
+bool MainWindow::saveFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("Application"),
+                             tr("Cannot write file %1:\n%2.")
+                             .arg(fileName)
+                             .arg(file.errorString()));
+        return false;
+    }
+    setCurrentFile(fileName);
+    statusBar()->showMessage(tr("File saved"), 2000);
+    return true;
+}
+
+void MainWindow::setCurrentFile(const QString &fileName)
+{
+    curFile = fileName;
+
+    QString shownName = curFile;
+    if (curFile.isEmpty())
+        shownName = "untitled.txt";
+    setWindowFilePath(shownName);
+}
+
+QString MainWindow::strippedName(const QString &fullFileName)
+{
+    return QFileInfo(fullFileName).fileName();
+}
 
 MainWindow::~MainWindow()
 {

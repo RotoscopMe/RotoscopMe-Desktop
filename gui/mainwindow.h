@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QString>
 
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGraphicsView>
@@ -24,6 +25,9 @@
 #include "drawarea.h"
 #include "ToolDialog.h"
 
+#include <QDialog>
+#include <QFileDialog>
+#include <QMessageBox>
 
 class MainWindow : public QMainWindow
 {
@@ -63,7 +67,21 @@ public slots:
 
     void hideMenu();
 
+private slots :
+    void newFile();
+    void open();
+    bool save();
+    bool saveAs();
+    void about();
+
 private:
+    bool maybeSave();
+    void loadFile(const QString &fileName);
+    bool saveFile(const QString &fileName);
+    void setCurrentFile(const QString &fileName);
+    QString strippedName(const QString &fullFileName);
+    QString curFile;
+
     QPushButton *_colorButton;
     QLabel *_colorLabel;
 

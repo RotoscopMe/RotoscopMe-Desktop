@@ -61,9 +61,9 @@ private:
     QPushButton *_precedenteButton;
     QPushButton *_suivanteButton;
 
-    QLabel *_gommeLabel;
+    QPushButton *_gommeActiveButton;
     QPushButton *_gommeButton;
-    QLabel *_penLabel;
+    QPushButton *_penActiveButton;
     QPushButton *_penButton;
     QLabel *_imageEnCoursLabel;
     QLabel *_imagePrecedenteLabel;

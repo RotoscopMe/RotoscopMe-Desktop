@@ -11,37 +11,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Outils de dessin
 
     // Couleur
-    _colorButton = new QPushButton("");
+    _colorButton = new QPushButton("Color");
     connect(_colorButton, SIGNAL(clicked()), this, SLOT(setcolor()));
-    _colorButton->setGeometry(QRect(5, 200, 20, 20));
+    _colorButton->setFixedSize(50, 30);
     _colorLabel = new QLabel();
+    _colorLabel->setFixedSize(50, 50);
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(_colorButton);
     drawLayout->addWidget(_colorLabel);
 
     //Crayon
-    QPixmap penImage("pen.png");
-    _penLabel = new QLabel();
-    _penLabel->setFixedSize(40, 30);
-    _penLabel->setPixmap(penImage);
+    _penActiveButton = new QPushButton();
+    _penActiveButton->setFixedSize(50, 35);
+    _penActiveButton->setIcon(QIcon("pen.png"));
     _penButton = new QPushButton("");
     _penButton->setFixedSize(10, 10);
 
     QHBoxLayout* penLayout = new QHBoxLayout();
-    penLayout->addWidget(_penLabel);
+    penLayout->addWidget(_penActiveButton);
     penLayout->addWidget(_penButton);
 
     //Gomme
-    QPixmap gommeImage("gomme.png");
-    _gommeLabel = new QLabel();
-    _gommeLabel->setFixedSize(40, 17);
-    _gommeLabel->setPixmap(gommeImage);
+    _gommeActiveButton = new QPushButton();
+    _gommeActiveButton->setFixedSize(50, 35);
+    _gommeActiveButton->setIcon(QIcon("gomme.png"));
     _gommeButton = new QPushButton("");
     _gommeButton->setFixedSize(10, 10);
 
     QHBoxLayout* gommeLayout = new QHBoxLayout();
-    gommeLayout->addWidget(_gommeLabel);
+    gommeLayout->addWidget(_gommeActiveButton);
     gommeLayout->addWidget(_gommeButton);
 
     // Undo - Redo

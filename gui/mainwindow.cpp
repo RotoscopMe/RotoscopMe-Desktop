@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     _selectPenButton = new QPushButton(QIcon("pen.png"), "");
     _selectPenButton->setFixedSize(50, 35);
     _selectPenButton->setCheckable(true);
+    _selectPenButton->setChecked(true);
     _optionPenButton = new QPushButton();
     _optionPenButton->setFixedSize(10, 10);
 

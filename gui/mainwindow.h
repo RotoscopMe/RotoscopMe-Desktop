@@ -54,9 +54,12 @@ public slots:
     void setRubberMedium();
     void setRubberLarge();
 
+    void setColorBlack();
     void setColorRed();
     void setColorBlue();
     void setColorGreen();
+    void setColorYellow();
+    void setColorBrown();
 
     void hideMenu();
 

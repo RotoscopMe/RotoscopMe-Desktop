@@ -238,25 +238,43 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
 
     _colorMenu = new ToolDialog(centerColorButton, this);
-    _colorMenu->resize(150,40);
+    _colorMenu->resize(120,80);
 
-    QPushButton *colorRed = new QPushButton("red");
-    QPushButton *colorBlue = new QPushButton("blue");
-    QPushButton *colorGreen = new QPushButton("green");
+    QPushButton *colorBlack = new QPushButton();
+    colorBlack->setStyleSheet("background-color:black; border:none");
+    QPushButton *colorRed = new QPushButton();
+    colorRed->setStyleSheet("background-color:red; border:none");
+    QPushButton *colorBlue = new QPushButton();
+    colorBlue->setStyleSheet("background-color:blue; border:none");
+    QPushButton *colorGreen = new QPushButton();
+    colorGreen->setStyleSheet("background-color:green; border:none");
+    QPushButton *colorYellow = new QPushButton();
+    colorYellow->setStyleSheet("background-color:yellow; border:none");
+    QPushButton *colorBrown = new QPushButton();
+    colorBrown->setStyleSheet("background-color:#8B4513; border:none");
 
-    _colorMenu->addWidget(colorRed, 1, 1);
-    _colorMenu->addWidget(colorBlue, 1, 2);
-    _colorMenu->addWidget(colorGreen, 1, 3);
+    _colorMenu->addWidget(colorBlack, 1, 1);
+    _colorMenu->addWidget(colorRed, 1, 2);
+    _colorMenu->addWidget(colorBlue, 1, 3);
+    _colorMenu->addWidget(colorGreen, 2, 1);
+    _colorMenu->addWidget(colorYellow, 2, 2);
+    _colorMenu->addWidget(colorBrown, 2, 3);
 
+    connect(colorBlack, SIGNAL(clicked()), this, SLOT(setColorBlack()));
     connect(colorRed, SIGNAL(clicked()), this, SLOT(setColorRed()));
     connect(colorBlue, SIGNAL(clicked()), this, SLOT(setColorBlue()));
     connect(colorGreen, SIGNAL(clicked()), this, SLOT(setColorGreen()));
+    connect(colorYellow, SIGNAL(clicked()), this, SLOT(setColorYellow()));
+    connect(colorBrown, SIGNAL(clicked()), this, SLOT(setColorBrown()));
 
     _colorMenu->hide();
 
+    connect(colorBlack, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(colorRed, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(colorBlue, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(colorGreen, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+    connect(colorYellow, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
+    connect(colorBrown, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
 
 
     //Connect menu
@@ -351,6 +369,11 @@ void MainWindow::setRubberLarge()
     _drawArea->setRubberWidth(5);
 }
 
+void MainWindow::setColorBlack()
+{
+    _drawArea->setPenColor(QColor(Qt::black));
+}
+
 void MainWindow::setColorRed()
 {
     _drawArea->setPenColor(QColor(Qt::red));
@@ -365,6 +388,17 @@ void MainWindow::setColorGreen()
 {
     _drawArea->setPenColor(QColor(Qt::green));
 }
+
+void MainWindow::setColorYellow()
+{
+    _drawArea->setPenColor(QColor(Qt::yellow));
+}
+
+void MainWindow::setColorBrown()
+{
+    _drawArea->setPenColor(QColor(139,69,19));
+}
+
 
 
 void MainWindow::setcolor()

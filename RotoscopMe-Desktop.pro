@@ -7,9 +7,11 @@ TEMPLATE = app
 
 HEADERS += \
     gui/mainwindow.h \
-    gui/drawarea.h
+    gui/drawarea.h \
+    gui/ToolDialog.h
 
 SOURCES += \
     gui/main.cpp \
     gui/mainwindow.cpp \
-    gui/drawarea.cpp
+    gui/drawarea.cpp \
+    gui/ToolDialog.cpp

@@ -8,7 +8,7 @@ DrawArea::DrawArea():
     _image(new QImage(this->size(), QImage::Format_ARGB32)),
     _drawing(false)
 {
-    QPalette pal(Qt::white);
+    QPalette pal(Qt::transparent);
     setAutoFillBackground(true);
     setPalette(pal);
 

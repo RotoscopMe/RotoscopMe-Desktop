@@ -26,6 +26,7 @@
 
 #include "drawarea.h"
 #include "ToolDialog.h"
+#include "core/projet.h"
 
 
 #include <QDialog>
@@ -156,6 +157,8 @@ private:
     ToolDialog *_optionPenMenu;
     ToolDialog *_optionRubberMenu;
     ToolDialog *_colorMenu;
+
+    Projet *projet;
 
     void mousePressEvent(QMouseEvent *);
 

@@ -1,8 +1,23 @@
 #include "mainwindow.h"
+#include "CalqueContainer.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+
+    QFile video("PATH_TO_VIDEO");
+    QDir dir("PATH_TO_WORKSPACE");
+    QString nom("NAME_OF_PROJECT");
+
+    try
+    {
+        projet = new Projet(nom, dir, video, 1);
+    }
+    catch(QString e)
+    {
+        qDebug() << e;
+    }
+
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
@@ -280,9 +295,11 @@ void MainWindow::projectPage()
 
     _drawArea = new DrawArea();
 
+    CalqueContainer *calqueContainer = new CalqueContainer(projet->getImageVideo(1), _drawArea);
+
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
-    layout->addWidget(_drawArea, 0, 1);
+    layout->addLayout(calqueContainer, 0, 1);
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 

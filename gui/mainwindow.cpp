@@ -484,14 +484,14 @@ void MainWindow::createMenu()
          QAction *actionAnnuler = new QAction("&Annuler", this);
            menuEdition->addAction(actionAnnuler);
            actionAnnuler->setShortcut(QKeySequence("Ctrl+Z"));
-           //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(()));
-
          QAction *actionRetablir = new QAction("&Retablir", this);
             menuEdition->addAction(actionRetablir);
             actionRetablir->setShortcut(QKeySequence("Ctrl+Y"));
             menuEdition->addSeparator();
          QAction *actionInfo = new QAction("&Information sur le projet", this);
             menuEdition->addAction(actionInfo);
+            connect(actionInfo, SIGNAL(triggered()), this, SLOT(projectInfo()));
+
 
             //Création des sous-menu de Navigation
             QAction *actionImageSuivante = new QAction("&Image suivante", this);
@@ -585,6 +585,15 @@ bool MainWindow::saveAs()
         return false;
 
     return saveFile(files.at(0));
+}
+
+void MainWindow::projectInfo()
+{
+   QMessageBox::about(this, tr("Information sur le projet"),
+            tr("Projet : \n"
+               "Workspace : \n"
+               "Vidéo : \n"
+               "Fréquence d'images : \n"));
 }
 
 void MainWindow::help()

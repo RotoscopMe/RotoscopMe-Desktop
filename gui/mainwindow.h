@@ -74,6 +74,7 @@ private slots :
     bool saveAs();
     void about();
     void help();
+    void projectInfo();
 
 private:
     bool maybeSave();

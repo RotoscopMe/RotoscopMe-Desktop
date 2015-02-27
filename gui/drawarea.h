@@ -19,6 +19,7 @@ class DrawArea : public QWidget
         void setPenWidth(int width);
         void setPenColor(QColor color);
         void setRubberWidth(int width);
+        void resizeUpdate(QSize *size);
 
     public slots:
         void setTool(Tool tool);
@@ -43,8 +44,6 @@ class DrawArea : public QWidget
         void mousePressEvent(QMouseEvent* event);
         void mouseReleaseEvent(QMouseEvent* event);
         void mouseMoveEvent(QMouseEvent* event);
-
-        void resizeEvent(QResizeEvent *);
 };
 
 #endif // DRAWAREA_H

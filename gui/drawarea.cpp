@@ -113,10 +113,9 @@ void DrawArea::paintEvent(QPaintEvent *)
     painter.drawImage(0,0, *_image);
 }
 
-void DrawArea::resizeEvent(QResizeEvent *)
+void DrawArea::resizeUpdate(QSize *size)
 {
-    QImage tmp(this->size(), QImage::Format_ARGB32);
-    tmp.fill(Qt::transparent);
+    QImage tmp = _image->scaled(*size);
 
     QPainter painter(&tmp);
     painter.drawImage(0,0, *_image);

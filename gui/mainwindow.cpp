@@ -57,9 +57,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     _undoButton->setFixedSize(25, 25);
     _undoButton->setIcon(QIcon("undo.png"));
 
+    undoRedoGroupBox = new QGroupBox(tr(""));
+
     QHBoxLayout* undoRedoLayout = new QHBoxLayout();
     undoRedoLayout->addWidget(_undoButton);
     undoRedoLayout->addWidget(_redoButton);
+    undoRedoGroupBox->setLayout(undoRedoLayout);
 
 
     //Preference
@@ -71,12 +74,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     _nbrPelureSpinBox->setMaximum(10);
     _nbrPelureSpinBox->setMinimum(1);
 
+    preferenceGroupBox = new QGroupBox(tr("Préférence"));
+
     QVBoxLayout* preferenceLayout = new QVBoxLayout();
     preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_pelureOignonButton);
     preferenceLayout->addWidget(_nbrPelureLabel);
     preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_nbrPelureSpinBox);
+    preferenceGroupBox->setLayout(preferenceLayout);
 
 
     //Visualisation
@@ -87,11 +93,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     _nImages->setMaximum(10);
     _nImages->setMinimum(1);
 
+    visualisationGroupBox = new QGroupBox(tr("Visualisation"));
+
     QVBoxLayout* visualisationLayout = new QVBoxLayout();
     visualisationLayout->addWidget(_visioButton);
     visualisationLayout->addWidget(_nImageCheckBox);
     visualisationLayout->addWidget(_nImages);
-
+    visualisationGroupBox->setLayout(visualisationLayout);
 
     // Mode de lecture
 
@@ -136,25 +144,32 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     playbackBarLayout->addWidget(_finButton);
 
 
+
+    //Palette
+    paletteGroupBox = new QGroupBox(tr("Palette"));
+
+    QVBoxLayout *paletteLayout = new QVBoxLayout();
+    paletteLayout->addLayout(drawLayout);
+    paletteLayout->addLayout(penLayout);
+    paletteLayout->addLayout(rubberLayout);
+    paletteGroupBox->setLayout(paletteLayout);
+
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
     leftLayout->addStretch(0);
-    leftLayout->addLayout(undoRedoLayout);
+    leftLayout->addWidget(undoRedoGroupBox);
     leftLayout->addStretch(1);
-    leftLayout->addLayout(drawLayout);
-    leftLayout->addLayout(penLayout);
-    leftLayout->addLayout(rubberLayout);
+    leftLayout->addWidget(paletteGroupBox);
     leftLayout->addStretch(2);
-
 
     //Right layout
 
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->addStretch(1);
-    rightLayout->addLayout(preferenceLayout);
+    rightLayout->addWidget(preferenceGroupBox);
     rightLayout->addStretch(2);
-    rightLayout->addLayout(visualisationLayout);
+    rightLayout->addWidget(visualisationGroupBox);
     rightLayout->addStretch(1);
 
     //Bottom layout

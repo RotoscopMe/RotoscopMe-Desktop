@@ -28,6 +28,7 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QGroupBox>
 
 class MainWindow : public QMainWindow
 {
@@ -83,6 +84,11 @@ private:
     void setCurrentFile(const QString &fileName);
     QString strippedName(const QString &fullFileName);
     QString curFile;
+
+    QGroupBox *visualisationGroupBox;
+    QGroupBox *preferenceGroupBox;
+    QGroupBox *undoRedoGroupBox;
+    QGroupBox *paletteGroupBox;
 
     QPushButton *_colorButton;
     QLabel *_colorLabel;

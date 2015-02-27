@@ -295,11 +295,11 @@ void MainWindow::projectPage()
 
     _drawArea = new DrawArea();
 
-    CalqueContainer *calqueContainer = new CalqueContainer(projet->getImageVideo(1), _drawArea);
+    _calqueContainer = new CalqueContainer(projet->getImageVideo(1), _drawArea);
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
-    layout->addLayout(calqueContainer, 0, 1);
+    layout->addLayout(_calqueContainer, 0, 1);
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 
@@ -672,6 +672,10 @@ void MainWindow::mousePressEvent(QMouseEvent *)
     _colorMenu->hide();
 }
 
+void MainWindow::resizeEvent(QResizeEvent *)
+{
+    _calqueContainer->resizeUpdate();
+}
 
 void MainWindow::newFile()
 {

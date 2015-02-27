@@ -27,6 +27,7 @@
 #include "drawarea.h"
 #include "ToolDialog.h"
 #include "core/projet.h"
+#include "CalqueContainer.h"
 
 
 #include <QDialog>
@@ -158,10 +159,11 @@ private:
     ToolDialog *_optionRubberMenu;
     ToolDialog *_colorMenu;
 
+    CalqueContainer *_calqueContainer;
     Projet *projet;
 
     void mousePressEvent(QMouseEvent *);
-
+    void resizeEvent(QResizeEvent *);
 };
 
 #endif // MAINWINDOW_H

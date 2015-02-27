@@ -1,14 +1,16 @@
 #include "CalqueContainer.h"
-#include <QPainter>
-#include <QLabel>
 
 CalqueContainer::CalqueContainer(QImage* imageVideo, DrawArea *drawArea) : QStackedLayout(), _imageVideo(imageVideo), _drawArea(drawArea)
 {
     setStackingMode(QStackedLayout::StackAll);
-    QLabel *widget = new QLabel();
-    widget->resize(_imageVideo->size());
-    widget->setPixmap(QPixmap::fromImage(*_imageVideo));
+    _background = new QLabel();
+    _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->size())));
 
-    addWidget(widget);
+    addWidget(_background);
     addWidget(_drawArea);
+}
+
+void CalqueContainer::resizeUpdate()
+{
+    _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->size())));
 }

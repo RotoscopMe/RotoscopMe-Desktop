@@ -88,6 +88,8 @@ private slots :
     void loadFrame(int nbFrame);
     void previousFrame();
     void nextFrame();
+    void firstFrame();
+    void lastFrame();
 
 private:
 

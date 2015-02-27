@@ -254,6 +254,8 @@ void MainWindow::projectPage()
 
     connect(_precedenteButton, SIGNAL(clicked()), this, SLOT(previousFrame()));
     connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(nextFrame()));
+    connect(_debutButton, SIGNAL(clicked()), this, SLOT(firstFrame()));
+    connect(_finButton, SIGNAL(clicked()), this, SLOT(lastFrame()));
 
 
 
@@ -288,10 +290,14 @@ void MainWindow::projectPage()
 
     _horizontalSlider = new QSlider();
     _horizontalSlider->setOrientation(Qt::Horizontal);
+    _horizontalSlider->setMinimum(0);
+    _horizontalSlider->setMaximum(projet->getNbFrameVideo()-1);
 
     QVBoxLayout* bottomLayout = new QVBoxLayout();
     bottomLayout->addLayout(playbackBarLayout);
     bottomLayout->addWidget(_horizontalSlider);
+
+    connect(_horizontalSlider, SIGNAL(sliderMoved(int)), this, SLOT(loadFrame(int)));
 
 
     // Global layout
@@ -558,6 +564,8 @@ void MainWindow::loadFrame(int nbFrame)
     _nbFrame = nbFrame;
     _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
     _drawArea->load(projet->getImageOutput(_nbFrame));
+
+    _horizontalSlider->setValue(_nbFrame);
 }
 
 void MainWindow::previousFrame()
@@ -568,6 +576,16 @@ void MainWindow::previousFrame()
 void MainWindow::nextFrame()
 {
     loadFrame(_nbFrame+1);
+}
+
+void MainWindow::firstFrame()
+{
+    loadFrame(0);
+}
+
+void MainWindow::lastFrame()
+{
+    loadFrame(projet->getNbFrameVideo()-1);
 }
 
 

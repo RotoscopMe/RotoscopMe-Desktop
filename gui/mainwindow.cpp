@@ -561,11 +561,14 @@ void MainWindow::hideMenu()
 
 void MainWindow::loadFrame(int nbFrame)
 {
-    _nbFrame = nbFrame;
-    _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
-    _drawArea->load(projet->getImageOutput(_nbFrame));
+    if(nbFrame >= 0 && nbFrame < projet->getNbFrameVideo())
+    {
+        _nbFrame = nbFrame;
+        _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
+        _drawArea->load(projet->getImageOutput(_nbFrame));
 
-    _horizontalSlider->setValue(_nbFrame);
+        _horizontalSlider->setValue(_nbFrame);
+    }
 }
 
 void MainWindow::previousFrame()

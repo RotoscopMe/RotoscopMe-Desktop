@@ -73,6 +73,7 @@ private slots :
     bool save();
     bool saveAs();
     void about();
+    void help();
 
 private:
     bool maybeSave();

@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
-    leftLayout->addStretch(0.9);
+    leftLayout->addStretch(0);
     leftLayout->addLayout(undoRedoLayout);
     leftLayout->addStretch(1);
     leftLayout->addLayout(drawLayout);
@@ -534,6 +534,7 @@ void MainWindow::createMenu()
            QAction *actionAide = new QAction("&Aide", this);
               menuAide->addAction(actionAide);
               actionAide->setShortcut(QKeySequence("F1"));
+              connect(actionAide, SIGNAL(triggered()), this, SLOT(help()));
            QAction *actionAPropos = new QAction("&A propos", this);
               menuAide->addAction(actionAPropos);
               connect(actionAPropos, SIGNAL(triggered()), this, SLOT(about()));
@@ -584,6 +585,14 @@ bool MainWindow::saveAs()
         return false;
 
     return saveFile(files.at(0));
+}
+
+void MainWindow::help()
+{
+   QMessageBox::about(this, tr("Aide"),
+            tr("Bienvenue dans l'aide de Rotoscop'Me. \n"
+               "Retrouver l'aide  détaillée à l'adresse :\n"
+               "rotoscopme.com/aide"));
 }
 
 void MainWindow::about()

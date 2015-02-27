@@ -296,7 +296,7 @@ void MainWindow::projectPage()
 
     // Global layout
 
-    _drawArea = new DrawArea();
+    _drawArea = new DrawArea(projet->getImageOutput(_nbFrame));
 
     _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), _drawArea);
 
@@ -557,6 +557,7 @@ void MainWindow::loadFrame(int nbFrame)
 {
     _nbFrame = nbFrame;
     _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
+    _drawArea->load(projet->getImageOutput(_nbFrame));
 }
 
 void MainWindow::previousFrame()

@@ -20,8 +20,6 @@ void CalqueContainer::loadFrame(QImage *imageVideo)
     _background->resize(_background->width(), newHeight);
 
     _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->width(), newHeight)));
-
-    _drawArea->clear();
 }
 
 void CalqueContainer::resizeUpdate()

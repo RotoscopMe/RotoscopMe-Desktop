@@ -1,18 +1,16 @@
 #include "drawarea.h"
 #include <utility>
 
-DrawArea::DrawArea():
+DrawArea::DrawArea(QImage *image):
     QWidget(),
     _pen(Qt::black),
     _rubber(),
-    _image(new QImage(this->size(), QImage::Format_ARGB32)),
+    _image(image),
     _drawing(false)
 {
     QPalette pal(Qt::transparent);
     setAutoFillBackground(true);
     setPalette(pal);
-
-    _image->fill(Qt::transparent);
 
     _pen.setWidth(1);
     _rubber.setWidth(1);
@@ -41,7 +39,6 @@ void DrawArea::clear()
 
 void DrawArea::load(QImage *image)
 {
-    delete _image;
     _image = image;
     update();
 }

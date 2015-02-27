@@ -2,7 +2,7 @@
 #include "CalqueContainer.h"
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
 {
 
     QFile video("PATH_TO_VIDEO");
@@ -252,6 +252,9 @@ void MainWindow::projectPage()
     playbackBarLayout->addWidget(_suivanteButton);
     playbackBarLayout->addWidget(_finButton);
 
+    connect(_precedenteButton, SIGNAL(clicked()), this, SLOT(previousFrame()));
+    connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(nextFrame()));
+
 
 
     //Palette
@@ -295,7 +298,7 @@ void MainWindow::projectPage()
 
     _drawArea = new DrawArea();
 
-    _calqueContainer = new CalqueContainer(projet->getImageVideo(1), _drawArea);
+    _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), _drawArea);
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
@@ -548,6 +551,22 @@ void MainWindow::hideMenu()
     _optionPenMenu->hide();
     _optionRubberMenu->hide();
     _colorMenu->hide();
+}
+
+void MainWindow::loadFrame(int nbFrame)
+{
+    _nbFrame = nbFrame;
+    _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
+}
+
+void MainWindow::previousFrame()
+{
+    loadFrame(_nbFrame-1);
+}
+
+void MainWindow::nextFrame()
+{
+    loadFrame(_nbFrame+1);
 }
 
 

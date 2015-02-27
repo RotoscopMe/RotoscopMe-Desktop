@@ -9,6 +9,8 @@ class CalqueContainer : public QStackedLayout
 {
     public:
         CalqueContainer(QImage *imageVideo, DrawArea *drawArea);
+
+        void loadFrame(QImage *imageVideo);
         void resizeUpdate();
 
     private:

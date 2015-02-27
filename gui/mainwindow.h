@@ -84,6 +84,10 @@ private slots :
     void about();
     void help();
     void projectInfo();
+    
+    void loadFrame(int nbFrame);
+    void previousFrame();
+    void nextFrame();
 
 private:
 
@@ -161,6 +165,8 @@ private:
 
     CalqueContainer *_calqueContainer;
     Projet *projet;
+
+    int _nbFrame;
 
     void mousePressEvent(QMouseEvent *);
     void resizeEvent(QResizeEvent *);

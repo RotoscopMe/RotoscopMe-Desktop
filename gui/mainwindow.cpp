@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Couleur
 
     _colorButton = new QPushButton("Color");
-    _colorButton->setFixedSize(50, 30);
-    _colorLabel = new QLabel();
-    _colorLabel->setFixedSize(50, 50);
+    _colorButton->setFixedSize(50, 35);
+   // _colorLabel = new QLabel();
+   // _colorLabel->setFixedSize(50, 50);
     connect(_colorButton, SIGNAL(clicked()), this, SLOT(optionColor()));
     
 
@@ -139,10 +139,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
+    leftLayout->addStretch(0.9);
     leftLayout->addLayout(undoRedoLayout);
+    leftLayout->addStretch(1);
     leftLayout->addLayout(drawLayout);
     leftLayout->addLayout(penLayout);
     leftLayout->addLayout(rubberLayout);
+    leftLayout->addStretch(2);
 
 
     //Right layout
@@ -460,16 +463,16 @@ void MainWindow::createMenu()
       QAction *actionExporterImages = new QAction("&Exporter en images", this);
           menuFile->addAction(actionExporterImages);
           actionExporterImages->setShortcut(QKeySequence("Ctrl+I"));
-          //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(exportPicture()));
 
       QAction *actionExporterVideo = new QAction("&Exporter en vidéo", this);
           menuFile->addAction(actionExporterVideo);
           actionExporterVideo->setShortcut(QKeySequence("Ctrl+E"));
-          //  connect(actionEnregistrer, SIGNAL(triggered(),qApp, SLOT(exportFilm()));
        menuFile->addSeparator();
 
        QAction *actionFermerProjet = new QAction("&Fermer le projet", this);
           menuFile->addAction(actionFermerProjet);
+          actionFermerProjet->setShortcut(QKeySequence("Ctrl+W"));
+
 
        QAction *actionQuitter = new QAction("&Quitter", this);
          menuFile->addAction(actionQuitter);
@@ -614,6 +617,7 @@ bool MainWindow::saveFile(const QString &fileName)
                              .arg(file.errorString()));
         return false;
     }
+
     setCurrentFile(fileName);
     statusBar()->showMessage(tr("File saved"), 2000);
     return true;

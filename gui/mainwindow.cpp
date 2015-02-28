@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(_colorButton);
-    drawLayout->addWidget(_colorLabel);
+    //drawLayout->addWidget(_colorLabel);
 
     //Crayon
 

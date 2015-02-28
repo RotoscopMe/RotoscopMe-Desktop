@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     w.setFixedSize(1300, 680);
 
     w.show();
+    w.launch();
 
     return a.exec();
 }

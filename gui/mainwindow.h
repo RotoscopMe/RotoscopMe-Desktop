@@ -43,6 +43,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void launch();
+
 signals:
 
 public slots:

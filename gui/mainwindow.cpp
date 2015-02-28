@@ -24,17 +24,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
     setWindowTitle(tr("Rotoscop'Me"));
     createMenu();
 
-    homePageOuvrir();
-
-    //projectPage();
     setCurrentFile("");
 
 }
 
+void MainWindow::launch()
+{
+    homePageOuvrir();
+
+    //projectPage();
+}
+
 void MainWindow::homePageOuvrir()
 {
-    hide();
-    QDialog *homepage = new QDialog;
+    QDialog *homepage = new QDialog(this);
 
     homepage->setWindowTitle(tr("Rotoscop'Me - Bienvenue "));
 
@@ -46,72 +49,72 @@ void MainWindow::homePageOuvrir()
 
     newButton = new QPushButton("Nouveau",homepage );
     newButton->setGeometry(QRect(450, 350, 100, 50));
+    connect(newButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(newButton, SIGNAL(clicked()), this, SLOT(createProjectPageOuvrir()));
     openButton = new QPushButton("Ouvrir", homepage);
     openButton->setGeometry(QRect(700, 350, 100, 50));
+    connect(openButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
 
-    homepage->show();
-    show();
+    homepage->exec();
 }
 
 void MainWindow::createProjectPageOuvrir()
 {
-        hide();
-        QDialog *createProjectPage = new QDialog;
+    QDialog *createProjectPage = new QDialog(this);
 
-        createProjectPage->setFixedSize(900, 500);
-        createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
+    createProjectPage->setFixedSize(900, 500);
+    createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
 
-        nomLabel = new QLabel("Nom : ", createProjectPage);
-        nomEdit = new QLineEdit(createProjectPage);
+    nomLabel = new QLabel("Nom : ", createProjectPage);
+    nomEdit = new QLineEdit(createProjectPage);
 
-        workspaceLabel = new QLabel("Workspace : ",createProjectPage);
-        workspaceEdit = new QLineEdit(createProjectPage);
+    workspaceLabel = new QLabel("Workspace : ",createProjectPage);
+    workspaceEdit = new QLineEdit(createProjectPage);
 
-        videoLabel = new QLabel("Vidéo : ",createProjectPage);
-        videoEdit = new QLineEdit(createProjectPage);
+    videoLabel = new QLabel("Vidéo : ",createProjectPage);
+    videoEdit = new QLineEdit(createProjectPage);
 
-        freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
-        freqImSpinBox = new QSpinBox(createProjectPage);
+    freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
+    freqImSpinBox = new QSpinBox(createProjectPage);
 
-        createButton = new QPushButton("Créer",createProjectPage);
-        createButton->setGeometry(QRect(800, 450, 100, 50));
-        connect(createButton, SIGNAL(clicked()), this, SLOT(projectPage()));
+    createButton = new QPushButton("Créer",createProjectPage);
+    createButton->setGeometry(QRect(800, 450, 100, 50));
+    connect(createButton, SIGNAL(clicked()), this, SLOT(projectPage()));
+    connect(createButton, SIGNAL(clicked()), createProjectPage, SLOT(close()));
 
 
-        QHBoxLayout* nomLayout = new QHBoxLayout(createProjectPage);
-        nomLayout->addWidget(nomLabel);
-        nomLayout->addWidget(nomEdit);
+    QHBoxLayout* nomLayout = new QHBoxLayout(createProjectPage);
+    nomLayout->addWidget(nomLabel);
+    nomLayout->addWidget(nomEdit);
 
-        QHBoxLayout* workspaceLayout = new QHBoxLayout(createProjectPage);
-        workspaceLayout->addWidget(workspaceLabel);
-        workspaceLayout->addWidget(workspaceEdit);
+    QHBoxLayout* workspaceLayout = new QHBoxLayout(createProjectPage);
+    workspaceLayout->addWidget(workspaceLabel);
+    workspaceLayout->addWidget(workspaceEdit);
 
-        QHBoxLayout* videoLayout = new QHBoxLayout(createProjectPage);
-        videoLayout->addWidget(videoLabel);
-        videoLayout->addWidget(videoEdit);
+    QHBoxLayout* videoLayout = new QHBoxLayout(createProjectPage);
+    videoLayout->addWidget(videoLabel);
+    videoLayout->addWidget(videoEdit);
 
-        QHBoxLayout* freqImLayout = new QHBoxLayout(createProjectPage);
-        freqImLayout->addWidget(freqImageLabel);
-        freqImLayout->addWidget(freqImSpinBox);
+    QHBoxLayout* freqImLayout = new QHBoxLayout(createProjectPage);
+    freqImLayout->addWidget(freqImageLabel);
+    freqImLayout->addWidget(freqImSpinBox);
 
-        QVBoxLayout* homeLayout = new QVBoxLayout(createProjectPage);
-        homeLayout->addLayout(nomLayout);
-        homeLayout->addStretch(1);
-        homeLayout->addLayout(workspaceLayout);
-        homeLayout->addStretch(1);
-        homeLayout->addLayout(videoLayout);
-        homeLayout->addStretch(1);
-        homeLayout->addLayout(freqImLayout);
-        homeLayout->setGeometry(QRect(10, 10, 800, 300));
+    QVBoxLayout* homeLayout = new QVBoxLayout(createProjectPage);
+    homeLayout->addLayout(nomLayout);
+    homeLayout->addStretch(1);
+    homeLayout->addLayout(workspaceLayout);
+    homeLayout->addStretch(1);
+    homeLayout->addLayout(videoLayout);
+    homeLayout->addStretch(1);
+    homeLayout->addLayout(freqImLayout);
+    homeLayout->setGeometry(QRect(10, 10, 800, 300));
 
-      /*  QGridLayout* projectGrid = new QGridLayout(createProjectPage);
-        projectGrid->addLayout(homeLayout, 0, 0);
-        projectGrid->addWidget(createButton, 2, 2);
-      */
-        createProjectPage->show();
-        show();
+    /*  QGridLayout* projectGrid = new QGridLayout(createProjectPage);
+    projectGrid->addLayout(homeLayout, 0, 0);
+    projectGrid->addWidget(createButton, 2, 2);
+    */
+    createProjectPage->exec();
 }
 
 void MainWindow::projectPage()

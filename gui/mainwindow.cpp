@@ -177,11 +177,15 @@ void MainWindow::projectPage()
     //Preference
 
     _imageOrigineButton = new QPushButton("Afficher l'image d'origine");
+    _imageOrigineButton->setCheckable(true);
+    _imageOrigineButton->setChecked(true);
     _pelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
+    _pelureOignonButton->setCheckable(true);
     _nbrPelureLabel = new QLabel("Nombres de pelures d'oignons");
     _nbrPelureSpinBox = new QSpinBox();
     _nbrPelureSpinBox->setMaximum(10);
     _nbrPelureSpinBox->setMinimum(1);
+    _nbrPelureSpinBox->setEnabled(false);
 
     preferenceGroupBox = new QGroupBox(tr("Préférence"));
 
@@ -192,6 +196,11 @@ void MainWindow::projectPage()
     preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_nbrPelureSpinBox);
     preferenceGroupBox->setLayout(preferenceLayout);
+
+    connect(_pelureOignonButton, SIGNAL(clicked(bool)), _nbrPelureSpinBox, SLOT(setEnabled(bool)));
+    connect(_imageOrigineButton, SIGNAL(clicked()), this, SLOT(reloadCurrentFrame()));
+    connect(_pelureOignonButton, SIGNAL(clicked()), this, SLOT(reloadCurrentFrame()));
+    connect(_nbrPelureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(reloadCurrentFrame()));
 
 
     //Visualisation
@@ -566,12 +575,26 @@ void MainWindow::loadFrame(int nbFrame)
         _nbFrame = nbFrame;
 
         QList<QImage*> calque;
-        if(_nbFrame > 0)
+        if(_pelureOignonButton->isChecked())
         {
-            calque.append(projet->getImageOutput(_nbFrame-1));
+            for(int i = 0; i < _nbFrame && i < _nbrPelureSpinBox->value(); i++)
+            {
+                calque.append(projet->getImageOutput(_nbFrame-1-i));
+            }
         }
 
-        _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame), calque);
+        QImage* imageVideo;
+        if(_imageOrigineButton->isChecked())
+        {
+            imageVideo = projet->getImageVideo(_nbFrame);
+        }
+        else
+        {
+            imageVideo = new QImage(projet->sizeOutput, QImage::Format_ARGB32);
+            imageVideo->fill(Qt::white);
+        }
+
+        _calqueContainer->loadFrame(imageVideo, calque);
         _drawArea->load(projet->getImageOutput(_nbFrame));
 
         _horizontalSlider->setValue(_nbFrame);
@@ -596,6 +619,11 @@ void MainWindow::firstFrame()
 void MainWindow::lastFrame()
 {
     loadFrame(projet->getNbFrameVideo()-1);
+}
+
+void MainWindow::reloadCurrentFrame()
+{
+    loadFrame(_nbFrame);
 }
 
 

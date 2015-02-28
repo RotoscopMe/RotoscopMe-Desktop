@@ -90,6 +90,7 @@ private slots :
     void nextFrame();
     void firstFrame();
     void lastFrame();
+    void reloadCurrentFrame();
 
 private:
 

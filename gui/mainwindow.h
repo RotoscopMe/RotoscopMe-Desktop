@@ -49,7 +49,6 @@ signals:
 
 public slots:
     void createMenu();
-    void setcolor();
     void projectPage();
     void homePageOuvrir();
     void createProjectPageOuvrir();

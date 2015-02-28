@@ -4,11 +4,6 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
 {
-
-    QFile video("PATH_TO_VIDEO");
-    QDir dir("PATH_TO_WORKSPACE");
-    QString nom("NAME_OF_PROJECT");
-
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
@@ -24,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
 void MainWindow::launch()
 {
     homePageOuvrir();
-
-    //projectPage();
 }
 
 void MainWindow::homePageOuvrir()
@@ -129,22 +122,17 @@ void MainWindow::createProjectPageOuvrir()
 
 void MainWindow::projectPage()
 {
-    QWidget *widget = new QWidget();
-    setCentralWidget(widget);
     // Outils de dessin
 
     // Couleur
 
     _colorButton = new QPushButton("Color");
     _colorButton->setFixedSize(50, 35);
-   // _colorLabel = new QLabel();
-   // _colorLabel->setFixedSize(50, 50);
     connect(_colorButton, SIGNAL(clicked()), this, SLOT(optionColor()));
 
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(_colorButton);
-    //drawLayout->addWidget(_colorLabel);
 
     //Crayon
 
@@ -559,19 +547,6 @@ void MainWindow::setColorYellow()
 void MainWindow::setColorBrown()
 {
     _drawArea->setPenColor(QColor(139,69,19));
-}
-
-
-
-void MainWindow::setcolor()
-{
-    QColor color = QColorDialog::getColor(Qt::black, this);
-    if (color.isValid())
-    {
-        _colorLabel->setText(color.name());
-        _colorLabel->setPalette(QPalette(color));
-        _colorLabel->setAutoFillBackground(true);
-    }
 }
 
 void MainWindow::hideMenu()

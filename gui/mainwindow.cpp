@@ -55,57 +55,57 @@ void MainWindow::homePageOuvrir()
 void MainWindow::createProjectPageOuvrir()
 {
     QDialog *createProjectPage = new QDialog(this);
-
-    createProjectPage->setFixedSize(900, 500);
     createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
 
     QLabel *nomLabel = new QLabel("Nom : ", createProjectPage);
     QLineEdit *nomEdit = new QLineEdit(createProjectPage);
 
-    QLabel *workspaceLabel = new QLabel("Workspace : ",createProjectPage);
-    QLineEdit *workspaceEdit = new QLineEdit(createProjectPage);
+    QLabel *workspaceLabel = new QLabel("Workspace : ");
+    QLineEdit *workspaceEdit = new QLineEdit();
 
-    QLabel *videoLabel = new QLabel("Vidéo : ",createProjectPage);
-    QLineEdit *videoEdit = new QLineEdit(createProjectPage);
+    QLabel *videoLabel = new QLabel("Vidéo : ");
+    QLineEdit *videoEdit = new QLineEdit();
 
-    QLabel *freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
-    QSpinBox *freqImSpinBox = new QSpinBox(createProjectPage);
+    QLabel *freqImageLabel = new QLabel("Fréquence d'images : ");
+    QSpinBox *freqImSpinBox = new QSpinBox();
 
-    QPushButton *createButton = new QPushButton("Créer",createProjectPage);
+    QPushButton *createButton = new QPushButton("Créer");
     createButton->setGeometry(QRect(800, 450, 100, 50));
     connect(createButton, SIGNAL(clicked()), createProjectPage, SLOT(close()));
 
 
-    QHBoxLayout* nomLayout = new QHBoxLayout(createProjectPage);
+    QHBoxLayout* nomLayout = new QHBoxLayout();
     nomLayout->addWidget(nomLabel);
     nomLayout->addWidget(nomEdit);
 
-    QHBoxLayout* workspaceLayout = new QHBoxLayout(createProjectPage);
+    QHBoxLayout* workspaceLayout = new QHBoxLayout();
     workspaceLayout->addWidget(workspaceLabel);
     workspaceLayout->addWidget(workspaceEdit);
 
-    QHBoxLayout* videoLayout = new QHBoxLayout(createProjectPage);
+    QHBoxLayout* videoLayout = new QHBoxLayout();
     videoLayout->addWidget(videoLabel);
     videoLayout->addWidget(videoEdit);
 
-    QHBoxLayout* freqImLayout = new QHBoxLayout(createProjectPage);
+    QHBoxLayout* freqImLayout = new QHBoxLayout();
     freqImLayout->addWidget(freqImageLabel);
     freqImLayout->addWidget(freqImSpinBox);
 
-    QVBoxLayout* homeLayout = new QVBoxLayout(createProjectPage);
-    homeLayout->addLayout(nomLayout);
-    homeLayout->addStretch(1);
-    homeLayout->addLayout(workspaceLayout);
-    homeLayout->addStretch(1);
-    homeLayout->addLayout(videoLayout);
-    homeLayout->addStretch(1);
-    homeLayout->addLayout(freqImLayout);
-    homeLayout->setGeometry(QRect(10, 10, 800, 300));
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    buttonLayout->addWidget(createButton);
+    buttonLayout->setAlignment(createButton, Qt::AlignRight);
 
-    /*  QGridLayout* projectGrid = new QGridLayout(createProjectPage);
-    projectGrid->addLayout(homeLayout, 0, 0);
-    projectGrid->addWidget(createButton, 2, 2);
-    */
+    QVBoxLayout* homeLayout = new QVBoxLayout();
+    homeLayout->addStretch(1);
+    homeLayout->addLayout(nomLayout);
+    homeLayout->addLayout(workspaceLayout);
+    homeLayout->addLayout(videoLayout);
+    homeLayout->addLayout(freqImLayout);
+    homeLayout->addStretch(1);
+    homeLayout->addLayout(buttonLayout);
+    //homeLayout->setGeometry(QRect(10, 10, 800, 300));
+
+    createProjectPage->setLayout(homeLayout);
+
     createProjectPage->exec();
 
     try

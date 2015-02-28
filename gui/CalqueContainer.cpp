@@ -21,8 +21,12 @@ void CalqueContainer::loadFrame(QImage *imageVideo, QList<QImage*> calque)
     QPainter painter(_backgroundImage);
     painter.drawImage(0,0,*imageVideo);
 
+    qreal opacity(0.5);
+
     for(QList<QImage*>::iterator iter = calque.begin(); iter != calque.end(); ++iter)
     {
+        painter.setOpacity(opacity);
+        opacity -= 0.05;
         painter.drawImage(0,0,*(*iter));
     }
 

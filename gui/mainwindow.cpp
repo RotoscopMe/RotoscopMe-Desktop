@@ -36,15 +36,15 @@ void MainWindow::homePageOuvrir()
 
     QFont policeTitle("calibri");
     policeTitle.setPointSize (60);
-    titreLabel = new QLabel("Rotoscop'Me",homepage);
+    QLabel *titreLabel = new QLabel("Rotoscop'Me",homepage);
     titreLabel->setGeometry(QRect(350, 150, 600, 100));
     titreLabel->setFont(policeTitle);
 
-    newButton = new QPushButton("Nouveau",homepage );
+    QPushButton *newButton = new QPushButton("Nouveau",homepage );
     newButton->setGeometry(QRect(450, 350, 100, 50));
     connect(newButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(newButton, SIGNAL(clicked()), this, SLOT(createProjectPageOuvrir()));
-    openButton = new QPushButton("Ouvrir", homepage);
+    QPushButton *openButton = new QPushButton("Ouvrir", homepage);
     openButton->setGeometry(QRect(700, 350, 100, 50));
     connect(openButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
@@ -59,19 +59,19 @@ void MainWindow::createProjectPageOuvrir()
     createProjectPage->setFixedSize(900, 500);
     createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
 
-    nomLabel = new QLabel("Nom : ", createProjectPage);
-    nomEdit = new QLineEdit(createProjectPage);
+    QLabel *nomLabel = new QLabel("Nom : ", createProjectPage);
+    QLineEdit *nomEdit = new QLineEdit(createProjectPage);
 
-    workspaceLabel = new QLabel("Workspace : ",createProjectPage);
-    workspaceEdit = new QLineEdit(createProjectPage);
+    QLabel *workspaceLabel = new QLabel("Workspace : ",createProjectPage);
+    QLineEdit *workspaceEdit = new QLineEdit(createProjectPage);
 
-    videoLabel = new QLabel("Vidéo : ",createProjectPage);
-    videoEdit = new QLineEdit(createProjectPage);
+    QLabel *videoLabel = new QLabel("Vidéo : ",createProjectPage);
+    QLineEdit *videoEdit = new QLineEdit(createProjectPage);
 
-    freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
-    freqImSpinBox = new QSpinBox(createProjectPage);
+    QLabel *freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
+    QSpinBox *freqImSpinBox = new QSpinBox(createProjectPage);
 
-    createButton = new QPushButton("Créer",createProjectPage);
+    QPushButton *createButton = new QPushButton("Créer",createProjectPage);
     createButton->setGeometry(QRect(800, 450, 100, 50));
     connect(createButton, SIGNAL(clicked()), createProjectPage, SLOT(close()));
 

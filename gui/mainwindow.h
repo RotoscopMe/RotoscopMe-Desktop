@@ -96,30 +96,6 @@ private slots :
 
 private:
 
-    QDialog *homepage;
-    QFont *policeTitle;
-    QLabel *titreLabel;
-    QPushButton * newButton;
-    QPushButton * openButton;
-
-    QDialog *createProjectPage;
-    QLabel *nomLabel;
-    QLabel *workspaceLabel;
-    QLabel *videoLabel;
-    QLabel *freqImageLabel;
-    QLineEdit *nomEdit;
-    QLineEdit *workspaceEdit;
-    QLineEdit *videoEdit;
-    QSpinBox *freqImSpinBox;
-    QHBoxLayout *nomLayout;
-    QHBoxLayout *workspaceLayout;
-    QHBoxLayout *videoLayout;
-    QHBoxLayout *freqImLayout;
-    QVBoxLayout *homeLayout;
-    QGridLayout *projectGrid;
-    QPushButton *createButton;
-
-
     bool maybeSave();
     void loadFile(const QString &fileName);
     bool saveFile(const QString &fileName);

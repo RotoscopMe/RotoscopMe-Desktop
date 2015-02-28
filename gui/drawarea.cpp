@@ -1,18 +1,19 @@
 #include "drawarea.h"
 #include <utility>
+#include <QDebug>
 
-DrawArea::DrawArea():
+DrawArea::DrawArea(QImage *image):
     QWidget(),
     _pen(Qt::black),
     _rubber(),
-    _image(new QImage(this->size(), QImage::Format_ARGB32)),
+    _image(image),
     _drawing(false)
 {
-    QPalette pal(Qt::white);
+    resize(_image->size());
+
+    QPalette pal(Qt::transparent);
     setAutoFillBackground(true);
     setPalette(pal);
-
-    _image->fill(Qt::transparent);
 
     _pen.setWidth(1);
     _rubber.setWidth(1);
@@ -41,7 +42,6 @@ void DrawArea::clear()
 
 void DrawArea::load(QImage *image)
 {
-    delete _image;
     _image = image;
     update();
 }
@@ -57,6 +57,8 @@ void DrawArea::mousePressEvent(QMouseEvent* event)
     _drawingLastPosition = event->pos();
 
     onClick();
+
+    qDebug() << "draw";
 }
 
 void DrawArea::mouseReleaseEvent(QMouseEvent* event)
@@ -111,15 +113,4 @@ void DrawArea::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.drawImage(0,0, *_image);
-}
-
-void DrawArea::resizeEvent(QResizeEvent *)
-{
-    QImage tmp(this->size(), QImage::Format_ARGB32);
-    tmp.fill(Qt::transparent);
-
-    QPainter painter(&tmp);
-    painter.drawImage(0,0, *_image);
-
-    std::swap(tmp, *_image); //Assure la destruction de l'ancienne _image à la sortie de la méthode
 }

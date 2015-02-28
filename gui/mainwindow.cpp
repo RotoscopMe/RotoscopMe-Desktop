@@ -1,8 +1,23 @@
 #include "mainwindow.h"
+#include "CalqueContainer.h"
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
 {
+
+    QFile video("PATH_TO_VIDEO");
+    QDir dir("PATH_TO_WORKSPACE");
+    QString nom("NAME_OF_PROJECT");
+
+    try
+    {
+        projet = new Projet(nom, dir, video, 1);
+    }
+    catch(QString e)
+    {
+        qDebug() << e;
+    }
+
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
@@ -162,11 +177,15 @@ void MainWindow::projectPage()
     //Preference
 
     _imageOrigineButton = new QPushButton("Afficher l'image d'origine");
+    _imageOrigineButton->setCheckable(true);
+    _imageOrigineButton->setChecked(true);
     _pelureOignonButton = new QPushButton("Afficher les pelures d'oignons");
+    _pelureOignonButton->setCheckable(true);
     _nbrPelureLabel = new QLabel("Nombres de pelures d'oignons");
     _nbrPelureSpinBox = new QSpinBox();
     _nbrPelureSpinBox->setMaximum(10);
     _nbrPelureSpinBox->setMinimum(1);
+    _nbrPelureSpinBox->setEnabled(false);
 
     preferenceGroupBox = new QGroupBox(tr("Préférence"));
 
@@ -177,6 +196,11 @@ void MainWindow::projectPage()
     preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_nbrPelureSpinBox);
     preferenceGroupBox->setLayout(preferenceLayout);
+
+    connect(_pelureOignonButton, SIGNAL(clicked(bool)), _nbrPelureSpinBox, SLOT(setEnabled(bool)));
+    connect(_imageOrigineButton, SIGNAL(clicked()), this, SLOT(reloadCurrentFrame()));
+    connect(_pelureOignonButton, SIGNAL(clicked()), this, SLOT(reloadCurrentFrame()));
+    connect(_nbrPelureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(reloadCurrentFrame()));
 
 
     //Visualisation
@@ -237,6 +261,11 @@ void MainWindow::projectPage()
     playbackBarLayout->addWidget(_suivanteButton);
     playbackBarLayout->addWidget(_finButton);
 
+    connect(_precedenteButton, SIGNAL(clicked()), this, SLOT(previousFrame()));
+    connect(_suivanteButton, SIGNAL(clicked()), this, SLOT(nextFrame()));
+    connect(_debutButton, SIGNAL(clicked()), this, SLOT(firstFrame()));
+    connect(_finButton, SIGNAL(clicked()), this, SLOT(lastFrame()));
+
 
 
     //Palette
@@ -270,19 +299,25 @@ void MainWindow::projectPage()
 
     _horizontalSlider = new QSlider();
     _horizontalSlider->setOrientation(Qt::Horizontal);
+    _horizontalSlider->setMinimum(0);
+    _horizontalSlider->setMaximum(projet->getNbFrameVideo()-1);
 
     QVBoxLayout* bottomLayout = new QVBoxLayout();
     bottomLayout->addLayout(playbackBarLayout);
     bottomLayout->addWidget(_horizontalSlider);
 
+    connect(_horizontalSlider, SIGNAL(sliderMoved(int)), this, SLOT(loadFrame(int)));
+
 
     // Global layout
 
-    _drawArea = new DrawArea();
+    _drawArea = new DrawArea(projet->getImageOutput(_nbFrame));
+
+    _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), QList<QImage*>(), _drawArea);
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
-    layout->addWidget(_drawArea, 0, 1);
+    layout->addLayout(_calqueContainer, 0, 1);
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 
@@ -531,6 +566,64 @@ void MainWindow::hideMenu()
     _optionPenMenu->hide();
     _optionRubberMenu->hide();
     _colorMenu->hide();
+}
+
+void MainWindow::loadFrame(int nbFrame)
+{
+    if(nbFrame >= 0 && nbFrame < projet->getNbFrameVideo())
+    {
+        _nbFrame = nbFrame;
+
+        QList<QImage*> calque;
+        if(_pelureOignonButton->isChecked())
+        {
+            for(int i = 0; i < _nbFrame && i < _nbrPelureSpinBox->value(); i++)
+            {
+                calque.append(projet->getImageOutput(_nbFrame-1-i));
+            }
+        }
+
+        QImage* imageVideo;
+        if(_imageOrigineButton->isChecked())
+        {
+            imageVideo = projet->getImageVideo(_nbFrame);
+        }
+        else
+        {
+            imageVideo = new QImage(projet->sizeOutput, QImage::Format_ARGB32);
+            imageVideo->fill(Qt::white);
+        }
+
+        _calqueContainer->loadFrame(imageVideo, calque);
+        _drawArea->load(projet->getImageOutput(_nbFrame));
+
+        _horizontalSlider->setValue(_nbFrame);
+    }
+}
+
+void MainWindow::previousFrame()
+{
+    loadFrame(_nbFrame-1);
+}
+
+void MainWindow::nextFrame()
+{
+    loadFrame(_nbFrame+1);
+}
+
+void MainWindow::firstFrame()
+{
+    loadFrame(0);
+}
+
+void MainWindow::lastFrame()
+{
+    loadFrame(projet->getNbFrameVideo()-1);
+}
+
+void MainWindow::reloadCurrentFrame()
+{
+    loadFrame(_nbFrame);
 }
 
 

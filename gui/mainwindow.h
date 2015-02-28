@@ -26,6 +26,8 @@
 
 #include "drawarea.h"
 #include "ToolDialog.h"
+#include "core/projet.h"
+#include "CalqueContainer.h"
 
 
 #include <QDialog>
@@ -82,6 +84,13 @@ private slots :
     void about();
     void help();
     void projectInfo();
+    
+    void loadFrame(int nbFrame);
+    void previousFrame();
+    void nextFrame();
+    void firstFrame();
+    void lastFrame();
+    void reloadCurrentFrame();
 
 private:
 
@@ -157,8 +166,12 @@ private:
     ToolDialog *_optionRubberMenu;
     ToolDialog *_colorMenu;
 
-    void mousePressEvent(QMouseEvent *);
+    CalqueContainer *_calqueContainer;
+    Projet *projet;
 
+    int _nbFrame;
+
+    void mousePressEvent(QMouseEvent *);
 };
 
 #endif // MAINWINDOW_H

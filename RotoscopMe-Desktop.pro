@@ -8,10 +8,14 @@ TEMPLATE = app
 HEADERS += \
     gui/mainwindow.h \
     gui/drawarea.h \
-    gui/ToolDialog.h
+    gui/ToolDialog.h \
+    core/projet.h \
+    gui/CalqueContainer.h
 
 SOURCES += \
     gui/main.cpp \
     gui/mainwindow.cpp \
     gui/drawarea.cpp \
-    gui/ToolDialog.cpp
+    gui/ToolDialog.cpp \
+    core/projet.cpp \
+    gui/CalqueContainer.cpp

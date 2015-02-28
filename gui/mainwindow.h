@@ -13,6 +13,8 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QString>
+#include <QLineEdit>
+
 
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGraphicsView>
@@ -24,6 +26,8 @@
 
 #include "drawarea.h"
 #include "ToolDialog.h"
+#include "homepage.h"
+
 
 #include <QDialog>
 #include <QFileDialog>
@@ -43,6 +47,9 @@ signals:
 public slots:
     void createMenu();
     void setcolor();
+    void projectPage();
+    void homePageOuvrir();
+    void createProjectPageOuvrir();
 
     void switchToPen();
     void switchToRubber();
@@ -78,6 +85,31 @@ private slots :
     void projectInfo();
 
 private:
+
+    QDialog *homepage;
+    QFont *policeTitle;
+    QLabel *titreLabel;
+    QPushButton * newButton;
+    QPushButton * openButton;
+
+    QDialog *createProjectPage;
+    QLabel *nomLabel;
+    QLabel *workspaceLabel;
+    QLabel *videoLabel;
+    QLabel *freqImageLabel;
+    QLineEdit *nomEdit;
+    QLineEdit *workspaceEdit;
+    QLineEdit *videoEdit;
+    QSpinBox *freqImSpinBox;
+    QHBoxLayout *nomLayout;
+    QHBoxLayout *workspaceLayout;
+    QHBoxLayout *videoLayout;
+    QHBoxLayout *freqImLayout;
+    QVBoxLayout *homeLayout;
+    QGridLayout *projectGrid;
+    QPushButton *createButton;
+
+
     bool maybeSave();
     void loadFile(const QString &fileName);
     bool saveFile(const QString &fileName);

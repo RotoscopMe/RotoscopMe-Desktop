@@ -9,6 +9,100 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle(tr("Rotoscop'Me"));
     createMenu();
 
+    homePageOuvrir();
+
+    //projectPage();
+    setCurrentFile("");
+
+}
+
+void MainWindow::homePageOuvrir()
+{
+    hide();
+    QDialog *homepage = new QDialog;
+
+    homepage->setWindowTitle(tr("Rotoscop'Me - Bienvenue "));
+
+    QFont policeTitle("calibri");
+    policeTitle.setPointSize (60);
+    titreLabel = new QLabel("Rotoscop'Me",homepage);
+    titreLabel->setGeometry(QRect(350, 150, 600, 100));
+    titreLabel->setFont(policeTitle);
+
+    newButton = new QPushButton("Nouveau",homepage );
+    newButton->setGeometry(QRect(450, 350, 100, 50));
+    connect(newButton, SIGNAL(clicked()), this, SLOT(createProjectPageOuvrir()));
+    openButton = new QPushButton("Ouvrir", homepage);
+    openButton->setGeometry(QRect(700, 350, 100, 50));
+    connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
+
+    homepage->show();
+    show();
+}
+
+void MainWindow::createProjectPageOuvrir()
+{
+        hide();
+        QDialog *createProjectPage = new QDialog;
+
+        createProjectPage->setFixedSize(900, 500);
+        createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
+
+        nomLabel = new QLabel("Nom : ", createProjectPage);
+        nomEdit = new QLineEdit(createProjectPage);
+
+        workspaceLabel = new QLabel("Workspace : ",createProjectPage);
+        workspaceEdit = new QLineEdit(createProjectPage);
+
+        videoLabel = new QLabel("Vidéo : ",createProjectPage);
+        videoEdit = new QLineEdit(createProjectPage);
+
+        freqImageLabel = new QLabel("Fréquence d'images : ",createProjectPage);
+        freqImSpinBox = new QSpinBox(createProjectPage);
+
+        createButton = new QPushButton("Créer",createProjectPage);
+        createButton->setGeometry(QRect(800, 450, 100, 50));
+        connect(createButton, SIGNAL(clicked()), this, SLOT(projectPage()));
+
+
+        QHBoxLayout* nomLayout = new QHBoxLayout(createProjectPage);
+        nomLayout->addWidget(nomLabel);
+        nomLayout->addWidget(nomEdit);
+
+        QHBoxLayout* workspaceLayout = new QHBoxLayout(createProjectPage);
+        workspaceLayout->addWidget(workspaceLabel);
+        workspaceLayout->addWidget(workspaceEdit);
+
+        QHBoxLayout* videoLayout = new QHBoxLayout(createProjectPage);
+        videoLayout->addWidget(videoLabel);
+        videoLayout->addWidget(videoEdit);
+
+        QHBoxLayout* freqImLayout = new QHBoxLayout(createProjectPage);
+        freqImLayout->addWidget(freqImageLabel);
+        freqImLayout->addWidget(freqImSpinBox);
+
+        QVBoxLayout* homeLayout = new QVBoxLayout(createProjectPage);
+        homeLayout->addLayout(nomLayout);
+        homeLayout->addStretch(1);
+        homeLayout->addLayout(workspaceLayout);
+        homeLayout->addStretch(1);
+        homeLayout->addLayout(videoLayout);
+        homeLayout->addStretch(1);
+        homeLayout->addLayout(freqImLayout);
+        homeLayout->setGeometry(QRect(10, 10, 800, 300));
+
+      /*  QGridLayout* projectGrid = new QGridLayout(createProjectPage);
+        projectGrid->addLayout(homeLayout, 0, 0);
+        projectGrid->addWidget(createButton, 2, 2);
+      */
+        createProjectPage->show();
+        show();
+}
+
+void MainWindow::projectPage()
+{
+    QWidget *widget = new QWidget();
+    setCentralWidget(widget);
     // Outils de dessin
 
     // Couleur
@@ -18,7 +112,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
    // _colorLabel = new QLabel();
    // _colorLabel->setFixedSize(50, 50);
     connect(_colorButton, SIGNAL(clicked()), this, SLOT(optionColor()));
-    
+
 
     QVBoxLayout* drawLayout = new QVBoxLayout();
     drawLayout->addWidget(_colorButton);
@@ -47,7 +141,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QHBoxLayout* rubberLayout = new QHBoxLayout();
     rubberLayout->addWidget(_selectRubberButton);
     rubberLayout->addWidget(_optionRubberButton);
-    
+
 
     // Undo - Redo
     _redoButton = new QPushButton("");
@@ -321,8 +415,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(_optionRubberButton, SIGNAL(clicked()), _colorMenu, SLOT(hide()));
     connect(_colorButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
     connect(_colorButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
-
-    setCurrentFile("");
 
 }
 

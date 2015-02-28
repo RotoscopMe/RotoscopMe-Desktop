@@ -304,7 +304,7 @@ void MainWindow::projectPage()
 
     _drawArea = new DrawArea(projet->getImageOutput(_nbFrame));
 
-    _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), _drawArea);
+    _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), QList<QImage*>(), _drawArea);
 
     QGridLayout* layout = new QGridLayout();
     layout->addLayout(leftLayout, 0, 0);
@@ -564,7 +564,14 @@ void MainWindow::loadFrame(int nbFrame)
     if(nbFrame >= 0 && nbFrame < projet->getNbFrameVideo())
     {
         _nbFrame = nbFrame;
-        _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame));
+
+        QList<QImage*> calque;
+        if(_nbFrame > 0)
+        {
+            calque.append(projet->getImageOutput(_nbFrame-1));
+        }
+
+        _calqueContainer->loadFrame(projet->getImageVideo(_nbFrame), calque);
         _drawArea->load(projet->getImageOutput(_nbFrame));
 
         _horizontalSlider->setValue(_nbFrame);
@@ -713,10 +720,6 @@ void MainWindow::mousePressEvent(QMouseEvent *)
     _colorMenu->hide();
 }
 
-void MainWindow::resizeEvent(QResizeEvent *)
-{
-    _calqueContainer->resizeUpdate();
-}
 
 void MainWindow::newFile()
 {

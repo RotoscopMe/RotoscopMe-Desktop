@@ -19,7 +19,6 @@ class DrawArea : public QWidget
         void setPenWidth(int width);
         void setPenColor(QColor color);
         void setRubberWidth(int width);
-        void resizeUpdate(QSize *size);
 
     public slots:
         void setTool(Tool tool);

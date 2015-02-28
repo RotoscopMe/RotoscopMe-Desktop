@@ -171,7 +171,6 @@ private:
     int _nbFrame;
 
     void mousePressEvent(QMouseEvent *);
-    void resizeEvent(QResizeEvent *);
 };
 
 #endif // MAINWINDOW_H

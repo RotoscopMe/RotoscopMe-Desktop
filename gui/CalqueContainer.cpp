@@ -1,33 +1,30 @@
 #include "CalqueContainer.h"
+#include <QDebug>
+#include <QPainter>
 
-CalqueContainer::CalqueContainer(QImage* imageVideo, DrawArea *drawArea) : QStackedLayout(), _imageVideo(imageVideo), _drawArea(drawArea)
+CalqueContainer::CalqueContainer(QImage* imageVideo, QList<QImage *> calque, DrawArea *drawArea) :
+    QStackedLayout(),
+    _drawArea(drawArea),
+    _backgroundImage(new QImage(imageVideo->size(), QImage::Format_ARGB32))
 {
     setStackingMode(QStackedLayout::StackAll);
     _background = new QLabel();
-    int newHeight = _imageVideo->height()*_background->width()/_imageVideo->width();
-    _background->resize(_background->width(), newHeight);
-
-    _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->width(), newHeight)));
+    _background->resize(imageVideo->size());
+    loadFrame(imageVideo, calque);
 
     addWidget(_background);
     addWidget(_drawArea);
 }
 
-void CalqueContainer::loadFrame(QImage *imageVideo)
-{
-    _imageVideo = imageVideo;
-    int newHeight = _imageVideo->height()*_background->width()/_imageVideo->width();
-    _background->resize(_background->width(), newHeight);
+void CalqueContainer::loadFrame(QImage *imageVideo, QList<QImage*> calque)
+{    
+    QPainter painter(_backgroundImage);
+    painter.drawImage(0,0,*imageVideo);
 
-    _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->width(), newHeight)));
-}
+    for(QList<QImage*>::iterator iter = calque.begin(); iter != calque.end(); ++iter)
+    {
+        painter.drawImage(0,0,*(*iter));
+    }
 
-void CalqueContainer::resizeUpdate()
-{
-    int newHeight = _imageVideo->height()*_background->width()/_imageVideo->width();
-    _background->resize(_background->width(), newHeight);
-
-    _background->setPixmap(QPixmap::fromImage(_imageVideo->scaled(_background->width(), newHeight)));
-
-    _drawArea->resizeUpdate(new QSize(_background->width(), newHeight));
+    _background->setPixmap(QPixmap::fromImage(*_backgroundImage));
 }

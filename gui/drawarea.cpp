@@ -1,5 +1,6 @@
 #include "drawarea.h"
 #include <utility>
+#include <QDebug>
 
 DrawArea::DrawArea(QImage *image):
     QWidget(),
@@ -8,6 +9,8 @@ DrawArea::DrawArea(QImage *image):
     _image(image),
     _drawing(false)
 {
+    resize(_image->size());
+
     QPalette pal(Qt::transparent);
     setAutoFillBackground(true);
     setPalette(pal);
@@ -54,6 +57,8 @@ void DrawArea::mousePressEvent(QMouseEvent* event)
     _drawingLastPosition = event->pos();
 
     onClick();
+
+    qDebug() << "draw";
 }
 
 void DrawArea::mouseReleaseEvent(QMouseEvent* event)
@@ -108,14 +113,4 @@ void DrawArea::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.drawImage(0,0, *_image);
-}
-
-void DrawArea::resizeUpdate(QSize *size)
-{
-    QImage tmp = _image->scaled(*size);
-
-    QPainter painter(&tmp);
-    painter.drawImage(0,0, *_image);
-
-    std::swap(tmp, *_image); //Assure la destruction de l'ancienne _image à la sortie de la méthode
 }

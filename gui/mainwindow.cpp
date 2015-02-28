@@ -332,7 +332,7 @@ void MainWindow::projectPage()
 
     //Menu crayon
 
-    QPoint *centerPenButton = new QPoint(_optionPenButton->x(), _optionPenButton->y() + menuBar()->size().height() + _optionPenButton->height()/2);
+    QPoint *centerPenButton = new QPoint(paletteGroupBox->x() + _optionPenButton->x(), paletteGroupBox->y() + _optionPenButton->y() + menuBar()->size().height() + _optionPenButton->height()/2);
 
     _optionPenMenu = new ToolDialog(centerPenButton, this);
     _optionPenMenu->resize(150,40);
@@ -358,7 +358,7 @@ void MainWindow::projectPage()
 
     //Menu gomme
 
-    QPoint *centerRubberButton = new QPoint(_optionRubberButton->x(), _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
+    QPoint *centerRubberButton = new QPoint(paletteGroupBox->x() + _optionRubberButton->x(), paletteGroupBox->y() + _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
 
     _optionRubberMenu = new ToolDialog(centerRubberButton, this);
     _optionRubberMenu->resize(150,40);
@@ -384,7 +384,7 @@ void MainWindow::projectPage()
 
     //Menu color
 
-    QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
+    QPoint *centerColorButton = new QPoint(paletteGroupBox->x() + _colorButton->x(), paletteGroupBox->y() + _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
 
     _colorMenu = new ToolDialog(centerColorButton, this);
     _colorMenu->resize(120,80);
@@ -470,21 +470,21 @@ void MainWindow::switchToRubber()
 
 void MainWindow::optionPen()
 {
-    QPoint *centerPenButton = new QPoint(_optionPenButton->x(), _optionPenButton->y() + menuBar()->size().height() + _optionPenButton->height()/2);
+    QPoint *centerPenButton = new QPoint(paletteGroupBox->x() + _optionPenButton->x(), paletteGroupBox->y() + _optionPenButton->y() + menuBar()->size().height() + _optionPenButton->height()/2);
     _optionPenMenu->update(centerPenButton);
     _optionPenMenu->show();
 }
 
 void MainWindow::optionRubber()
 {
-    QPoint *centerRubberButton = new QPoint(_optionRubberButton->x(), _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
+    QPoint *centerRubberButton = new QPoint(paletteGroupBox->x() + _optionRubberButton->x(), paletteGroupBox->y() + _optionRubberButton->y() + menuBar()->size().height() + _optionRubberButton->height()/2);
     _optionRubberMenu->update(centerRubberButton);
     _optionRubberMenu->show();
 }
 
 void MainWindow::optionColor()
 {
-    QPoint *centerColorButton = new QPoint(_colorButton->x(), _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
+    QPoint *centerColorButton = new QPoint(paletteGroupBox->x() + _colorButton->x(), paletteGroupBox->y() + _colorButton->y() + menuBar()->size().height() + _colorButton->height()/2);
     _colorMenu->update(centerColorButton);
     _colorMenu->show();
 }

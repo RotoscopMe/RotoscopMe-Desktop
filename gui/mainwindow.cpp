@@ -9,15 +9,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
     QDir dir("PATH_TO_WORKSPACE");
     QString nom("NAME_OF_PROJECT");
 
-    try
-    {
-        projet = new Projet(nom, dir, video, 1);
-    }
-    catch(QString e)
-    {
-        qDebug() << e;
-    }
-
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
 
@@ -25,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
     createMenu();
 
     setCurrentFile("");
+
+    centralWidget()->hide();
 
 }
 
@@ -80,7 +73,6 @@ void MainWindow::createProjectPageOuvrir()
 
     createButton = new QPushButton("Créer",createProjectPage);
     createButton->setGeometry(QRect(800, 450, 100, 50));
-    connect(createButton, SIGNAL(clicked()), this, SLOT(projectPage()));
     connect(createButton, SIGNAL(clicked()), createProjectPage, SLOT(close()));
 
 
@@ -115,6 +107,24 @@ void MainWindow::createProjectPageOuvrir()
     projectGrid->addWidget(createButton, 2, 2);
     */
     createProjectPage->exec();
+
+    try
+    {
+        QString name(nomEdit->text());
+        QDir dir(workspaceEdit->text());
+        QFile file(videoEdit->text());
+        int freq(freqImSpinBox->value());
+
+        projet = new Projet(name, dir, file, freq);
+        projectPage();
+        centralWidget()->show();
+    }
+    catch(QString e)
+    {
+        qDebug() << e;
+    }
+
+    createProjectPage->close();
 }
 
 void MainWindow::projectPage()
@@ -324,7 +334,7 @@ void MainWindow::projectPage()
     layout->addLayout(rightLayout, 0, 2);
     layout->addLayout(bottomLayout, 1,1);
 
-    widget->setLayout(layout);
+    centralWidget()->setLayout(layout);
 
     connect(_selectPenButton, SIGNAL(clicked()), this, SLOT(switchToPen()));
     connect(_selectRubberButton, SIGNAL(clicked()), this, SLOT(switchToRubber()));

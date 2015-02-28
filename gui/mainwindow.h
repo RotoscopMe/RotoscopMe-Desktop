@@ -26,7 +26,6 @@
 
 #include "drawarea.h"
 #include "ToolDialog.h"
-#include "homepage.h"
 
 
 #include <QDialog>

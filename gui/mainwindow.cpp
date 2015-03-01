@@ -790,12 +790,22 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-    QFileDialog dialog(this);
-    dialog.setWindowModality(Qt::WindowModal);
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
-    QString dir;
-    if (dialog.exec())
-        dir = dialog.getExistingDirectory();
+    QString dirPath = QFileDialog::getExistingDirectory(this);
+
+    if(!dirPath.isEmpty())
+    {
+        QDir dir(dirPath);
+
+        try
+        {
+            projet->saveAs(dir);
+        }
+        catch(QString e)
+        {
+            qDebug() << e;
+            return false;
+        }
+    }
     else
         return false;
 

@@ -783,10 +783,10 @@ bool MainWindow::saveAs()
 void MainWindow::projectInfo()
 {
    QMessageBox::about(this, tr("Information sur le projet"),
-            tr("Projet : \n"
-               "Workspace : \n"
-               "Vidéo : \n"
-               "Fréquence d'images : \n"));
+            "Projet : " + projet->getName() + "\n"
+               "Workspace : " + projet->getWorkspace() + "\n"
+               "Vidéo : " + projet->getVideo() + "\n"
+               "Fréquence d'images : " + QString::number(projet->getFrequence()) + "\n");
 }
 
 void MainWindow::help()

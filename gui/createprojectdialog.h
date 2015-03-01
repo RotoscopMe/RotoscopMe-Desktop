@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
+#include <QFileDialog>
 
 class CreateProjectDialog : public QDialog
 {
@@ -22,6 +23,8 @@ public:
 signals:
 
 public slots:
+    void workspaceParcourir();
+    void videoParcourir();
 
 private:
     QLineEdit *_nomEdit;

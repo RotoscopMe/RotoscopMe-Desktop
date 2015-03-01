@@ -315,6 +315,7 @@ void MainWindow::projectPage()
     // Global layout
 
     _drawArea = new DrawArea(projet->getImageOutput(_nbFrame));
+    connect(_drawArea, SIGNAL(onClick()), this, SLOT(projectModified()));
 
     _calqueContainer = new CalqueContainer(projet->getImageVideo(_nbFrame), QList<QImage*>(), _drawArea);
 
@@ -786,6 +787,7 @@ bool MainWindow::save()
     try
     {
         projet->save();
+        _modified=false;
     }
     catch(QString e)
     {
@@ -806,6 +808,7 @@ bool MainWindow::saveAs()
         try
         {
             projet->saveAs(dir);
+            _modified=false;
         }
         catch(QString e)
         {

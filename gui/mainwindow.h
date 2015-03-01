@@ -85,6 +85,8 @@ private slots :
     void about();
     void help();
     void projectInfo();
+
+    void projectModified();
     
     void loadFrame(int nbFrame);
     void previousFrame();
@@ -147,6 +149,8 @@ private:
     Projet *projet;
 
     int _nbFrame;
+
+    bool _modified;
 
     void mousePressEvent(QMouseEvent *);
 };

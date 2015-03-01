@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include "CalqueContainer.h"
 #include <QDebug>
+#include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), projet(NULL), _nbFrame(0)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), projet(NULL), _nbFrame(0), _modified(false)
 {
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
@@ -746,9 +747,13 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
-    if(projet != NULL)
+    if(projet != NULL && _modified)
     {
-        projet->save();
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Projet modifié", "Ce projet a été modifié, voulez-vous le sauvegarder ?", QMessageBox::Yes | QMessageBox::No);
+
+        if(reply == QMessageBox::Yes)
+            projet->save();
     }
 
     QString dirName = QFileDialog::getExistingDirectory(this);
@@ -764,6 +769,8 @@ void MainWindow::open()
         try
         {
             projet = Projet::open(dir);
+            delete centralWidget();
+            setCentralWidget(new QWidget());
             projectPage();
             centralWidget()->show();
         }
@@ -879,6 +886,11 @@ void MainWindow::setCurrentFile(const QString &fileName)
 QString MainWindow::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
+}
+
+void MainWindow::projectModified()
+{
+    _modified = true;
 }
 
 MainWindow::~MainWindow()

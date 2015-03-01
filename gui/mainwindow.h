@@ -121,7 +121,7 @@ private:
     DrawArea *_drawArea;
 
     QPushButton *_visioButton;
-    QCheckBox *_nImageCheckBox;
+    QPushButton *_nImageVisioButton;
     QSpinBox *_nImages;
 
     QPushButton *_undoButton;

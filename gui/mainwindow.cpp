@@ -154,16 +154,18 @@ void MainWindow::projectPage()
     //Visualisation
 
     _visioButton = new QPushButton("Visionner depuis le début");
-    _nImageCheckBox = new QCheckBox("Visionner depuis n images");
+    _visioButton->setCheckable(true);
+    _nImageVisioButton = new QPushButton("Visionner depuis n images");
+    _nImageVisioButton->setCheckable(true);
     _nImages = new QSpinBox();
-    _nImages->setMaximum(10);
-    _nImages->setMinimum(1);
+    _nImages->setMaximum(projet->getNbFrameVideo());
+    _nImages->setMinimum(2);
 
     visualisationGroupBox = new QGroupBox(tr("Visualisation"));
 
     QVBoxLayout* visualisationLayout = new QVBoxLayout();
     visualisationLayout->addWidget(_visioButton);
-    visualisationLayout->addWidget(_nImageCheckBox);
+    visualisationLayout->addWidget(_nImageVisioButton);
     visualisationLayout->addWidget(_nImages);
     visualisationGroupBox->setLayout(visualisationLayout);
 
@@ -386,7 +388,7 @@ void MainWindow::projectPage()
     connect(_nbrPelureSpinBox, SIGNAL(valueChanged(int)), this, SLOT(hideMenu()));
     connect(_horizontalSlider, SIGNAL(sliderPressed()), this, SLOT(hideMenu()));
     connect(_visioButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
-    connect(_nImageCheckBox, SIGNAL(clicked()), this, SLOT(hideMenu()));
+    connect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_nImages, SIGNAL(valueChanged(int)), this, SLOT(hideMenu()));
     connect(_undoButton, SIGNAL(clicked()), this, SLOT(hideMenu()));
     connect(_redoButton, SIGNAL(clicked()), this, SLOT(hideMenu()));

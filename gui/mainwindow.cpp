@@ -663,6 +663,7 @@ void MainWindow::createMenu()
        QAction *actionFermerProjet = new QAction("&Fermer le projet", this);
           menuFile->addAction(actionFermerProjet);
           actionFermerProjet->setShortcut(QKeySequence("Ctrl+W"));
+          connect(actionFermerProjet, SIGNAL(triggered()), this, SLOT(close()));
 
 
        QAction *actionQuitter = new QAction("&Quitter", this);
@@ -780,6 +781,27 @@ void MainWindow::open()
             centralWidget()->hide();
         }
    }
+}
+
+void MainWindow::close()
+{
+    if(projet != NULL)
+    {
+        if(_modified)
+        {
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Projet modifié", "Ce projet a été modifié, voulez-vous le sauvegarder ?", QMessageBox::Yes | QMessageBox::No);
+
+            if(reply == QMessageBox::Yes)
+                projet->save();
+        }
+
+        delete projet;
+        projet = NULL;
+        delete centralWidget();
+        setCentralWidget(new QWidget());
+        centralWidget()->hide();
+    }
 }
 
 bool MainWindow::save()

@@ -80,6 +80,7 @@ public slots:
 private slots :
     void newFile();
     void open();
+    void close();
     bool save();
     bool saveAs();
     void about();

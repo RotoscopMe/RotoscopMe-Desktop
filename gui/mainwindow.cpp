@@ -2,7 +2,7 @@
 #include "CalqueContainer.h"
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), _nbFrame(0)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), projet(NULL), _nbFrame(0)
 {
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
@@ -746,16 +746,46 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
+    if(projet != NULL)
+    {
+        projet->save();
+    }
 
-        QString fileName = QFileDialog::getOpenFileName(this);
-        if (!fileName.isEmpty())
-            loadFile(fileName);
+    QString dirName = QFileDialog::getExistingDirectory(this);
+    if(!dirName.isEmpty())
+    {
+        QDir dir(dirName);
 
+        if(projet != NULL)
+        {
+            delete projet;
+        }
+
+        try
+        {
+            projet = Projet::open(dir);
+            projectPage();
+            centralWidget()->show();
+        }
+        catch(QString e)
+        {
+            centralWidget()->hide();
+        }
    }
+}
 
 bool MainWindow::save()
 {
-    projet->save();
+    try
+    {
+        projet->save();
+    }
+    catch(QString e)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool MainWindow::saveAs()
@@ -763,13 +793,13 @@ bool MainWindow::saveAs()
     QFileDialog dialog(this);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
-    QStringList files;
+    QString dir;
     if (dialog.exec())
-        files = dialog.selectedFiles();
+        dir = dialog.getExistingDirectory();
     else
         return false;
 
-    return saveFile(files.at(0));
+    return true;
 }
 
 void MainWindow::projectInfo()

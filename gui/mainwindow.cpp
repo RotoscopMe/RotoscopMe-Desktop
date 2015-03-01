@@ -698,6 +698,10 @@ void MainWindow::newProject()
     close();
 
     createProjectPageOuvrir();
+
+    setWindowTitle("Rotoscop'Me - " + projet->getName());
+
+    statusBar()->showMessage("Nouveau projet ouvert", 2000);
 }
 
 void MainWindow::open()
@@ -714,11 +718,16 @@ void MainWindow::open()
             projet = Projet::open(dir);
             projectPage();
             centralWidget()->show();
+            statusBar()->showMessage("Projet ouvert", 2000);
+
+            setWindowTitle("Rotoscop'Me - " + projet->getName());
         }
         catch(QString e)
         {
             close();
             centralWidget()->hide();
+            setWindowTitle("Rotoscop'Me");
+            statusBar()->showMessage("Erreur lors de l'ouverture du projet : " + e, 2000);
         }
    }
 }
@@ -741,6 +750,7 @@ void MainWindow::close()
         delete centralWidget();
         setCentralWidget(new QWidget());
         centralWidget()->hide();
+        setWindowTitle("Rotoscop'Me");
     }
 }
 
@@ -749,10 +759,12 @@ bool MainWindow::save()
     try
     {
         projet->save();
+        statusBar()->showMessage("Projet sauvegardé", 2000);
         _modified=false;
     }
     catch(QString e)
     {
+        statusBar()->showMessage("Erreur lors de la sauvegarde : " + e, 2000);
         return false;
     }
 
@@ -771,15 +783,20 @@ bool MainWindow::saveAs()
         {
             projet->saveAs(dir);
             _modified=false;
+            statusBar()->showMessage("Projet sauvegardé", 2000);
         }
         catch(QString e)
         {
-            qDebug() << e;
+            statusBar()->showMessage("Erreur lors de la sauvegarde : " + e, 2000);
             return false;
         }
     }
     else
+    {
+        statusBar()->showMessage("Sauvegarde non effectuée", 2000);
+
         return false;
+    }
 
     return true;
 }

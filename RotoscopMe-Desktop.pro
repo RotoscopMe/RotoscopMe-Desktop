@@ -11,7 +11,8 @@ HEADERS += \
     gui/ToolDialog.h \
     core/projet.h \
     gui/CalqueContainer.h \
-    gui/createprojectdialog.h
+    gui/createprojectdialog.h \
+    gui/visionnage.h
 
 SOURCES += \
     gui/main.cpp \
@@ -20,4 +21,5 @@ SOURCES += \
     gui/ToolDialog.cpp \
     core/projet.cpp \
     gui/CalqueContainer.cpp \
-    gui/createprojectdialog.cpp
+    gui/createprojectdialog.cpp \
+    gui/visionnage.cpp

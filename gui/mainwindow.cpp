@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "CalqueContainer.h"
 #include "createprojectdialog.h"
 #include <QDebug>
 #include <QMessageBox>
@@ -11,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), projet(NULL), _nb
 
     setWindowTitle(tr("Rotoscop'Me"));
     createMenu();
-
-    setCurrentFile("");
 
     centralWidget()->hide();
 
@@ -169,6 +166,8 @@ void MainWindow::projectPage()
     visualisationLayout->addWidget(_nImageCheckBox);
     visualisationLayout->addWidget(_nImages);
     visualisationGroupBox->setLayout(visualisationLayout);
+
+    connect(_visioButton, SIGNAL(clicked()), this, SLOT(startVisionAll()));
 
     // Mode de lecture
 
@@ -824,55 +823,30 @@ void MainWindow::about()
             tr("Rotoscop'Me est une application de rotoscopie créée par Matthieu RIOU et Manon BOBIN."));
 }
 
-void MainWindow::loadFile(const QString &fileName)
-{
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(fileName)
-                             .arg(file.errorString()));
-        return;
-    }
-
-    setCurrentFile(fileName);
-    statusBar()->showMessage(tr("File loaded"), 2000);
-}
-
-bool MainWindow::saveFile(const QString &fileName)
-{
-    QFile file(fileName);
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(fileName)
-                             .arg(file.errorString()));
-        return false;
-    }
-
-    setCurrentFile(fileName);
-    statusBar()->showMessage(tr("File saved"), 2000);
-    return true;
-}
-
-void MainWindow::setCurrentFile(const QString &fileName)
-{
-    curFile = fileName;
-
-    QString shownName = curFile;
-    if (curFile.isEmpty())
-        shownName = "untitled.txt";
-    setWindowFilePath(shownName);
-}
-
-QString MainWindow::strippedName(const QString &fullFileName)
-{
-    return QFileInfo(fullFileName).fileName();
-}
-
 void MainWindow::projectModified()
 {
     _modified = true;
+}
+
+void MainWindow::startVisionAll()
+{
+    _visionnage = new Visionnage(this, projet);
+    _visionnage->start();
+
+    disconnect(_visioButton, SIGNAL(clicked()), this, SLOT(startVisionAll()));
+    connect(_visioButton, SIGNAL(clicked()), this, SLOT(stopVisionAll()));
+}
+
+void MainWindow::stopVisionAll()
+{
+    _visionnage->stop();
+    connect(_visioButton, SIGNAL(clicked()), this, SLOT(startVisionAll()));
+    disconnect(_visioButton, SIGNAL(clicked()), this, SLOT(stopVisionAll()));
+}
+
+int MainWindow::getNbFrame()
+{
+    return _nbFrame;
 }
 
 MainWindow::~MainWindow()

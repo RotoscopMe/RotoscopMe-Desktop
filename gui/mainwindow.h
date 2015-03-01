@@ -28,6 +28,7 @@
 #include "ToolDialog.h"
 #include "core/projet.h"
 #include "CalqueContainer.h"
+#include "visionnage.h"
 
 
 #include <QDialog>
@@ -44,6 +45,7 @@ public:
     ~MainWindow();
 
     void launch();
+    int getNbFrame();
 
 signals:
 
@@ -77,6 +79,8 @@ public slots:
 
     void hideMenu();
 
+    void loadFrame(int nbFrame);
+
 private slots :
     void newProject();
     void open();
@@ -89,22 +93,16 @@ private slots :
 
     void projectModified();
     
-    void loadFrame(int nbFrame);
     void previousFrame();
     void nextFrame();
     void firstFrame();
     void lastFrame();
     void reloadCurrentFrame();
 
+    void startVisionAll();
+    void stopVisionAll();
+
 private:
-
-    bool maybeSave();
-    void loadFile(const QString &fileName);
-    bool saveFile(const QString &fileName);
-    void setCurrentFile(const QString &fileName);
-    QString strippedName(const QString &fullFileName);
-    QString curFile;
-
     QGroupBox *visualisationGroupBox;
     QGroupBox *preferenceGroupBox;
     QGroupBox *undoRedoGroupBox;
@@ -152,6 +150,8 @@ private:
     int _nbFrame;
 
     bool _modified;
+
+    Visionnage *_visionnage;
 
     void mousePressEvent(QMouseEvent *);
 };

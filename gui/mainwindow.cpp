@@ -403,6 +403,9 @@ void MainWindow::projectPage()
     connect(_colorButton, SIGNAL(clicked()), _optionPenMenu, SLOT(hide()));
     connect(_colorButton, SIGNAL(clicked()), _optionRubberMenu, SLOT(hide()));
 
+
+    connect(_undoButton, SIGNAL(clicked()), _drawArea, SLOT(undo()));
+
 }
 
 void MainWindow::switchToPen()

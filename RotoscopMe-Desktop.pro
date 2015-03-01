@@ -10,7 +10,8 @@ HEADERS += \
     gui/drawarea.h \
     gui/ToolDialog.h \
     core/projet.h \
-    gui/CalqueContainer.h
+    gui/CalqueContainer.h \
+    gui/createprojectdialog.h
 
 SOURCES += \
     gui/main.cpp \
@@ -18,4 +19,5 @@ SOURCES += \
     gui/drawarea.cpp \
     gui/ToolDialog.cpp \
     core/projet.cpp \
-    gui/CalqueContainer.cpp
+    gui/CalqueContainer.cpp \
+    gui/createprojectdialog.cpp

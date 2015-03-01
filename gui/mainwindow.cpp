@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "CalqueContainer.h"
+#include "createprojectdialog.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -48,67 +49,16 @@ void MainWindow::homePageOuvrir()
 
 void MainWindow::createProjectPageOuvrir()
 {
-    QDialog *createProjectPage = new QDialog(this);
-    createProjectPage->setWindowTitle(tr("Rotoscop'Me - Nouveau Projet "));
+    CreateProjectDialog dialog(this);
 
-    QLabel *nomLabel = new QLabel("Nom : ", createProjectPage);
-    QLineEdit *nomEdit = new QLineEdit(createProjectPage);
-
-    QLabel *workspaceLabel = new QLabel("Workspace : ");
-    QLineEdit *workspaceEdit = new QLineEdit();
-
-    QLabel *videoLabel = new QLabel("Vidéo : ");
-    QLineEdit *videoEdit = new QLineEdit();
-
-    QLabel *freqImageLabel = new QLabel("Fréquence d'images : ");
-    QSpinBox *freqImSpinBox = new QSpinBox();
-    freqImSpinBox->setMinimum(1);
-
-    QPushButton *createButton = new QPushButton("Créer");
-    createButton->setGeometry(QRect(800, 450, 100, 50));
-    connect(createButton, SIGNAL(clicked()), createProjectPage, SLOT(close()));
-
-
-    QHBoxLayout* nomLayout = new QHBoxLayout();
-    nomLayout->addWidget(nomLabel);
-    nomLayout->addWidget(nomEdit);
-
-    QHBoxLayout* workspaceLayout = new QHBoxLayout();
-    workspaceLayout->addWidget(workspaceLabel);
-    workspaceLayout->addWidget(workspaceEdit);
-
-    QHBoxLayout* videoLayout = new QHBoxLayout();
-    videoLayout->addWidget(videoLabel);
-    videoLayout->addWidget(videoEdit);
-
-    QHBoxLayout* freqImLayout = new QHBoxLayout();
-    freqImLayout->addWidget(freqImageLabel);
-    freqImLayout->addWidget(freqImSpinBox);
-
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    buttonLayout->addWidget(createButton);
-    buttonLayout->setAlignment(createButton, Qt::AlignRight);
-
-    QVBoxLayout* homeLayout = new QVBoxLayout();
-    homeLayout->addStretch(1);
-    homeLayout->addLayout(nomLayout);
-    homeLayout->addLayout(workspaceLayout);
-    homeLayout->addLayout(videoLayout);
-    homeLayout->addLayout(freqImLayout);
-    homeLayout->addStretch(1);
-    homeLayout->addLayout(buttonLayout);
-    //homeLayout->setGeometry(QRect(10, 10, 800, 300));
-
-    createProjectPage->setLayout(homeLayout);
-
-    createProjectPage->exec();
+    dialog.exec();
 
     try
     {
-        QString name(nomEdit->text());
-        QDir dir(workspaceEdit->text());
-        QFile file(videoEdit->text());
-        int freq(freqImSpinBox->value());
+        QString name(dialog.getNom());
+        QDir dir(dialog.getWorkspace());
+        QFile file(dialog.getVideo());
+        int freq(dialog.getFrequence());
 
         projet = Projet::create(name, dir, file, freq);
         projectPage();
@@ -118,8 +68,6 @@ void MainWindow::createProjectPageOuvrir()
     {
         qDebug() << e;
     }
-
-    createProjectPage->close();
 }
 
 void MainWindow::projectPage()

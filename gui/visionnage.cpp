@@ -35,4 +35,6 @@ void Visionnage::run()
 void Visionnage::stop()
 {
     _stop = true;
+    msleep(20);
+    _parent->loadFrame(_initFrame);
 }

@@ -61,6 +61,7 @@ void MainWindow::createProjectPageOuvrir()
 
     QLabel *freqImageLabel = new QLabel("Fréquence d'images : ");
     QSpinBox *freqImSpinBox = new QSpinBox();
+    freqImSpinBox->setMinimum(1);
 
     QPushButton *createButton = new QPushButton("Créer");
     createButton->setGeometry(QRect(800, 450, 100, 50));

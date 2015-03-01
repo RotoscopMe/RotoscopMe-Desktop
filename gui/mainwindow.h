@@ -102,6 +102,9 @@ private slots :
     void startVisionAll();
     void stopVisionAll();
 
+    void startVisionPrevious();
+    void stopVisionPrevious();
+
 private:
     QGroupBox *visualisationGroupBox;
     QGroupBox *preferenceGroupBox;

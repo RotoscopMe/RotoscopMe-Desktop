@@ -170,6 +170,7 @@ void MainWindow::projectPage()
     visualisationGroupBox->setLayout(visualisationLayout);
 
     connect(_visioButton, SIGNAL(clicked()), this, SLOT(startVisionAll()));
+    connect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(startVisionPrevious()));
 
     // Mode de lecture
 
@@ -844,6 +845,22 @@ void MainWindow::stopVisionAll()
     _visionnage->stop();
     connect(_visioButton, SIGNAL(clicked()), this, SLOT(startVisionAll()));
     disconnect(_visioButton, SIGNAL(clicked()), this, SLOT(stopVisionAll()));
+}
+
+void MainWindow::startVisionPrevious()
+{
+    _visionnage = new Visionnage(this, projet, _nImages->value());
+    _visionnage->start();
+
+    disconnect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(startVisionPrevious()));
+    connect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(stopVisionPrevious()));
+}
+
+void MainWindow::stopVisionPrevious()
+{
+    _visionnage->stop();
+    connect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(startVisionPrevious()));
+    disconnect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(stopVisionPrevious()));
 }
 
 int MainWindow::getNbFrame()

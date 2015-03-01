@@ -10,7 +10,7 @@ class Visionnage : public QThread
 {
     Q_OBJECT
 public:
-    Visionnage(MainWindow *parent, Projet *projet);
+    Visionnage(MainWindow *parent, Projet *projet, int nPreviousImage = -1);
 
 signals:
 
@@ -20,6 +20,7 @@ public slots:
 private:
     MainWindow *_parent;
     Projet *_projet;
+    int _nPreviousImage;
     int _initFrame;
 
     bool _stop;

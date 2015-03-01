@@ -1,10 +1,11 @@
 #include "visionnage.h"
 #include "mainwindow.h"
 
-Visionnage::Visionnage(MainWindow *parent, Projet *projet) :
+Visionnage::Visionnage(MainWindow *parent, Projet *projet, int nPreviousImage) :
     QThread(parent),
     _parent(parent),
     _projet(projet),
+    _nPreviousImage(nPreviousImage),
     _initFrame(parent->getNbFrame()),
     _stop(false)
 {
@@ -19,14 +20,32 @@ void Visionnage::run()
     {
         _parent->loadFrame(frame);
 
-        if(frame == _projet->getNbFrameVideo())
+        if(_nPreviousImage == -1)
         {
-            frame = 0;
+            if(frame == _projet->getNbFrameVideo())
+            {
+                frame = 0;
+            }
+            else
+            {
+                frame += 1;
+            }
         }
         else
         {
-            frame += 1;
+            if(frame == _initFrame)
+            {
+                frame -= _nPreviousImage;
+
+                if(frame < 0)
+                    frame = 0;
+            }
+            else
+            {
+                frame += 1;
+            }
         }
+
 
         msleep(20);
     }

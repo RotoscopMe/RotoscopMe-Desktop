@@ -78,7 +78,7 @@ public slots:
     void hideMenu();
 
 private slots :
-    void newFile();
+    void newProject();
     void open();
     void close();
     bool save();

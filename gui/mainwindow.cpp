@@ -632,7 +632,7 @@ void MainWindow::createMenu()
       QAction *actionNouveau = new QAction("&Nouveau Projet", this);
          menuFile->addAction(actionNouveau);
          actionNouveau->setShortcut(QKeySequence("Ctrl+N"));
-    connect(actionNouveau, SIGNAL(triggered()), this, SLOT(newFile()));
+    connect(actionNouveau, SIGNAL(triggered()), this, SLOT(newProject()));
 
       QAction *actionOuvrir = new QAction("&Ouvrir un projet", this);
          menuFile->addAction(actionOuvrir);
@@ -741,43 +741,31 @@ void MainWindow::mousePressEvent(QMouseEvent *)
 }
 
 
-void MainWindow::newFile()
+void MainWindow::newProject()
 {
-        _drawArea->clear();
-        setCurrentFile("");
+    close();
+
+    createProjectPageOuvrir();
 }
 
 void MainWindow::open()
 {
-    if(projet != NULL && _modified)
-    {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "Projet modifié", "Ce projet a été modifié, voulez-vous le sauvegarder ?", QMessageBox::Yes | QMessageBox::No);
-
-        if(reply == QMessageBox::Yes)
-            projet->save();
-    }
+    close();
 
     QString dirName = QFileDialog::getExistingDirectory(this);
     if(!dirName.isEmpty())
     {
         QDir dir(dirName);
 
-        if(projet != NULL)
-        {
-            delete projet;
-        }
-
         try
         {
             projet = Projet::open(dir);
-            delete centralWidget();
-            setCentralWidget(new QWidget());
             projectPage();
             centralWidget()->show();
         }
         catch(QString e)
         {
+            close();
             centralWidget()->hide();
         }
    }

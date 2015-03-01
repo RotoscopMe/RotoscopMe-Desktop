@@ -109,7 +109,7 @@ void MainWindow::createProjectPageOuvrir()
         QFile file(videoEdit->text());
         int freq(freqImSpinBox->value());
 
-        projet = new Projet(name, dir, file, freq);
+        projet = Projet::create(name, dir, file, freq);
         projectPage();
         centralWidget()->show();
     }
@@ -755,11 +755,7 @@ void MainWindow::open()
 
 bool MainWindow::save()
 {
-    if (curFile.isEmpty()) {
-        return saveAs();
-    } else {
-        return saveFile(curFile);
-    }
+    projet->save();
 }
 
 bool MainWindow::saveAs()

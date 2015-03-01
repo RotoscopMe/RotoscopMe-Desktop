@@ -34,12 +34,6 @@ void DrawArea::setRubberWidth(int width)
     _rubber.setWidth(width);
 }
 
-void DrawArea::clear()
-{
-    _image->fill(Qt::transparent);
-    update();
-}
-
 void DrawArea::load(QImage *image)
 {
     _image = image;

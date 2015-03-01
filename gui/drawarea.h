@@ -23,7 +23,6 @@ class DrawArea : public QWidget
     public slots:
         void setTool(Tool tool);
 
-        void clear();
         void load(QImage* image);
 
     signals:

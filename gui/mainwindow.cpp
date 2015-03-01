@@ -405,6 +405,7 @@ void MainWindow::projectPage()
 
 
     connect(_undoButton, SIGNAL(clicked()), _drawArea, SLOT(undo()));
+    connect(_redoButton, SIGNAL(clicked()), _drawArea, SLOT(redo()));
 
 }
 

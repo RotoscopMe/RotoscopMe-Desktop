@@ -26,6 +26,7 @@ class DrawArea : public QWidget
         void load(QImage* image);
 
         void undo();
+        void redo();
 
     signals:
         void onClick();
@@ -35,8 +36,11 @@ class DrawArea : public QWidget
         QPen _rubber;
         QImage* _image;
         QImage *_imageUndo;
+        QImage *_imageRedo;
 
         bool _drawing;
+        bool _undo;
+        bool _redo;
         QPoint _drawingLastPosition;
         Tool _tool;
 

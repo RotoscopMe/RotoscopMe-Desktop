@@ -8,7 +8,9 @@ DrawArea::DrawArea(QImage *image):
     _rubber(),
     _image(image),
     _imageUndo(new QImage(image->size(), QImage::Format_ARGB32)),
-    _drawing(false)
+    _imageRedo(new QImage(image->size(), QImage::Format_ARGB32)),
+    _drawing(false),
+    _redo(false)
 {
     resize(_image->size());
 
@@ -48,11 +50,36 @@ void DrawArea::setTool(Tool tool)
 
 void DrawArea::undo()
 {
-    _image->fill(Qt::transparent);
-    QPainter painter(_image);
-    painter.drawImage(0,0,*_imageUndo);
+    if(_undo)
+    {
+        _undo = false;
+        _redo = true;
 
-    update();
+        _imageRedo->fill(Qt::transparent);
+        QPainter painterRedo(_imageRedo);
+        painterRedo.drawImage(0,0,*_image);
+
+        _image->fill(Qt::transparent);
+        QPainter painter(_image);
+        painter.drawImage(0,0,*_imageUndo);
+
+        update();
+    }
+}
+
+void DrawArea::redo()
+{
+    if(_redo)
+    {
+        _redo = false;
+        _undo = true;
+
+        _image->fill(Qt::transparent);
+        QPainter painter(_image);
+        painter.drawImage(0,0,*_imageRedo);
+
+        update();
+    }
 }
 
 void DrawArea::mousePressEvent(QMouseEvent* event)
@@ -63,6 +90,9 @@ void DrawArea::mousePressEvent(QMouseEvent* event)
     _imageUndo->fill(Qt::transparent);
     QPainter painterUndo(_imageUndo);
     painterUndo.drawImage(0,0,*_image);
+
+    _undo = true;
+    _redo = false;
 
     onClick();
 

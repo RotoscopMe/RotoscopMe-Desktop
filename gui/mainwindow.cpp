@@ -840,6 +840,7 @@ bool MainWindow::saveAs()
         try
         {
             projet->saveAs(dir);
+            setWindowTitle("Rotoscop'Me - " + projet->getName());
             _modified=false;
             statusBar()->showMessage("Projet sauvegardé", 2000);
         }

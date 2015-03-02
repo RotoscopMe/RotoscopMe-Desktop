@@ -50,7 +50,7 @@ void Visionnage::run()
         }
 
 
-        msleep(20);
+        msleep(100);
     }
 }
 

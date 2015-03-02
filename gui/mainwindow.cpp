@@ -82,15 +82,14 @@ void MainWindow::projectPage()
 
     QHBoxLayout* drawLayout = new QHBoxLayout();
     drawLayout->addWidget(_colorButton);
-    drawLayout->setAlignment(_colorButton, Qt::AlignCenter);
 
     //Crayon
 
-    _selectPenButton = new QPushButton(QIcon("pen.png"), "");
+    _selectPenButton = new QPushButton(QIcon(":Image/pen.png"), "");
     _selectPenButton->setFixedSize(50, 50);
     _selectPenButton->setCheckable(true);
     _selectPenButton->setChecked(true);
-    _optionPenButton = new QPushButton(QIcon("penPetit.png"), "");
+    _optionPenButton = new QPushButton(QIcon(":Image/penPetit.png"), "");
     _optionPenButton->setFixedSize(30, 30);
 
     QHBoxLayout* penLayout = new QHBoxLayout();
@@ -98,10 +97,10 @@ void MainWindow::projectPage()
     penLayout->addWidget(_optionPenButton);
 
     //Gomme
-    _selectRubberButton = new QPushButton(QIcon("gomme.png"), "");
+    _selectRubberButton = new QPushButton(QIcon(":Image/gomme.png"), "");
     _selectRubberButton->setFixedSize(50, 50);
     _selectRubberButton->setCheckable(true);
-    _optionRubberButton = new QPushButton(QIcon("rubberPetit.png"), "");
+    _optionRubberButton = new QPushButton(QIcon(":Image/rubberPetit.png"), "");
     _optionRubberButton->setFixedSize(30, 30);
 
     QHBoxLayout* rubberLayout = new QHBoxLayout();
@@ -110,12 +109,12 @@ void MainWindow::projectPage()
 
 
     // Undo - Redo
-    _redoButton = new QPushButton(QIcon("redo.png"), "");
+    _redoButton = new QPushButton(QIcon(":Image/redo.png"), "");
     _redoButton->setFixedSize(40, 40);
-    _undoButton = new QPushButton(QIcon("undo.png"), "");
+    _undoButton = new QPushButton(QIcon(":Image/undo.png"), "");
     _undoButton->setFixedSize(40, 40);
 
-    undoRedoGroupBox = new QGroupBox(tr(""));
+    undoRedoGroupBox = new QFrame();
 
     QHBoxLayout* undoRedoLayout = new QHBoxLayout();
     undoRedoLayout->addWidget(_undoButton);
@@ -136,13 +135,13 @@ void MainWindow::projectPage()
     _nbrPelureSpinBox->setMinimum(1);
     _nbrPelureSpinBox->setEnabled(false);
 
-    preferenceGroupBox = new QGroupBox(tr("Préférence"));
+    preferenceGroupBox = new QFrame();
+    preferenceGroupBox->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
     QVBoxLayout* preferenceLayout = new QVBoxLayout();
     preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_pelureOignonButton);
     preferenceLayout->addWidget(_nbrPelureLabel);
-    preferenceLayout->addWidget(_imageOrigineButton);
     preferenceLayout->addWidget(_nbrPelureSpinBox);
     preferenceGroupBox->setLayout(preferenceLayout);
 
@@ -162,7 +161,8 @@ void MainWindow::projectPage()
     _nImages->setMaximum(projet->getNbFrameVideo());
     _nImages->setMinimum(2);
 
-    visualisationGroupBox = new QGroupBox(tr("Visualisation"));
+    visualisationGroupBox = new QFrame();
+    visualisationGroupBox->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
     QVBoxLayout* visualisationLayout = new QVBoxLayout();
     visualisationLayout->addWidget(_visioButton);
@@ -177,11 +177,11 @@ void MainWindow::projectPage()
 
     _debutButton = new QPushButton("");
     _debutButton->setFixedSize(25, 25);
-    _debutButton->setIcon(QIcon("debut.png"));
+    _debutButton->setIcon(QIcon(":Image/debut.png"));
 
     _precedenteButton = new QPushButton("");
     _precedenteButton->setFixedSize(25, 25);
-    _precedenteButton->setIcon(QIcon("precedente.png"));
+    _precedenteButton->setIcon(QIcon(":Image/precedente.png"));
 
     QImage black(40,40, QImage::Format_ARGB32);
     black.fill(Qt::black);
@@ -190,23 +190,23 @@ void MainWindow::projectPage()
     _imagePrecedenteLabel->setFixedSize(50, 50);
     _imagePrecedenteLabel->setPixmap(QPixmap::fromImage(black));
 
-    QPixmap imageEnCours("imageEnCours.png");
+    QPixmap imageEnCours(":Image/imageEnCours.png");
     _imageEnCoursLabel = new QLabel();
     _imageEnCoursLabel->setFixedSize(60, 60);
     _imageEnCoursLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(0)->scaled(50,50)));
 
-    QPixmap imageSuivante("imageSuivante.png");
+    QPixmap imageSuivante(":Image/imageSuivante.png");
     _imageSuivanteLabel = new QLabel();
     _imageSuivanteLabel->setFixedSize(50, 50);
     _imageSuivanteLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(1)->scaled(40,40)));
 
     _suivanteButton = new QPushButton("");
     _suivanteButton->setFixedSize(25, 25);
-    _suivanteButton->setIcon(QIcon("suivante.png"));
+    _suivanteButton->setIcon(QIcon(":Image/suivante.png"));
 
     _finButton = new QPushButton("");
     _finButton->setFixedSize(25, 25);
-    _finButton->setIcon(QIcon("fin.png"));
+    _finButton->setIcon(QIcon(":Image/fin.png"));
 
     QHBoxLayout* playbackBarLayout = new QHBoxLayout();
     playbackBarLayout->addWidget(_debutButton);
@@ -225,7 +225,8 @@ void MainWindow::projectPage()
 
 
     //Palette
-    paletteGroupBox = new QGroupBox(tr("Palette"));
+    paletteGroupBox = new QFrame();
+    paletteGroupBox->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
     QVBoxLayout *paletteLayout = new QVBoxLayout();
     paletteLayout->addLayout(drawLayout);
@@ -293,9 +294,9 @@ void MainWindow::projectPage()
     _optionPenMenu = new ToolDialog(centerPenButton, this);
     _optionPenMenu->resize(150,40);
 
-    QPushButton *smallPen = new QPushButton(QIcon("penPetit.png"), "");
-    QPushButton *mediumPen = new QPushButton(QIcon("penMoyen.png"), "");
-    QPushButton *largePen = new QPushButton(QIcon("penGrand.png"), "");
+    QPushButton *smallPen = new QPushButton(QIcon(":Image/penPetit.png"), "");
+    QPushButton *mediumPen = new QPushButton(QIcon(":Image/penMoyen.png"), "");
+    QPushButton *largePen = new QPushButton(QIcon(":Image/penGrand.png"), "");
 
     _optionPenMenu->addWidget(smallPen, 1, 1);
     _optionPenMenu->addWidget(mediumPen, 1, 2);
@@ -319,9 +320,9 @@ void MainWindow::projectPage()
     _optionRubberMenu = new ToolDialog(centerRubberButton, this);
     _optionRubberMenu->resize(150,40);
 
-    QPushButton *smallRubber = new QPushButton(QIcon("rubberPetit.png"), "");
-    QPushButton *mediumRubber = new QPushButton(QIcon("rubberMoyen.png"), "");
-    QPushButton *largeRubber = new QPushButton(QIcon("rubberGrand.png"), "");
+    QPushButton *smallRubber = new QPushButton(QIcon(":Image/rubberPetit.png"), "");
+    QPushButton *mediumRubber = new QPushButton(QIcon(":Image/rubberMoyen.png"), "");
+    QPushButton *largeRubber = new QPushButton(QIcon(":Image/rubberGrand.png"), "");
 
     _optionRubberMenu->addWidget(smallRubber, 1, 1);
     _optionRubberMenu->addWidget(mediumRubber, 1, 2);
@@ -452,37 +453,37 @@ void MainWindow::optionColor()
 void MainWindow::setPenSmall()
 {
     _drawArea->setPenWidth(1);
-    _optionPenButton->setIcon(QIcon("penPetit.png"));
+    _optionPenButton->setIcon(QIcon(":Image/penPetit.png"));
 }
 
 void MainWindow::setPenMedium()
 {
     _drawArea->setPenWidth(3);
-    _optionPenButton->setIcon(QIcon("penMoyen.png"));
+    _optionPenButton->setIcon(QIcon(":Image/penMoyen.png"));
 }
 
 void MainWindow::setPenLarge()
 {
     _drawArea->setPenWidth(5);
-    _optionPenButton->setIcon(QIcon("penGrand.png"));
+    _optionPenButton->setIcon(QIcon(":Image/penGrand.png"));
 }
 
 void MainWindow::setRubberSmall()
 {
     _drawArea->setRubberWidth(1);
-    _optionRubberButton->setIcon(QIcon("rubberPetit.png"));
+    _optionRubberButton->setIcon(QIcon(":Image/rubberPetit.png"));
 }
 
 void MainWindow::setRubberMedium()
 {
     _drawArea->setRubberWidth(3);
-    _optionRubberButton->setIcon(QIcon("rubberMoyen.png"));
+    _optionRubberButton->setIcon(QIcon(":Image/rubberMoyen.png"));
 }
 
 void MainWindow::setRubberLarge()
 {
     _drawArea->setRubberWidth(5);
-    _optionRubberButton->setIcon(QIcon("rubberGrand.png"));
+    _optionRubberButton->setIcon(QIcon(":Image/rubberGrand.png"));
 }
 
 void MainWindow::setColorBlack()

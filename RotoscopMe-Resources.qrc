@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Image/debut.png</file>
+        <file>Image/fin.png</file>
+        <file>Image/pen.png</file>
+        <file>Image/penGrand.png</file>
+        <file>Image/penMoyen.png</file>
+        <file>Image/penPetit.png</file>
+        <file>Image/precedente.png</file>
+        <file>Image/redo.png</file>
+        <file>Image/rubberGrand.png</file>
+        <file>Image/rubberMoyen.png</file>
+        <file>Image/rubberPetit.png</file>
+        <file>Image/suivante.png</file>
+        <file>Image/undo.png</file>
+        <file>Image/gomme.png</file>
+    </qresource>
+</RCC>

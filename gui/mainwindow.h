@@ -116,10 +116,10 @@ private slots :
     void stopVisionPrevious();
 
 private:
-    QGroupBox *visualisationGroupBox;
-    QGroupBox *preferenceGroupBox;
-    QGroupBox *undoRedoGroupBox;
-    QGroupBox *paletteGroupBox;
+    QFrame *visualisationGroupBox;
+    QFrame *preferenceGroupBox;
+    QFrame *undoRedoGroupBox;
+    QFrame *paletteGroupBox;
 
     QPushButton *_colorButton;
     QLabel *_colorLabel;

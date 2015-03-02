@@ -23,3 +23,8 @@ SOURCES += \
     gui/CalqueContainer.cpp \
     gui/createprojectdialog.cpp \
     gui/visionnage.cpp
+
+OTHER_FILES +=
+
+RESOURCES += \
+    RotoscopMe-Resources.qrc

@@ -685,6 +685,7 @@ void MainWindow::createMenu()
            QAction *actionFreqPelures = new QAction("&Fréquence des pelures d'oignons", this);
               menuPref->addAction(actionFreqPelures);
               actionFreqPelures->setShortcut(QKeySequence("Ctrl+M"));
+              connect(actionFreqPelures, SIGNAL(triggered()), this, SLOT(setFrequencePelure()));
 
               //Création des sous-menu d'Aide
            QAction *actionAide = new QAction("&Aide", this);
@@ -978,6 +979,33 @@ void MainWindow::afficherPelure()
 {
     _pelureOignonButton->click();
     reloadCurrentFrame();
+}
+
+void MainWindow::setFrequencePelure()
+{
+    QDialog *dialog = new QDialog(this);
+
+    QLabel *label = new QLabel("Fréquence des pelures d'oignons");
+    QSpinBox *frequence = new QSpinBox();
+
+    QHBoxLayout *freqLayout = new QHBoxLayout();
+    freqLayout->addWidget(label);
+    freqLayout->addWidget(frequence);
+
+    QPushButton *valider = new QPushButton("Valider");
+    connect(valider, SIGNAL(clicked()), dialog, SLOT(close()));
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    buttonLayout->addWidget(valider);
+    buttonLayout->setAlignment(valider, Qt::AlignRight);
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addLayout(freqLayout);
+    layout->addLayout(buttonLayout);
+
+    dialog->setLayout(layout);
+    dialog->exec();
+
 }
 
 int MainWindow::getNbFrame()

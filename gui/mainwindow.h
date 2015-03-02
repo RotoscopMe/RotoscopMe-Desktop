@@ -99,6 +99,7 @@ private slots :
 
     void afficherImOrig();
     void afficherPelure();
+    void setFrequencePelure();
 
     void projectModified();
     

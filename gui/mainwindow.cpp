@@ -574,7 +574,7 @@ void MainWindow::reloadCurrentFrame()
 
 
 void MainWindow::createMenu()
-{
+{    
     // Création de la barre de menu
       QMenu *menuFile = menuBar()->addMenu("&Fichier");
       QMenu *menuEdition = menuBar()->addMenu("&Edition");
@@ -677,9 +677,11 @@ void MainWindow::createMenu()
            QAction *actionAfficherImOrig = new QAction("&Afficher les images d'origines", this);
               menuPref->addAction(actionAfficherImOrig);
               actionAfficherImOrig->setShortcut(QKeySequence("Ctrl+J"));
+              connect(actionAfficherImOrig, SIGNAL(triggered()), this, SLOT(afficherImOrig()));
            QAction *actionAfficherPelures = new QAction("&Afficher les pelures d'oignons", this);
               menuPref->addAction(actionAfficherPelures);
               actionAfficherPelures->setShortcut(QKeySequence("Ctrl+K"));
+              connect(actionAfficherPelures, SIGNAL(triggered()), this, SLOT(afficherPelure()));
            QAction *actionFreqPelures = new QAction("&Fréquence des pelures d'oignons", this);
               menuPref->addAction(actionFreqPelures);
               actionFreqPelures->setShortcut(QKeySequence("Ctrl+M"));
@@ -964,6 +966,18 @@ void MainWindow::stopVisionPrevious()
     _visionnage->stop();
     connect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(startVisionPrevious()));
     disconnect(_nImageVisioButton, SIGNAL(clicked()), this, SLOT(stopVisionPrevious()));
+}
+
+void MainWindow::afficherImOrig()
+{
+    _imageOrigineButton->click();
+    reloadCurrentFrame();
+}
+
+void MainWindow::afficherPelure()
+{
+    _pelureOignonButton->click();
+    reloadCurrentFrame();
 }
 
 int MainWindow::getNbFrame()

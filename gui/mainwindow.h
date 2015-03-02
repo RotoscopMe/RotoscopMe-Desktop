@@ -97,6 +97,9 @@ private slots :
     void undo();
     void redo();
 
+    void afficherImOrig();
+    void afficherPelure();
+
     void projectModified();
     
     void previousFrame();

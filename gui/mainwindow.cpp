@@ -183,20 +183,22 @@ void MainWindow::projectPage()
     _precedenteButton->setFixedSize(25, 25);
     _precedenteButton->setIcon(QIcon("precedente.png"));
 
-    QPixmap imagePrecedente("imagePrecedente.png");
+    QImage black(40,40, QImage::Format_ARGB32);
+    black.fill(Qt::black);
+
     _imagePrecedenteLabel = new QLabel();
-    _imagePrecedenteLabel->setFixedSize(25, 25);
-    _imagePrecedenteLabel->setPixmap(imagePrecedente);
+    _imagePrecedenteLabel->setFixedSize(50, 50);
+    _imagePrecedenteLabel->setPixmap(QPixmap::fromImage(black));
 
     QPixmap imageEnCours("imageEnCours.png");
     _imageEnCoursLabel = new QLabel();
-    _imageEnCoursLabel->setFixedSize(50, 50);
-    _imageEnCoursLabel->setPixmap(imageEnCours);
+    _imageEnCoursLabel->setFixedSize(60, 60);
+    _imageEnCoursLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(0)->scaled(50,50)));
 
     QPixmap imageSuivante("imageSuivante.png");
     _imageSuivanteLabel = new QLabel();
-    _imageSuivanteLabel->setFixedSize(25, 25);
-    _imageSuivanteLabel->setPixmap(imageSuivante);
+    _imageSuivanteLabel->setFixedSize(50, 50);
+    _imageSuivanteLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(1)->scaled(40,40)));
 
     _suivanteButton = new QPushButton("");
     _suivanteButton->setFixedSize(25, 25);
@@ -544,6 +546,21 @@ void MainWindow::loadFrame(int nbFrame)
         _drawArea->load(projet->getImageOutput(_nbFrame));
 
         _horizontalSlider->setValue(_nbFrame);
+
+        QImage black(40, 40, QImage::Format_ARGB32);
+        black.fill(Qt::black);
+
+        if(nbFrame > 0)
+            _imagePrecedenteLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(_nbFrame-1)->scaled(40, 40)));
+        else
+            _imagePrecedenteLabel->setPixmap(QPixmap::fromImage(black));
+
+        if(nbFrame < projet->getNbFrameVideo() -1)
+            _imageSuivanteLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(_nbFrame+1)->scaled(40,40)));
+        else
+            _imageSuivanteLabel->setPixmap(QPixmap::fromImage(black));
+
+        _imageEnCoursLabel->setPixmap(QPixmap::fromImage(projet->getImageVideo(_nbFrame)->scaled(50,50)));
     }
 }
 

@@ -648,15 +648,19 @@ void MainWindow::createMenu()
             QAction *actionImageSuivante = new QAction("&Image suivante", this);
               menuNavig->addAction(actionImageSuivante);
               actionImageSuivante->setShortcut(QKeySequence("Right"));
+              connect(actionImageSuivante, SIGNAL(triggered()), this, SLOT(nextFrame()));
             QAction *actionImagePrec = new QAction("&Image précédente", this);
                menuNavig->addAction(actionImagePrec);
                actionImagePrec->setShortcut(QKeySequence("Left"));
+               connect(actionImagePrec, SIGNAL(triggered()), this, SLOT(previousFrame()));
             QAction *actionAllerDebut = new QAction("&Aller au début", this);
                menuNavig->addAction(actionAllerDebut);
                actionAllerDebut->setShortcut(QKeySequence("Ctrl+Left"));
+               connect(actionAllerDebut, SIGNAL(triggered()), this, SLOT(firstFrame()));
             QAction *actionAllerFin = new QAction("&Aller à la fin", this);
                menuNavig->addAction(actionAllerFin);
                actionAllerFin->setShortcut(QKeySequence("Ctrl+Right"));
+               connect(actionAllerFin, SIGNAL(triggered()), this, SLOT(lastFrame()));
 
 
            //Création des sous-menu de Visualisation

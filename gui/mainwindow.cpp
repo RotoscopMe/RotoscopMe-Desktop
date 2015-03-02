@@ -626,7 +626,7 @@ void MainWindow::createMenu()
        QAction *actionQuitter = new QAction("&Quitter", this);
          menuFile->addAction(actionQuitter);
          actionQuitter->setShortcut(QKeySequence("Ctrl+Q"));
-         connect(actionQuitter, SIGNAL(triggered()), qApp , SLOT(quit()));
+         connect(actionQuitter, SIGNAL(triggered()), this , SLOT(quit()));
 
          //Création des sous-menu de Edition
 
@@ -754,6 +754,12 @@ void MainWindow::close()
         centralWidget()->hide();
         setWindowTitle("Rotoscop'Me");
     }
+}
+
+void MainWindow::quit()
+{
+    close();
+    qApp->quit();
 }
 
 bool MainWindow::save()

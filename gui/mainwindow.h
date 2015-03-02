@@ -85,6 +85,7 @@ private slots :
     void newProject();
     void open();
     void close();
+    void quit();
     bool save();
     bool saveAs();
     void exportImage();

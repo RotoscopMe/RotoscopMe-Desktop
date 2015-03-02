@@ -84,7 +84,7 @@ public slots:
 private slots :
     void newProject();
     void open();
-    void close();
+    bool close();
     void quit();
     bool save();
     bool saveAs();

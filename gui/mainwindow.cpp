@@ -697,54 +697,59 @@ void MainWindow::mousePressEvent(QMouseEvent *)
 
 void MainWindow::newProject()
 {
-    close();
+    if(close())
+    {
+        createProjectPageOuvrir();
 
-    createProjectPageOuvrir();
+        setWindowTitle("Rotoscop'Me - " + projet->getName());
 
-    setWindowTitle("Rotoscop'Me - " + projet->getName());
-
-    statusBar()->showMessage("Nouveau projet ouvert", 2000);
+        statusBar()->showMessage("Nouveau projet ouvert", 2000);
+    }
 }
 
 void MainWindow::open()
 {
-    close();
-
-    QString dirName = QFileDialog::getExistingDirectory(this);
-    if(!dirName.isEmpty())
+    if(close())
     {
-        QDir dir(dirName);
-
-        try
+        QString dirName = QFileDialog::getExistingDirectory(this);
+        if(!dirName.isEmpty())
         {
-            projet = Projet::open(dir);
-            projectPage();
-            centralWidget()->show();
-            statusBar()->showMessage("Projet ouvert", 2000);
+            QDir dir(dirName);
 
-            setWindowTitle("Rotoscop'Me - " + projet->getName());
-        }
-        catch(QString e)
-        {
-            close();
-            centralWidget()->hide();
-            setWindowTitle("Rotoscop'Me");
-            statusBar()->showMessage("Erreur lors de l'ouverture du projet : " + e, 2000);
-        }
-   }
+            try
+            {
+                projet = Projet::open(dir);
+                projectPage();
+                centralWidget()->show();
+                statusBar()->showMessage("Projet ouvert", 2000);
+
+                setWindowTitle("Rotoscop'Me - " + projet->getName());
+            }
+            catch(QString e)
+            {
+                close();
+                centralWidget()->hide();
+                setWindowTitle("Rotoscop'Me");
+                statusBar()->showMessage("Erreur lors de l'ouverture du projet : " + e, 2000);
+            }
+       }
+    }
 }
 
-void MainWindow::close()
+bool MainWindow::close()
 {
     if(projet != NULL)
     {
         if(_modified)
         {
             QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, "Projet modifié", "Ce projet a été modifié, voulez-vous le sauvegarder ?", QMessageBox::Yes | QMessageBox::No);
+            reply = QMessageBox::question(this, "Projet modifié", "Ce projet a été modifié, voulez-vous le sauvegarder ?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
             if(reply == QMessageBox::Yes)
                 projet->save();
+            else if(reply == QMessageBox::Cancel)
+                return false;
+
         }
 
         delete projet;
@@ -753,13 +758,17 @@ void MainWindow::close()
         setCentralWidget(new QWidget());
         centralWidget()->hide();
         setWindowTitle("Rotoscop'Me");
+
+        return true;
     }
+    else
+        return true;
 }
 
 void MainWindow::quit()
 {
-    close();
-    qApp->quit();
+    if(close())
+        qApp->quit();
 }
 
 bool MainWindow::save()

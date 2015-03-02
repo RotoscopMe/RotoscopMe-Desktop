@@ -25,19 +25,20 @@ void MainWindow::homePageOuvrir()
     QDialog *homepage = new QDialog(this);
 
     homepage->setWindowTitle(tr("Rotoscop'Me - Bienvenue "));
+    homepage->setFixedSize(700, 300);
 
     QFont policeTitle("calibri");
     policeTitle.setPointSize (60);
     QLabel *titreLabel = new QLabel("Rotoscop'Me",homepage);
-    titreLabel->setGeometry(QRect(350, 150, 600, 100));
+    titreLabel->setGeometry(QRect(100, 50, 600, 100));
     titreLabel->setFont(policeTitle);
 
     QPushButton *newButton = new QPushButton("Nouveau",homepage );
-    newButton->setGeometry(QRect(450, 350, 100, 50));
+    newButton->setGeometry(QRect(150, 200, 100, 50));
     connect(newButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(newButton, SIGNAL(clicked()), this, SLOT(createProjectPageOuvrir()));
     QPushButton *openButton = new QPushButton("Ouvrir", homepage);
-    openButton->setGeometry(QRect(700, 350, 100, 50));
+    openButton->setGeometry(QRect(450, 200, 100, 50));
     connect(openButton, SIGNAL(clicked()), homepage, SLOT(close()));
     connect(openButton, SIGNAL(clicked()), this, SLOT(open()));
 
@@ -669,9 +670,6 @@ void MainWindow::createMenu()
            QAction *actionAfficherPelures = new QAction("&Afficher les pelures d'oignons", this);
               menuPref->addAction(actionAfficherPelures);
               actionAfficherPelures->setShortcut(QKeySequence("Ctrl+K"));
-           QAction *actionNbrPelures = new QAction("&Nombres de pelures d'oignons", this);
-              menuPref->addAction(actionNbrPelures);
-              actionNbrPelures->setShortcut(QKeySequence("Ctrl+L"));
            QAction *actionFreqPelures = new QAction("&Fréquence des pelures d'oignons", this);
               menuPref->addAction(actionFreqPelures);
               actionFreqPelures->setShortcut(QKeySequence("Ctrl+M"));

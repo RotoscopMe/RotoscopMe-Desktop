@@ -94,6 +94,9 @@ private slots :
     void help();
     void projectInfo();
 
+    void undo();
+    void redo();
+
     void projectModified();
     
     void previousFrame();

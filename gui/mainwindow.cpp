@@ -633,9 +633,11 @@ void MainWindow::createMenu()
          QAction *actionAnnuler = new QAction("&Annuler", this);
            menuEdition->addAction(actionAnnuler);
            actionAnnuler->setShortcut(QKeySequence("Ctrl+Z"));
+           connect(actionAnnuler, SIGNAL(triggered()), this, SLOT(undo()));
          QAction *actionRetablir = new QAction("&Retablir", this);
             menuEdition->addAction(actionRetablir);
             actionRetablir->setShortcut(QKeySequence("Ctrl+Y"));
+            connect(actionRetablir, SIGNAL(triggered()), this, SLOT(redo()));
             menuEdition->addSeparator();
          QAction *actionInfo = new QAction("&Information sur le projet", this);
             menuEdition->addAction(actionInfo);
@@ -885,6 +887,18 @@ void MainWindow::about()
 {
    QMessageBox::about(this, tr("A propos"),
             tr("Rotoscop'Me est une application de rotoscopie créée par Matthieu RIOU et Manon BOBIN."));
+}
+
+void MainWindow::undo()
+{
+    if(_drawArea != NULL)
+        _drawArea->undo();
+}
+
+void MainWindow::redo()
+{
+    if(_drawArea != NULL)
+        _drawArea->redo();
 }
 
 void MainWindow::projectModified()

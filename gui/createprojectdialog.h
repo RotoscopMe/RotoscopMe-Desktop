@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QLineEdit>
-#include <QSpinBox>
+#include <QComboBox>
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
@@ -30,7 +30,7 @@ private:
     QLineEdit *_nomEdit;
     QLineEdit *_workspaceEdit;
     QLineEdit *_videoEdit;
-    QSpinBox *_freqImgSpinBox;
+    QComboBox *_freqImgComboBox;
 
 };
 

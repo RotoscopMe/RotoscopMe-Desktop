@@ -19,8 +19,11 @@ CreateProjectDialog::CreateProjectDialog(QWidget *parent) :
     connect(videoParcourirButton, SIGNAL(clicked()), this, SLOT(videoParcourir()));
 
     QLabel *freqImageLabel = new QLabel("Fréquence d'images : ");
-    _freqImgSpinBox = new QSpinBox();
-    _freqImgSpinBox->setMinimum(1);
+    _freqImgComboBox = new QComboBox();
+    _freqImgComboBox->addItem("6");
+    _freqImgComboBox->addItem("8");
+    _freqImgComboBox->addItem("12");
+    _freqImgComboBox->addItem("24");
 
     QPushButton *createButton = new QPushButton("Créer");
     createButton->setGeometry(QRect(800, 450, 100, 50));
@@ -43,7 +46,7 @@ CreateProjectDialog::CreateProjectDialog(QWidget *parent) :
 
     QHBoxLayout* freqImLayout = new QHBoxLayout();
     freqImLayout->addWidget(freqImageLabel);
-    freqImLayout->addWidget(_freqImgSpinBox);
+    freqImLayout->addWidget(_freqImgComboBox);
 
     QHBoxLayout* buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(createButton);
@@ -78,7 +81,7 @@ QString CreateProjectDialog::getVideo()
 
 int CreateProjectDialog::getFrequence()
 {
-    return _freqImgSpinBox->value();
+    return _freqImgComboBox->currentText().toInt();
 }
 
 void CreateProjectDialog::workspaceParcourir()

@@ -74,22 +74,24 @@ void MainWindow::projectPage()
 
     // Couleur
 
-    _colorButton = new QPushButton("Color");
-    _colorButton->setFixedSize(50, 35);
+    _colorButton = new QPushButton();
+    _colorButton->setStyleSheet("background-color:black");
+    _colorButton->setFixedSize(40, 40);
     connect(_colorButton, SIGNAL(clicked()), this, SLOT(optionColor()));
 
 
-    QVBoxLayout* drawLayout = new QVBoxLayout();
+    QHBoxLayout* drawLayout = new QHBoxLayout();
     drawLayout->addWidget(_colorButton);
+    drawLayout->setAlignment(_colorButton, Qt::AlignCenter);
 
     //Crayon
 
     _selectPenButton = new QPushButton(QIcon("pen.png"), "");
-    _selectPenButton->setFixedSize(50, 35);
+    _selectPenButton->setFixedSize(50, 50);
     _selectPenButton->setCheckable(true);
     _selectPenButton->setChecked(true);
-    _optionPenButton = new QPushButton();
-    _optionPenButton->setFixedSize(10, 10);
+    _optionPenButton = new QPushButton(QIcon("penPetit.png"), "");
+    _optionPenButton->setFixedSize(30, 30);
 
     QHBoxLayout* penLayout = new QHBoxLayout();
     penLayout->addWidget(_selectPenButton);
@@ -97,10 +99,10 @@ void MainWindow::projectPage()
 
     //Gomme
     _selectRubberButton = new QPushButton(QIcon("gomme.png"), "");
-    _selectRubberButton->setFixedSize(50, 35);
+    _selectRubberButton->setFixedSize(50, 50);
     _selectRubberButton->setCheckable(true);
-    _optionRubberButton = new QPushButton();
-    _optionRubberButton->setFixedSize(10, 10);
+    _optionRubberButton = new QPushButton(QIcon("rubberPetit.png"), "");
+    _optionRubberButton->setFixedSize(30, 30);
 
     QHBoxLayout* rubberLayout = new QHBoxLayout();
     rubberLayout->addWidget(_selectRubberButton);
@@ -108,12 +110,10 @@ void MainWindow::projectPage()
 
 
     // Undo - Redo
-    _redoButton = new QPushButton("");
-    _redoButton->setFixedSize(25, 25);
-    _redoButton->setIcon(QIcon("redo.png"));
-    _undoButton = new QPushButton("");
-    _undoButton->setFixedSize(25, 25);
-    _undoButton->setIcon(QIcon("undo.png"));
+    _redoButton = new QPushButton(QIcon("redo.png"), "");
+    _redoButton->setFixedSize(40, 40);
+    _undoButton = new QPushButton(QIcon("undo.png"), "");
+    _undoButton->setFixedSize(40, 40);
 
     undoRedoGroupBox = new QGroupBox(tr(""));
 
@@ -236,11 +236,11 @@ void MainWindow::projectPage()
     //Left layout
 
     QVBoxLayout* leftLayout = new QVBoxLayout();
-    leftLayout->addStretch(0);
-    leftLayout->addWidget(undoRedoGroupBox);
     leftLayout->addStretch(1);
-    leftLayout->addWidget(paletteGroupBox);
+    leftLayout->addWidget(undoRedoGroupBox);
     leftLayout->addStretch(2);
+    leftLayout->addWidget(paletteGroupBox);
+    leftLayout->addStretch(4);
 
     //Right layout
 
@@ -452,61 +452,73 @@ void MainWindow::optionColor()
 void MainWindow::setPenSmall()
 {
     _drawArea->setPenWidth(1);
+    _optionPenButton->setIcon(QIcon("penPetit.png"));
 }
 
 void MainWindow::setPenMedium()
 {
     _drawArea->setPenWidth(3);
+    _optionPenButton->setIcon(QIcon("penMoyen.png"));
 }
 
 void MainWindow::setPenLarge()
 {
     _drawArea->setPenWidth(5);
+    _optionPenButton->setIcon(QIcon("penGrand.png"));
 }
 
 void MainWindow::setRubberSmall()
 {
     _drawArea->setRubberWidth(1);
+    _optionRubberButton->setIcon(QIcon("rubberPetit.png"));
 }
 
 void MainWindow::setRubberMedium()
 {
     _drawArea->setRubberWidth(3);
+    _optionRubberButton->setIcon(QIcon("rubberMoyen.png"));
 }
 
 void MainWindow::setRubberLarge()
 {
     _drawArea->setRubberWidth(5);
+    _optionRubberButton->setIcon(QIcon("rubberGrand.png"));
 }
 
 void MainWindow::setColorBlack()
 {
     _drawArea->setPenColor(QColor(Qt::black));
+    _colorButton->setStyleSheet("background-color:black;");
 }
 
 void MainWindow::setColorRed()
 {
     _drawArea->setPenColor(QColor(Qt::red));
+    _colorButton->setStyleSheet("background-color:red;");
 }
 
 void MainWindow::setColorBlue()
 {
     _drawArea->setPenColor(QColor(Qt::blue));
+    _colorButton->setStyleSheet("background-color:blue;");
 }
 
 void MainWindow::setColorGreen()
 {
     _drawArea->setPenColor(QColor(Qt::green));
+    _colorButton->setStyleSheet("background-color:green;");
 }
 
 void MainWindow::setColorYellow()
 {
     _drawArea->setPenColor(QColor(Qt::yellow));
+    _colorButton->setStyleSheet("background-color:yellow");
 }
 
 void MainWindow::setColorBrown()
 {
     _drawArea->setPenColor(QColor(139,69,19));
+    _colorButton->setStyleSheet("background-color:#8B4513;");
 }
 
 void MainWindow::hideMenu()

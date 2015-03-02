@@ -1,6 +1,9 @@
 #include "visionnage.h"
 #include "mainwindow.h"
 
+#include <QDebug>
+#include <QException>
+
 Visionnage::Visionnage(MainWindow *parent, Projet *projet, int nPreviousImage) :
     QThread(parent),
     _parent(parent),

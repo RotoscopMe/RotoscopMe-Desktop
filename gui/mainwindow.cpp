@@ -667,9 +667,11 @@ void MainWindow::createMenu()
            QAction *actionVisioDebut = new QAction("&Visionner depuis le début", this);
               menuVisual->addAction(actionVisioDebut);
               actionVisioDebut->setShortcut(QKeySequence("Ctrl+V"));
+              connect(actionVisioDebut, SIGNAL(triggered()), this, SLOT(startVisionAll()));
            QAction *actionVisioNimage = new QAction("&Visionner depuis n images", this);
               menuVisual->addAction(actionVisioNimage);
               actionVisioNimage->setShortcut(QKeySequence("Ctrl+B"));
+              connect(actionVisioNimage, SIGNAL(triggered()), this, SLOT(startVisionPrevious()));
 
               //Création des sous-menu de Préférence
            QAction *actionAfficherImOrig = new QAction("&Afficher les images d'origines", this);
@@ -912,6 +914,17 @@ void MainWindow::projectModified()
 
 void MainWindow::startVisionAll()
 {
+    if(_visionnage != NULL && _visionnage->isRunning())
+    {
+        _visionnage->stop();
+        delete _visionnage;
+
+        _visioButton->setChecked(false);
+        _nImageVisioButton->setChecked(false);
+    }
+
+    _visioButton->setChecked(true);
+
     _visionnage = new Visionnage(this, projet);
     _visionnage->start();
 
@@ -928,6 +941,17 @@ void MainWindow::stopVisionAll()
 
 void MainWindow::startVisionPrevious()
 {
+    if(_visionnage != NULL && _visionnage->isRunning())
+    {
+        _visionnage->stop();
+        delete _visionnage;
+
+        _visioButton->setChecked(false);
+        _nImageVisioButton->setChecked(false);
+    }
+
+    _nImageVisioButton->setChecked(true);
+
     _visionnage = new Visionnage(this, projet, _nImages->value());
     _visionnage->start();
 

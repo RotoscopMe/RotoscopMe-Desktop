@@ -609,6 +609,7 @@ void MainWindow::createMenu()
       QAction *actionExporterImages = new QAction("&Exporter en images", this);
           menuFile->addAction(actionExporterImages);
           actionExporterImages->setShortcut(QKeySequence("Ctrl+I"));
+          connect(actionExporterImages, SIGNAL(triggered()), this, SLOT(exportImage()));
 
       QAction *actionExporterVideo = new QAction("&Exporter en vidéo", this);
           menuFile->addAction(actionExporterVideo);
@@ -799,6 +800,30 @@ bool MainWindow::saveAs()
     }
 
     return true;
+}
+
+void MainWindow::exportImage()
+{
+    QString dirPath = QFileDialog::getExistingDirectory(this);
+
+    if(!dirPath.isEmpty())
+    {
+        QDir dir(dirPath);
+
+        try
+        {
+            projet->exportImage(dir);
+            statusBar()->showMessage("Projet exporté", 2000);
+        }
+        catch(QString e)
+        {
+            statusBar()->showMessage("Erreur lors de l'exportation : " + e, 2000);
+        }
+    }
+    else
+    {
+        statusBar()->showMessage("Exportation non effectuée", 2000);
+    }
 }
 
 void MainWindow::projectInfo()

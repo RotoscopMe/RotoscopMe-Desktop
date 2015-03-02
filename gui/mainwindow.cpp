@@ -614,6 +614,7 @@ void MainWindow::createMenu()
       QAction *actionExporterVideo = new QAction("&Exporter en vidéo", this);
           menuFile->addAction(actionExporterVideo);
           actionExporterVideo->setShortcut(QKeySequence("Ctrl+E"));
+          connect(actionExporterVideo, SIGNAL(triggered()), this, SLOT(exportVideo()));
        menuFile->addSeparator();
 
        QAction *actionFermerProjet = new QAction("&Fermer le projet", this);
@@ -813,6 +814,28 @@ void MainWindow::exportImage()
         try
         {
             projet->exportImage(dir);
+            statusBar()->showMessage("Projet exporté", 2000);
+        }
+        catch(QString e)
+        {
+            statusBar()->showMessage("Erreur lors de l'exportation : " + e, 2000);
+        }
+    }
+    else
+    {
+        statusBar()->showMessage("Exportation non effectuée", 2000);
+    }
+}
+
+void MainWindow::exportVideo()
+{
+    QString filePath = QFileDialog::getSaveFileName(this);
+
+    if(!filePath.isEmpty())
+    {
+        try
+        {
+            projet->exportVideo(filePath);
             statusBar()->showMessage("Projet exporté", 2000);
         }
         catch(QString e)

@@ -88,6 +88,7 @@ private slots :
     bool save();
     bool saveAs();
     void exportImage();
+    void exportVideo();
     void about();
     void help();
     void projectInfo();
